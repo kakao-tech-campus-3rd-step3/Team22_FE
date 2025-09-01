@@ -6,12 +6,18 @@
 
 TypeScript + esLint + react 관련 + Prettier + Globals
 
-`npm install --save-dev eslint typescript @typescript-eslint/parser @typescript-eslint/eslint-plugin @eslint/js eslint-plugin-react-hooks eslint-plugin-react-refresh prettier eslint-plugin-prettier eslint-config-prettier globals
-`
+```
+npm install --save-dev eslint typescript @typescript-eslint/parser @typescript-eslint/eslint-plugin @eslint/js eslint-plugin-react-hooks eslint-plugin-react-refresh prettier eslint-plugin-prettier eslint-config-prettier globals
+```
+
 axios 설치
 
-`npm install axios`
+```
+npm install axios
+```
 
 tailwindcss 설치 
 
-`npm install tailwindcss @tailwindcss/vite`
+```
+npm install tailwindcss @tailwindcss/vite
+```

@@ -23,7 +23,6 @@ export default tseslint.config([
       ...reactHooks.configs['recommended-latest'].rules,
       ...reactRefresh.configs.vite.rules,
 
-      // ⚠️ Prettier와 겹치는 포맷팅 규칙 OFF
       semi: 'off',
       quotes: 'off',
       'comma-dangle': 'off',

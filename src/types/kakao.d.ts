@@ -11,10 +11,33 @@ declare global {
     level: number;
   }
 
-  // KakaoMap 인터페이스가 비어있지 않도록 수정
-  // 지도 인스턴스가 가지는 대표적인 메서드를 하나 추가합니다.
   interface KakaoMap {
     getCenter(): KakaoLatLng;
+  }
+
+  interface KakaoMarkerOptions {
+    position: KakaoLatLng;
+    map?: KakaoMap;
+    image?: string;
+    title?: string;
+  }
+
+  interface KakaoMarker {
+    setMap(map: KakaoMap | null): void;
+    getPosition(): KakaoLatLng;
+  }
+
+  interface KakaoCustomOverlayOptions {
+    position: KakaoLatLng;
+    content: HTMLElement | string;
+    xAnchor?: number;
+    yAnchor?: number;
+    zIndex?: number;
+  }
+
+  interface KakaoCustomOverlay {
+    setMap(map: KakaoMap | null): void;
+    setPosition(position: KakaoLatLng): void;
   }
 
   interface Window {
@@ -26,6 +49,11 @@ declare global {
           container: HTMLElement | null,
           options: KakaoMapOptions,
         ) => KakaoMap;
+        Marker: new (options: KakaoMarkerOptions) => KakaoMarker;
+
+        CustomOverlay: new (
+          options: KakaoCustomOverlayOptions
+        ) => KakaoCustomOverlay;
       };
     };
   }

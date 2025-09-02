@@ -70,7 +70,7 @@ export default function MapSetting() {
         left: '50%',
         transform: 'translate(-50%, -50%)',
         zIndex: 10,
-        pointEvents: 'none',
+        pointerEvents: 'none',
       }}>
         <MapCenterMarker />
       </div>
@@ -80,7 +80,7 @@ export default function MapSetting() {
         left: 0,
         width: '100%',
         zIndex: 20,
-        pointEvents: 'auto',
+        pointerEvents: 'auto',
       }}>
         <ButtonBar />
       </div>

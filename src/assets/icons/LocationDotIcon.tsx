@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const LocationDotIcon = () => {
   return (
     <div className="w-12 h-12 relative">

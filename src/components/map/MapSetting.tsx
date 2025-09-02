@@ -1,32 +1,10 @@
-import useKakaoMapLoader from '@/hooks/useKakaoMapLoader.ts'
-import { useRef } from 'react'
-import useLocation from '@/hooks/useLocation.tsx'
-import useKakaoMap from '@/hooks/useKakaoMap.tsx'
+import React from 'react';
 
-export default function MapSetting() {
-  const loaded = useKakaoMapLoader();
-  const { location, status } = useLocation();
-  const mapRef = useRef<HTMLDivElement | null>(null);
+interface MapSettingProps {
+  mapRef: React.RefObject<HTMLDivElement | null>;
+}
 
-  useKakaoMap({ mapRef, location, loaded });
-
-  if (!loaded) {
-    return <div>지도를 불러오는 중입니다...</div>
-  }
-
-  if (status === 'loading') {
-    return <div>현재 위치를 찾는 중입니다...</div>
-  }
-
-  if (status === 'denied') {
-    return (
-      <>
-        <div>위치 권한을 허용해주세요.</div>
-        <div id='map' style={{ width: "100%", height: "100%" }} />;
-      </>
-    )
-  }
-
+export default function MapSetting({ mapRef }: MapSettingProps) {
   return (
     <div style={{
       position: 'relative',

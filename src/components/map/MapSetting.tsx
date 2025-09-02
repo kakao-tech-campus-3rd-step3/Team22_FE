@@ -1,45 +1,14 @@
 import useKakaoMapLoader from '@/hooks/useKakaoMapLoader.ts'
-import { useEffect } from 'react'
+import { useRef } from 'react'
 import useLocation from '@/hooks/useLocation.tsx'
-import { createRoot } from 'react-dom/client'
-import { LocationDotIcon } from '@/assets/icons/LocationDotIcon.tsx'
-import { MapCenterMarker } from '@/components/map/MapCenterMarker.tsx'
-import ButtonBar from '@/components/map/ButtonBar.tsx'
+import useKakaoMap from '@/hooks/useKakaoMap.tsx'
 
 export default function MapSetting() {
   const loaded = useKakaoMapLoader();
   const { location, status } = useLocation();
+  const mapRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    if (!loaded || !location) return;
-
-    const mapContainer = document.getElementById('map');
-    const currentPosition = new window.kakao.maps.LatLng(location.latitude, location.longitude);
-
-    const mapOptions = {
-      center: currentPosition,
-      level: 3
-    }
-    const map = new window.kakao.maps.Map(mapContainer, mapOptions);
-
-    const customOverlayContent = document.createElement('div');
-
-    const customOverlay = new window.kakao.maps.CustomOverlay({
-      position: currentPosition,
-      content: customOverlayContent,
-      xAnchor: 0.5,
-      yAnchor: 0.5,
-    });
-
-    customOverlay.setMap(map);
-
-    const root = createRoot(customOverlayContent);
-    root.render(<LocationDotIcon />);
-
-    return () => {
-      customOverlay.setMap(null);
-    }
-  }, [loaded, location])
+  useKakaoMap({ mapRef, location, loaded });
 
   if (!loaded) {
     return <div>지도를 불러오는 중입니다...</div>
@@ -64,7 +33,7 @@ export default function MapSetting() {
       width: '100%',
       height: '100%',
     }}>
-      <div id='map' style={{ width: "100%", height: "100%" }} />
+      <div id='map' ref={mapRef} style={{ width: "100%", height: "100%" }} />
     </div>
   )
 }

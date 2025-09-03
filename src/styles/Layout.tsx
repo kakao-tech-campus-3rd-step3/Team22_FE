@@ -4,8 +4,8 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className="w-screen h-screen bg-gray-100 flex justify-center items-center">
-      <div className="w-[375px] h-[100%] bg-white shadow-lg rounded-xl overflow-hidden">
+    <div className="w-screen h-[100%] bg-gray-100 flex justify-center items-center">
+      <div className="w-[390px] h-[844px] bg-white shadow-lg rounded-xl overflow-hidden">
         {children}
       </div>
     </div>

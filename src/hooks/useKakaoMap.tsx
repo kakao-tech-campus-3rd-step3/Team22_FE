@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { LocationDotIcon } from '@/assets/icons/LocationDotIcon.tsx'
 
@@ -9,10 +9,21 @@ interface UseKakaoMapProps {
 }
 
 export default function useKakaoMap({ mapRef, location, loaded }: UseKakaoMapProps) {
-  const rootRef = useRef<Root | null>(null);
+  const mapInstanceRef = useRef<any>(null);
+  const overlayRef = useRef<any>(null);
+  const overlayRootRef = useRef<Root | null>(null);
+  const [address, setAddress] = useState<string>('위치를 찾는 중...');
+  const [place, setPlace] = useState<string>('장소를 찾는 중...');
 
   useEffect(() => {
-    if (!mapRef?.current || !location || !loaded) return;
+    if (mapInstanceRef.current) {
+      return;
+    }
+
+    // 초기화 조건이 아직 충족되지 않았을 때도 종료합니다.
+    if (!loaded || !location || !mapRef.current) {
+      return;
+    }
 
     const currentPosition = new window.kakao.maps.LatLng(location.latitude, location.longitude);
 
@@ -20,26 +31,59 @@ export default function useKakaoMap({ mapRef, location, loaded }: UseKakaoMapPro
       center: currentPosition,
       level: 3
     }
-    const map = new window.kakao.maps.Map(mapRef.current, mapOptions);
+    mapInstanceRef.current = new window.kakao.maps.Map(mapRef.current, mapOptions);
 
     const customOverlayContent = document.createElement('div');
-    const customOverlay = new window.kakao.maps.CustomOverlay({
+    overlayRef.current = new window.kakao.maps.CustomOverlay({
       position: currentPosition,
       content: customOverlayContent,
       xAnchor: 0.5,
       yAnchor: 0.5,
     });
-    customOverlay.setMap(map);
+    overlayRef.current.setMap(mapInstanceRef.current);
+    overlayRootRef.current = createRoot(customOverlayContent);
+    overlayRootRef.current?.render(<LocationDotIcon />);
+  }, [mapRef, location, loaded])
 
-    rootRef.current = createRoot(customOverlayContent);
-    rootRef.current?.render(<LocationDotIcon />);
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    if (!map) return;
+
+    const geocoder = new window.kakao.maps.services.Geocoder();
+    const places = new window.kakao.maps.services.Places();
+
+    const fetchLocationInfo = () => {
+      const center = map.getCenter();
+
+      geocoder.coord2Address(center.getLng(), center.getLat(), (result, status) => {
+        if (status === window.kakao.maps.services.Status.OK && result[0]) {
+          const addr = result[0].road_address
+            ? result[0].road_address.address_name
+            : result[0].address.address_name;
+          setAddress(addr);
+
+          places.keywordSearch(addr, (placeResult, placeStatus) => {
+            if (placeStatus === window.kakao.maps.services.Status.OK && placeResult[0]) {
+              setPlace(placeResult[0].place_name);
+            } else {
+              const addressParts = addr.split(' ');
+              setPlace(addressParts[addressParts.length - 1]);
+            }
+          }, { location: center, radius: 50 });
+        } else {
+          setAddress('주소를 찾을 수 없습니다.');
+          setPlace('알 수 없는 장소');
+        }
+      });
+    };
+
+    fetchLocationInfo();
+    window.kakao.maps.event.addListener(map, 'idle', fetchLocationInfo);
 
     return () => {
-      if (rootRef.current) {
-        rootRef.current?.unmount();
-        rootRef.current = null;
-      }
-      customOverlay.setMap(null);
+      window.kakao.maps.event.removeListener(map, 'idle', fetchLocationInfo);
     }
-  }, [mapRef, location, loaded])
+  }, [loaded, location]);
+
+  return { address, place };
 }

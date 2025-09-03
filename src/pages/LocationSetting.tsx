@@ -11,7 +11,7 @@ export default function LocationSetting() {
   const { location, status } = useLocation();
   const mapRef = useRef<HTMLDivElement | null>(null);
 
-  useKakaoMap({ mapRef, location, loaded });
+  const { address, place } = useKakaoMap({ mapRef, location, loaded });
 
   if (!loaded) {
     return <div>지도를 불러오는 중입니다...</div>
@@ -40,7 +40,7 @@ export default function LocationSetting() {
         position: 'absolute',
         top: '50%',
         left: '50%',
-        transform: 'translate(-50%, -50%)',
+        transform: 'translate(-9%, -15%)',
         zIndex: 10,
         pointerEvents: 'none',
       }}>
@@ -54,7 +54,7 @@ export default function LocationSetting() {
         zIndex: 20,
         pointerEvents: 'auto',
       }}>
-        <ButtonBar />
+        <ButtonBar place={place} address={address} />
       </div>
       <MapSetting mapRef={mapRef} />
     </div>

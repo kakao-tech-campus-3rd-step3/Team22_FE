@@ -9,8 +9,8 @@ interface UseKakaoMapProps {
 }
 
 export default function useKakaoMap({ mapRef, location, loaded }: UseKakaoMapProps) {
-  const mapInstanceRef = useRef<any>(null);
-  const overlayRef = useRef<any>(null);
+  const mapInstanceRef = useRef<KakaoMap | null>(null);
+  const overlayRef = useRef<KakaoCustomOverlay | null>(null);
   const overlayRootRef = useRef<Root | null>(null);
   const [address, setAddress] = useState<string>('위치를 찾는 중...');
   const [place, setPlace] = useState<string>('장소를 찾는 중...');
@@ -40,7 +40,7 @@ export default function useKakaoMap({ mapRef, location, loaded }: UseKakaoMapPro
       xAnchor: 0.5,
       yAnchor: 0.5,
     });
-    overlayRef.current.setMap(mapInstanceRef.current);
+    overlayRef.current?.setMap(mapInstanceRef.current);
     overlayRootRef.current = createRoot(customOverlayContent);
     overlayRootRef.current?.render(<LocationDotIcon />);
   }, [mapRef, location, loaded])
@@ -57,9 +57,10 @@ export default function useKakaoMap({ mapRef, location, loaded }: UseKakaoMapPro
 
       geocoder.coord2Address(center.getLng(), center.getLat(), (result, status) => {
         if (status === window.kakao.maps.services.Status.OK && result[0]) {
-          const addr = result[0].road_address
-            ? result[0].road_address.address_name
-            : result[0].address.address_name;
+          const addr =
+            result[0].road_address?.address_name ??
+            result[0].address?.address_name ??
+            '주소 없음';
           setAddress(addr);
 
           places.keywordSearch(addr, (placeResult, placeStatus) => {

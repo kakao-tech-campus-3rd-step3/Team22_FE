@@ -9,7 +9,7 @@ export default function WalkingTimeSetting() {
 
   return (
     <div className="flex flex-col h-full bg-black">
-      <div className="flex-1 overflow-y-auto no-scrollbar pt-20">
+      <div className="flex-1 overflow-y-auto no-scrollbar pt-20 pb-20">
         <WeatherTable />
 
         <WalkTimeScheduler />

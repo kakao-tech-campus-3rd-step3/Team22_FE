@@ -5,17 +5,8 @@ import { useEffect, useState } from 'react';
 export default function WeatherTable() {
   const { location, status } = useLocation();
   const { weather, loading } = useOpenWeather({ location });
-  const [data, setData] = useState<ForecastItem[]>([]);
 
   console.log(weather)
-
-  useEffect(() => {
-    if (!weather || !weather.list) return;
-
-    const now = new Date();
-    const futureData = weather.list.filter((item) => new Date(item.dt_txt + ' UTC') > now);
-    setData(futureData);
-  }, [weather]);
 
   if (status === 'loading') {
     return <div>현재 위치를 찾는 중입니다...</div>;
@@ -49,7 +40,7 @@ export default function WeatherTable() {
           </tr>
           </thead>
           <tbody>
-          {data.map((item) => {
+          {weather.list.map((item) => {
             const dateInKST = new Date(item.dt_txt + ' UTC');
 
             const day = dateInKST.getDate();

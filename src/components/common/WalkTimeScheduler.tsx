@@ -10,6 +10,7 @@ interface WalkTime {
 export default function WalkTimeScheduler() {
   const [walkTimes, setWalkTimes] = useState<WalkTime[]>([]);
   const [currentTime, setCurrentTime] = useState({ day: '월', hour: '18', minute: '00' });
+  const [duplicateMessage, setDuplicateMessage] = useState('');
 
   const handleAddTime = () => {
     const isDuplicate = walkTimes.some(
@@ -21,8 +22,9 @@ export default function WalkTimeScheduler() {
 
     if (!isDuplicate) {
       setWalkTimes([...walkTimes, { ...currentTime, id: Date.now() }]);
+      setDuplicateMessage('');
     } else {
-      alert('이미 추가된 시간입니다.');
+      setDuplicateMessage('이미 추가된 시간입니다.');
     }
   };
 
@@ -78,6 +80,10 @@ export default function WalkTimeScheduler() {
         >
           산책 시간 추가하기
         </button>
+
+        {duplicateMessage && (
+          <div className="text-red-500 text-center mb-2 font-bold">{duplicateMessage}</div>
+        )}
 
         <div className="flex flex-col gap-2 overflow-auto">
           {walkTimes.length > 0 ? (

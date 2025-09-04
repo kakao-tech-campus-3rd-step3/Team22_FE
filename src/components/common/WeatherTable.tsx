@@ -4,18 +4,18 @@ import { useEffect, useState } from 'react';
 
 export default function WeatherTable() {
   const { location, status } = useLocation();
-  const { weather, loading }  = useOpenWeather({ location });
-
+  const { weather, loading } = useOpenWeather({ location });
   const [data, setData] = useState<ForecastItem[]>([]);
+
+  console.log(weather)
 
   useEffect(() => {
     if (!weather || !weather.list) return;
 
     const now = new Date();
-    const futureData = weather.list.filter((item) => new Date(item.dt_txt) > now);
+    const futureData = weather.list.filter((item) => new Date(item.dt_txt + ' UTC') > now);
     setData(futureData);
   }, [weather]);
-
 
   if (status === 'loading') {
     return <div>현재 위치를 찾는 중입니다...</div>;
@@ -49,15 +49,22 @@ export default function WeatherTable() {
           </tr>
           </thead>
           <tbody>
-          {data.map((item) => (
-            <tr key={item.dt_txt} className="text-center text-xs font-bold">
-              <td className="py-2">{new Date(item.dt_txt).getHours()}시</td>
-              <td className="py-2">{item.weather?.[0]?.description ?? '정보 없음'}</td>
-              <td className="py-2">{(item.main.temp).toFixed(1)}</td>
-              <td className="py-2">{(item.pop * 100).toFixed(0)}</td>
-              <td className="py-2">{/* 산책지수 계산 */}</td>
-            </tr>
-          ))}
+          {data.map((item) => {
+            const dateInKST = new Date(item.dt_txt + ' UTC');
+
+            const day = dateInKST.getDate();
+            const hour = dateInKST.getHours();
+
+            return (
+              <tr key={item.dt_txt} className="text-center text-xs font-bold">
+                <td className="py-2">{`${day}일 ${hour}시`}</td>
+                <td className="py-2">{item.weather?.[0]?.description ?? '정보 없음'}</td>
+                <td className="py-2">{(item.main.temp).toFixed(1)}</td>
+                <td className="py-2">{(item.pop * 100).toFixed(0)}</td>
+                <td className="py-2">{/* 산책지수 계산 */}</td>
+              </tr>
+            );
+          })}
           </tbody>
         </table>
       </div>

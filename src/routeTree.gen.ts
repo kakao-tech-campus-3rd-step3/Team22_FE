@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WalkingTimeRouteImport } from './routes/walking-time'
+import { Route as MapSetupRouteImport } from './routes/map-setup'
 import { Route as IndexRouteImport } from './routes/index'
 
 const WalkingTimeRoute = WalkingTimeRouteImport.update({
   id: '/walking-time',
   path: '/walking-time',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MapSetupRoute = MapSetupRouteImport.update({
+  id: '/map-setup',
+  path: '/map-setup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -25,27 +31,31 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/map-setup': typeof MapSetupRoute
   '/walking-time': typeof WalkingTimeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/map-setup': typeof MapSetupRoute
   '/walking-time': typeof WalkingTimeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/map-setup': typeof MapSetupRoute
   '/walking-time': typeof WalkingTimeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/walking-time'
+  fullPaths: '/' | '/map-setup' | '/walking-time'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/walking-time'
-  id: '__root__' | '/' | '/walking-time'
+  to: '/' | '/map-setup' | '/walking-time'
+  id: '__root__' | '/' | '/map-setup' | '/walking-time'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MapSetupRoute: typeof MapSetupRoute
   WalkingTimeRoute: typeof WalkingTimeRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/walking-time'
       fullPath: '/walking-time'
       preLoaderRoute: typeof WalkingTimeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/map-setup': {
+      id: '/map-setup'
+      path: '/map-setup'
+      fullPath: '/map-setup'
+      preLoaderRoute: typeof MapSetupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MapSetupRoute: MapSetupRoute,
   WalkingTimeRoute: WalkingTimeRoute,
 }
 export const routeTree = rootRouteImport

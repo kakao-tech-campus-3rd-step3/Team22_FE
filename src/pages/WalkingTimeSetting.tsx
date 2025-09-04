@@ -1,10 +1,16 @@
 import ButtonBar from '@/components/common/ButtonBar.tsx';
 import WeatherTable from '@/components/common/WeatherTable.tsx';
 import WalkTimeScheduler from '@/components/common/WalkTimeScheduler.tsx';
+import { useNavigate } from '@tanstack/react-router'
 
 export default function WalkingTimeSetting() {
+  const navigate = useNavigate({ from: '/walking-time'});
+
   const handleSetTime = () => {
-    console.log('위치 설정 완료');
+    console.log('세팅 완료 페이지')
+    navigate({
+      to: '/map-setup',
+    });
   };
 
   return (

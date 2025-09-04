@@ -65,8 +65,8 @@ export default function LocationSetting() {
           buttonText='주 산책 시작 위치설정하기'
           onButtonClick={handleSetLocation}
         >
-          <div className='text-white my-1.5'>장소: {place}</div>
-          <div className='text-white my-1.5'>위치: {address}</div>
+          <div className="text-white my-1.5">장소: {place}</div>
+          <div className="text-white my-1.5">위치: {address}</div>
         </ButtonBar>
       </div>
       <MapSetting mapRef={mapRef} />

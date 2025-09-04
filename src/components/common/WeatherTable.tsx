@@ -47,8 +47,8 @@ export default function WeatherTable() {
           </tr>
           </thead>
           <tbody>
-          {data.map((item, index) => (
-            <tr key={index} className="text-center text-xs font-bold">
+          {data.map((item) => (
+            <tr key={item.dt_txt} className="text-center text-xs font-bold">
               <td className="py-2">{new Date(item.dt_txt).getHours()}시</td>
               <td className="py-2">{item.weather?.[0]?.description ?? '정보 없음'}</td>
               <td className="py-2">{(item.main.temp).toFixed(1)}</td>

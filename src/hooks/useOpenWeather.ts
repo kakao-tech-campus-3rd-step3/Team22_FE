@@ -8,7 +8,7 @@ interface useOpenWeatherProps {
 }
 
 export default function useOpenWeather({ location }: useOpenWeatherProps) {
-  const [weather, setWeather] = useState(null);
+  const [weather, setWeather] = useState<WeatherData | null>(null);
   const [ , setLoading] = useState(false);
 
   useEffect(() => {

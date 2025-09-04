@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-// 1. walkTimes 배열에 들어갈 객체의 타입을 정의합니다.
 interface WalkTime {
   id: number;
   day: string;

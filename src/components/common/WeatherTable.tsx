@@ -2,21 +2,6 @@ import useLocation from '@/hooks/useLocation.tsx';
 import useOpenWeather from '@/hooks/useOpenWeather.ts';
 import { useEffect, useState } from 'react';
 
-interface ForecastItem {
-  dt_txt: string;
-  weather: {
-    description: string;
-  }[];
-  main: {
-    temp: number;
-  };
-  pop: number;
-}
-
-interface WeatherData {
-  list: ForecastItem[];
-}
-
 export default function WeatherTable() {
   const { location, status } = useLocation();
   const weather = useOpenWeather({ location }) as WeatherData | null;
@@ -66,7 +51,7 @@ export default function WeatherTable() {
           {data.map((item, index) => (
             <tr key={index} className="text-center text-xs font-bold">
               <td className="py-2">{new Date(item.dt_txt).getHours()}시</td>
-              <td className="py-2">{item.weather[0].description}</td>
+              <td className="py-2">{item.weather?.[0]?.description ?? '정보 없음'}</td>
               <td className="py-2">{(item.main.temp).toFixed(1)}</td>
               <td className="py-2">{(item.pop * 100).toFixed(0)}</td>
               <td className="py-2">{/* 산책지수 계산 */}</td>

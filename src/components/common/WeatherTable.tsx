@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 export default function WeatherTable() {
   const { location, status } = useLocation();
-  const weather = useOpenWeather({ location }) as WeatherData | null;
+  const { weather, loading }  = useOpenWeather({ location });
 
   const [data, setData] = useState<ForecastItem[]>([]);
 
@@ -29,9 +29,9 @@ export default function WeatherTable() {
     );
   }
 
-  if (!weather || !weather.list) {
-    return <div>날씨 정보를 불러오는 중입니다...</div>;
-  }
+  if (loading) return <div>날씨 정보를 불러오는 중...</div>;
+
+  if (!weather || !weather.list) return <div>데이터가 없습니다.</div>;
 
   return (
     <div className="w-full flex justify-center">

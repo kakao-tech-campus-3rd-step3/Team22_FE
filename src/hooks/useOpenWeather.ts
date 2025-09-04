@@ -9,7 +9,7 @@ interface useOpenWeatherProps {
 
 export default function useOpenWeather({ location }: useOpenWeatherProps) {
   const [weather, setWeather] = useState<WeatherData | null>(null);
-  const [ , setLoading] = useState(false);
+  const [loading , setLoading] = useState(false);
 
   useEffect(() => {
     if (!location) return;
@@ -33,7 +33,8 @@ export default function useOpenWeather({ location }: useOpenWeatherProps) {
     }
 
     fetchWeather();
+    setLoading(false);
   }, [location]);
 
-  return weather;
+  return { weather, loading };
 }

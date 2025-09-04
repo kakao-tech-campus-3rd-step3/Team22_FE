@@ -1,17 +1,24 @@
 import MapSetting from '@/components/map/MapSetting.tsx'
 import { MapCenterMarker } from '@/components/map/MapCenterMarker.tsx'
-import ButtonBar from '@/components/map/ButtonBar.tsx'
+import ButtonBar from '@/components/common/ButtonBar.tsx'
 import useKakaoMapLoader from '@/hooks/useKakaoMapLoader.ts'
 import useLocation from '@/hooks/useLocation.tsx'
 import { useRef } from 'react'
 import useKakaoMap from '@/hooks/useKakaoMap.tsx'
+import { useNavigate } from '@tanstack/react-router'
 
 export default function LocationSetting() {
   const loaded = useKakaoMapLoader();
   const { location, status } = useLocation();
   const mapRef = useRef<HTMLDivElement | null>(null);
-
   const { address, place } = useKakaoMap({ mapRef, location, loaded });
+  const navigate = useNavigate({ from: '/' });
+  const handleSetLocation = () => {
+    console.log(`위치 설정 완료! 장소: ${place}, 주소: ${address}`);
+    navigate({
+      to: '/walking-time',
+    });
+  };
 
   if (!loaded) {
     return <div>지도를 불러오는 중입니다...</div>
@@ -54,7 +61,13 @@ export default function LocationSetting() {
         zIndex: 20,
         pointerEvents: 'auto',
       }}>
-        <ButtonBar place={place} address={address} />
+        <ButtonBar
+          buttonText='주 산책 시작 위치설정하기'
+          onButtonClick={handleSetLocation}
+        >
+          <div className='text-white my-1.5'>장소: {place}</div>
+          <div className='text-white my-1.5'>위치: {address}</div>
+        </ButtonBar>
       </div>
       <MapSetting mapRef={mapRef} />
     </div>

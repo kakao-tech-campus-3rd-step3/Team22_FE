@@ -4,10 +4,9 @@ import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 const RootComponent = () => {
   return (
     <div className="w-screen h-screen bg-gray-100 flex justify-center items-center">
-      <div className="w-[390px] h-[844px] bg-white shadow-lg rounded-xl overflow-hidden flex flex-col">
-        <div className="flex-grow">
-          <Outlet />
-        </div>
+      {/* Root는 위치 기준점 역할을 하도록 relative */}
+      <div className="relative w-[390px] h-[844px] bg-black shadow-lg rounded-xl overflow-hidden">
+        <Outlet />
       </div>
 
       <TanStackRouterDevtools />

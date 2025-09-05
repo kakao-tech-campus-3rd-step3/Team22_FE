@@ -9,8 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WalkingTimeRouteImport } from './routes/walking-time'
+import { Route as MapSetupRouteImport } from './routes/map-setup'
 import { Route as IndexRouteImport } from './routes/index'
 
+const WalkingTimeRoute = WalkingTimeRouteImport.update({
+  id: '/walking-time',
+  path: '/walking-time',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MapSetupRoute = MapSetupRouteImport.update({
+  id: '/map-setup',
+  path: '/map-setup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +31,50 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/map-setup': typeof MapSetupRoute
+  '/walking-time': typeof WalkingTimeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/map-setup': typeof MapSetupRoute
+  '/walking-time': typeof WalkingTimeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/map-setup': typeof MapSetupRoute
+  '/walking-time': typeof WalkingTimeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/map-setup' | '/walking-time'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/map-setup' | '/walking-time'
+  id: '__root__' | '/' | '/map-setup' | '/walking-time'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MapSetupRoute: typeof MapSetupRoute
+  WalkingTimeRoute: typeof WalkingTimeRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/walking-time': {
+      id: '/walking-time'
+      path: '/walking-time'
+      fullPath: '/walking-time'
+      preLoaderRoute: typeof WalkingTimeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/map-setup': {
+      id: '/map-setup'
+      path: '/map-setup'
+      fullPath: '/map-setup'
+      preLoaderRoute: typeof MapSetupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +87,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MapSetupRoute: MapSetupRoute,
+  WalkingTimeRoute: WalkingTimeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

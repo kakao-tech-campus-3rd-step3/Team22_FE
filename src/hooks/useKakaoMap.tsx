@@ -8,12 +8,18 @@ interface UseKakaoMapProps {
   loaded: boolean;
 }
 
+interface CenterLocationState {
+  latitude: number;
+  longitude: number;
+}
+
 export default function useKakaoMap({ mapRef, location, loaded }: UseKakaoMapProps) {
   const mapInstanceRef = useRef<KakaoMap | null>(null);
   const overlayRef = useRef<KakaoCustomOverlay | null>(null);
   const overlayRootRef = useRef<Root | null>(null);
   const [address, setAddress] = useState<string>('위치를 찾는 중...');
   const [place, setPlace] = useState<string>('장소를 찾는 중...');
+  const [centerLocation, setCenterLocation] = useState<CenterLocationState>({ latitude: 0, longitude: 0 });
 
   useEffect(() => {
     if (mapInstanceRef.current) {
@@ -55,6 +61,8 @@ export default function useKakaoMap({ mapRef, location, loaded }: UseKakaoMapPro
     const fetchLocationInfo = () => {
       const center = map.getCenter();
 
+      setCenterLocation({ latitude: center.getLat(), longitude: center.getLng() });
+
       geocoder.coord2Address(center.getLng(), center.getLat(), (result, status) => {
         if (status === window.kakao.maps.services.Status.OK && result[0]) {
           const addr =
@@ -86,5 +94,5 @@ export default function useKakaoMap({ mapRef, location, loaded }: UseKakaoMapPro
     }
   }, [loaded, location]);
 
-  return { address, place };
+  return { address, place, centerLocation };
 }

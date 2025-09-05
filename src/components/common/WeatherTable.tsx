@@ -1,6 +1,5 @@
 import useLocation from '@/hooks/useLocation.tsx';
 import useOpenWeather from '@/hooks/useOpenWeather.ts';
-import { useEffect, useState } from 'react';
 
 export default function WeatherTable() {
   const { location, status } = useLocation();

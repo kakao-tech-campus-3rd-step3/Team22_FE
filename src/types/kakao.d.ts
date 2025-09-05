@@ -40,6 +40,55 @@ declare global {
     setPosition(position: KakaoLatLng): void;
   }
 
+  type KakaoStatus = 'OK' | 'ZERO_RESULT' | 'ERROR';
+
+  interface KakaoAddress {
+    address_name: string;
+  }
+
+  interface KakaoRoadAddress {
+    address_name: string;
+  }
+
+  interface KakaoGeocodeResult {
+    address: KakaoAddress;
+    road_address: KakaoRoadAddress | null;
+  }
+
+  interface KakaoPlaceResult {
+    place_name: string;
+    distance: string;
+  }
+
+  interface KakaoPagination {
+    totalCount: number;
+    hasNextPage: boolean;
+    hasPrevPage: boolean;
+    current: number;
+    nextPage(): void;
+    prevPage(): void;
+    gotoPage(page: number): void;
+  }
+
+  interface IKakaoGeocoder {
+    coord2Address(
+      lng: number,
+      lat: number,
+      callback: (result: KakaoGeocodeResult[], status: KakaoStatus) => void
+    ): void;
+  }
+
+  interface IKakaoPlaces {
+    keywordSearch(
+      keyword: string,
+      callback: (result: KakaoPlaceResult[], status: KakaoStatus, pagination: KakaoPagination) => void,
+      options?: {
+        location?: KakaoLatLng;
+        radius?: number;
+      }
+    ): void;
+  }
+
   interface Window {
     kakao: {
       maps: {
@@ -54,6 +103,21 @@ declare global {
         CustomOverlay: new (
           options: KakaoCustomOverlayOptions
         ) => KakaoCustomOverlay;
+
+        services: {
+          Status: {
+            OK: 'OK';
+            ZERO_RESULT: 'ZERO_RESULT';
+            ERROR: 'ERROR';
+          };
+          Geocoder: new () => IKakaoGeocoder;
+          Places: new () => IKakaoPlaces;
+        };
+
+        event: {
+          addListener(target: KakaoMap | KakaoMarker | KakaoCustomOverlay, type: string, handler: () => void): void;
+          removeListener(target: KakaoMap | KakaoMarker | KakaoCustomOverlay, type: string, handler: () => void): void;
+        }
       };
     };
   }

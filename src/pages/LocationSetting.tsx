@@ -12,11 +12,12 @@ export default function LocationSetting() {
   const loaded = useKakaoMapLoader();
   const { location, status } = useLocation();
   const mapRef = useRef<HTMLDivElement | null>(null);
-  const { address, place } = useKakaoMap({ mapRef, location, loaded });
+  const { address, place, centerLocation } = useKakaoMap({ mapRef, location, loaded });
   const setLocation = useMapSetupStore((state) => state.setLocation);
   const navigate = useNavigate({ from: '/' });
+
   const handleSetLocation = () => {
-    setLocation(address, place);
+    setLocation(address, place, centerLocation.latitude, centerLocation.longitude);
     console.log(`위치 설정 완료! 장소: ${place}, 주소: ${address}`);
     navigate({
       to: '/walking-time',

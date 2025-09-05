@@ -1,11 +1,13 @@
 import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
 
 export default function MapSetupComplete() {
-  const { walkTimes, address, place } = useMapSetupStore();
+  const { walkTimes, address, place, latitude, longitude } = useMapSetupStore();
 
   console.log(walkTimes);
   console.log(address);
   console.log(place);
+  console.log(latitude);
+  console.log(longitude);
 
   return (
     <div>

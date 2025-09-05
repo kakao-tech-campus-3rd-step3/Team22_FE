@@ -1,4 +1,12 @@
+import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
+
 export default function MapSetupComplete() {
+  const { walkTimes, address, place } = useMapSetupStore();
+
+  console.log(walkTimes);
+  console.log(address);
+  console.log(place);
+
   return (
     <div>
       맵 세팅 페이지

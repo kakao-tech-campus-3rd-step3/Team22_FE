@@ -1,14 +1,8 @@
 import { useState } from 'react';
-
-interface WalkTime {
-  id: number;
-  day: string;
-  hour: string;
-  minute: string;
-}
+import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
 
 export default function WalkTimeScheduler() {
-  const [walkTimes, setWalkTimes] = useState<WalkTime[]>([]);
+  const { walkTimes, setWalkTimes } = useMapSetupStore();
   const [currentTime, setCurrentTime] = useState({ day: '월', hour: '18', minute: '00' });
   const [duplicateMessage, setDuplicateMessage] = useState('');
 

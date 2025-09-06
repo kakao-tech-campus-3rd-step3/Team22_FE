@@ -12,7 +12,7 @@ export default function useKakaoStaticMap({ latitude, longitude, loaded }: useKa
   const mapContainerRef  = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!loaded || !latitude || !longitude) return;
+    if (!loaded || latitude == null || longitude == null) return;
 
     const startPosition = new window.kakao.maps.LatLng(latitude, longitude);
 

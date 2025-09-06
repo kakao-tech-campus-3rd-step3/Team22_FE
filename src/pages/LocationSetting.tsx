@@ -1,5 +1,5 @@
 import MapSetting from '@/components/map/MapSetting.tsx'
-import { MapCenterMarker } from '@/components/map/MapCenterMarker.tsx'
+import startMarker from '@/assets/icons/startMarker.png';
 import ButtonBar from '@/components/common/ButtonBar.tsx'
 import useKakaoMapLoader from '@/hooks/useKakaoMapLoader.ts'
 import useLocation from '@/hooks/useLocation.tsx'
@@ -51,12 +51,17 @@ export default function LocationSetting() {
         position: 'absolute',
         top: '50%',
         left: '50%',
-        transform: 'translate(-50%, -50%)',
+        transform: 'translate(-50%, -100%)',
         zIndex: 10,
         pointerEvents: 'none',
       }}>
-        <MapCenterMarker />
+        <img
+          src={startMarker}
+          alt="중심 위치 마커"
+          style={{ width: '50px', height: '40px' }}
+        />
       </div>
+
       <div style={{
         position: 'absolute',
         bottom: 0,

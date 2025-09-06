@@ -7,6 +7,7 @@ import { useRef } from 'react'
 import useKakaoMap from '@/hooks/useKakaoMap.tsx'
 import { useNavigate } from '@tanstack/react-router'
 import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
+import { MARKER_IMAGE_HEIGHT, MARKER_IMAGE_WIDTH } from '@/constant/marker.ts'
 
 export default function LocationSetting() {
   const loaded = useKakaoMapLoader();
@@ -58,7 +59,7 @@ export default function LocationSetting() {
         <img
           src={startMarker}
           alt="중심 위치 마커"
-          style={{ width: '50px', height: '40px' }}
+          style={{ width: `${MARKER_IMAGE_WIDTH}`, height: `${MARKER_IMAGE_HEIGHT}` }}
         />
       </div>
 

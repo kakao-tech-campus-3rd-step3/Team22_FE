@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import startMarker from '@/assets/icons/startMarker.png';
+import { MARKER_IMAGE_HEIGHT, MARKER_IMAGE_WIDTH, MARKER_IMAGE_X, MARKER_IMAGE_Y } from '@/constant/marker.ts'
 
 interface useKakaoStaticMapProps {
   latitude: number | null;
@@ -25,8 +26,8 @@ export default function useKakaoStaticMap({ latitude, longitude, loaded }: useKa
     const markerPosition = startPosition;
 
     const imageSrc = startMarker;
-    const imageSize = new window.kakao.maps.Size(50, 40);
-    const imageOption = { offset: new window.kakao.maps.Point(20, 40) };
+    const imageSize = new window.kakao.maps.Size(MARKER_IMAGE_WIDTH, MARKER_IMAGE_HEIGHT);
+    const imageOption = { offset: new window.kakao.maps.Point(MARKER_IMAGE_X, MARKER_IMAGE_Y) };
 
     const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 

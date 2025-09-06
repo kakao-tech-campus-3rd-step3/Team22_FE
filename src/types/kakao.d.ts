@@ -1,6 +1,22 @@
 export {};
 
 declare global {
+  interface KakaoPoint {
+    x: number;
+    y: number;
+  }
+
+  interface KakaoSize {
+    width: number;
+    height: number;
+  }
+
+  interface KakaoMarkerImageOptions {
+    offset?: KakaoPoint;
+  }
+
+  type KakaoMarkerImage = object;
+
   interface KakaoLatLng {
     getLat(): number;
     getLng(): number;
@@ -18,7 +34,7 @@ declare global {
   interface KakaoMarkerOptions {
     position: KakaoLatLng;
     map?: KakaoMap;
-    image?: string;
+    image?: KakaoMarkerImage;
     title?: string;
   }
 
@@ -99,10 +115,17 @@ declare global {
           options: KakaoMapOptions,
         ) => KakaoMap;
         Marker: new (options: KakaoMarkerOptions) => KakaoMarker;
-
         CustomOverlay: new (
           options: KakaoCustomOverlayOptions
         ) => KakaoCustomOverlay;
+
+        Size: new (width: number, height: number) => KakaoSize;
+        Point: new (x: number, y: number) => KakaoPoint;
+        MarkerImage: new (
+          src: string,
+          size: KakaoSize,
+          options?: KakaoMarkerImageOptions
+        ) => KakaoMarkerImage;
 
         services: {
           Status: {

@@ -1,7 +1,13 @@
 import { useEffect, useRef } from 'react'
 import startMarker from '@/assets/icons/startMarker.png';
 
-export default function useKakaoStaticMap({ latitude, longitude, loaded }) {
+interface useKakaoStaticMapProps {
+  latitude: number | null;
+  longitude: number | null;
+  loaded: boolean;
+}
+
+export default function useKakaoStaticMap({ latitude, longitude, loaded }: useKakaoStaticMapProps) {
   const mapContainerRef  = useRef(null);
 
   useEffect(() => {

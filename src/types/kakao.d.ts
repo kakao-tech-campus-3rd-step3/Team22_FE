@@ -121,8 +121,9 @@ declare global {
 
         Size: new (width: number, height: number) => KakaoSize;
         Point: new (x: number, y: number) => KakaoPoint;
+
         MarkerImage: new (
-          src: object,
+          src: string,
           size: KakaoSize,
           options?: KakaoMarkerImageOptions,
         ) => KakaoMarkerImage;

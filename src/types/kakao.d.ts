@@ -122,9 +122,9 @@ declare global {
         Size: new (width: number, height: number) => KakaoSize;
         Point: new (x: number, y: number) => KakaoPoint;
         MarkerImage: new (
-          src: string,
+          src: object,
           size: KakaoSize,
-          options?: KakaoMarkerImageOptions
+          options?: KakaoMarkerImageOptions,
         ) => KakaoMarkerImage;
 
         services: {

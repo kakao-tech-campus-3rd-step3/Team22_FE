@@ -8,7 +8,7 @@ interface useKakaoStaticMapProps {
 }
 
 export default function useKakaoStaticMap({ latitude, longitude, loaded }: useKakaoStaticMapProps) {
-  const mapContainerRef  = useRef(null);
+  const mapContainerRef  = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!loaded || !latitude || !longitude) return;

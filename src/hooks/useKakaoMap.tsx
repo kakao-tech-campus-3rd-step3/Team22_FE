@@ -26,7 +26,6 @@ export default function useKakaoMap({ mapRef, location, loaded }: UseKakaoMapPro
       return;
     }
 
-    // 초기화 조건이 아직 충족되지 않았을 때도 종료합니다.
     if (!loaded || !location || !mapRef.current) {
       return;
     }
@@ -35,7 +34,7 @@ export default function useKakaoMap({ mapRef, location, loaded }: UseKakaoMapPro
 
     const mapOptions = {
       center: currentPosition,
-      level: 3
+      level: 1
     }
     mapInstanceRef.current = new window.kakao.maps.Map(mapRef.current, mapOptions);
 

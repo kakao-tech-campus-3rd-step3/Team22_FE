@@ -25,7 +25,7 @@ export default function useLocation() {
       return;
     }
 
-    function success(position: GeolocationPosition) {
+    const success = (position: GeolocationPosition) => {
       setLocation({
         location: {
           latitude: position.coords.latitude,
@@ -35,7 +35,7 @@ export default function useLocation() {
       });
     }
 
-    function error(err: GeolocationPositionError) {
+    const error = (err: GeolocationPositionError) => {
       console.warn('현재 위치 찾기 실패', err);
 
       if (err.code === 1) { // 사용자가 권한 거부한 경우
@@ -53,11 +53,10 @@ export default function useLocation() {
 
     const watcherId = navigator.geolocation.watchPosition(success, error, {
       enableHighAccuracy: true,
-      timeout: 10000, // 10초 안에 위치 못 찾으면 error
+      timeout: 10000,
       maximumAge: 0,
     });
 
-    // 언마운트시 메모리 누수 방지
     return () => {
       navigator.geolocation.clearWatch(watcherId);
     }

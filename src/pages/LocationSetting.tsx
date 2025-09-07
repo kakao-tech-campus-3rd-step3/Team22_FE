@@ -43,34 +43,17 @@ export default function LocationSetting() {
   }
 
   return (
-    <div style={{
-      position: 'relative',
-      width: '100%',
-      height: '100%',
-    }}>
-      <div style={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -100%)',
-        zIndex: 10,
-        pointerEvents: 'none',
-      }}>
+    <div className="relative w-full h-full">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full z-10 pointer-events-none">
         <img
           src={startMarker}
           alt="중심 위치 마커"
-          style={{ width: `${MARKER_IMAGE_WIDTH}`, height: `${MARKER_IMAGE_HEIGHT}` }}
+          className={`w-[${MARKER_IMAGE_WIDTH}] h-${MARKER_IMAGE_HEIGHT}]`}
         />
       </div>
 
-      <div style={{
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        width: '100%',
-        zIndex: 20,
-        pointerEvents: 'auto',
-      }}>
+      <div
+        className="absolute bottom-0 left-0 w-full z-20 pointer-events-auto">
         <ButtonBar
           buttonText='주 산책 시작 위치설정하기'
           onButtonClick={handleSetLocation}

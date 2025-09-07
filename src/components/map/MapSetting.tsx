@@ -6,11 +6,7 @@ interface MapSettingProps {
 
 export default function MapSetting({ mapRef }: MapSettingProps) {
   return (
-    <div style={{
-      position: 'relative',
-      width: '100%',
-      height: '100%',
-    }}>
+    <div className="relative w-full h-full">
       <div id='map' ref={mapRef} style={{ width: "100%", height: "100%" }} />
     </div>
   )

@@ -3,28 +3,22 @@ import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
 import { DAY } from '@/constant/day.ts'
 
 export default function WalkTimeScheduler() {
-  const { walkTimes, setWalkTimes } = useMapSetupStore();
+  const { walkTimes, addWalkTime, removeWalkTime } = useMapSetupStore();
   const [currentTime, setCurrentTime] = useState({ day: '월', hour: '18', minute: '00' });
   const [duplicateMessage, setDuplicateMessage] = useState('');
 
   const handleAddTime = () => {
-    const isDuplicate = walkTimes.some(
-      (time) =>
-        time.day === currentTime.day &&
-        time.hour === currentTime.hour &&
-        time.minute === currentTime.minute
-    );
+    const wasAdded = addWalkTime(currentTime);
 
-    if (!isDuplicate) {
-      setWalkTimes([...walkTimes, { ...currentTime, id: Date.now() }]);
-      setDuplicateMessage('');
+    if (!wasAdded) {
+      setDuplicateMessage("이미 추가된 시간입니다.");
     } else {
-      setDuplicateMessage('이미 추가된 시간입니다.');
+      setDuplicateMessage('');
     }
   };
 
   const handleRemoveTime = (idToRemove: number) => {
-    setWalkTimes(walkTimes.filter(time => time.id !== idToRemove));
+    removeWalkTime(idToRemove);
   };
 
   return (

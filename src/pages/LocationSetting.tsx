@@ -37,7 +37,7 @@ export default function LocationSetting() {
     return (
       <>
         <div>위치 권한을 허용해주세요.</div>
-        <div id='map' style={{ width: "100%", height: "100%" }} />;
+        <div id='map' style={{ width: "100%", height: "100%" }} />
       </>
     )
   }

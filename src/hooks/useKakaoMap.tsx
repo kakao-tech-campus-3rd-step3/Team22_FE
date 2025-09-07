@@ -48,7 +48,7 @@ export default function useKakaoMap({ mapRef, location, loaded }: UseKakaoMapPro
     overlayRef.current?.setMap(mapInstanceRef.current);
     overlayRootRef.current = createRoot(customOverlayContent);
     overlayRootRef.current?.render(<LocationDotIcon />);
-  }, [mapRef, location, loaded])
+  }, [location, loaded])
 
   useEffect(() => {
     const map = mapInstanceRef.current;

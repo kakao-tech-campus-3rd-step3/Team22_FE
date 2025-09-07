@@ -91,7 +91,7 @@ export default function useKakaoMap({ mapRef, location, loaded }: UseKakaoMapPro
     return () => {
       window.kakao.maps.event.removeListener(map, 'idle', fetchLocationInfo);
     }
-  }, [loaded, location]);
+  }, [loaded]);
 
   return { address, place, centerLocation };
 }

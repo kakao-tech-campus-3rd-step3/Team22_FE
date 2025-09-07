@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
+import { DAY } from '@/constant/day.ts'
 
 export default function WalkTimeScheduler() {
   const { walkTimes, setWalkTimes } = useMapSetupStore();
@@ -37,7 +38,7 @@ export default function WalkTimeScheduler() {
             onChange={(e) => setCurrentTime({ ...currentTime, day: e.target.value })}
             className="bg-zinc-700 text-white px-3 py-1 rounded hover:bg-zinc-600"
           >
-            {['월', '화', '수', '목', '금', '토', '일'].map(day => (
+            {DAY.map(day => (
               <option key={day} value={day}>{day}</option>
             ))}
           </select>

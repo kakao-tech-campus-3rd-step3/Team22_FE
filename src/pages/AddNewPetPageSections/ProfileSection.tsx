@@ -14,7 +14,7 @@ function ProfileSection() {
         <input
           type="text"
           placeholder="멍멍이"
-          className="text-center p-2 rounded-md text-lg w-28 h-auto focus:bg-neutral-700 focus:outline-none bg bg-neutral-700"
+          className="text-center p-2 rounded-md text-lg w-28 h-auto focus:bg-neutral-700 focus:outline-none bg-neutral-700"
         />
       </div>
     </div>

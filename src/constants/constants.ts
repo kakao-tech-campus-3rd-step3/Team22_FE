@@ -21,6 +21,7 @@ export const PERSONALITY = {
 export const BREED_OPTIONS = ['몰티즈', '골든리트리버', '푸들']
 export const DISEASE_OPTIONS = ['관절관련', '심장관련', '기관지관련']
 
+// 낮 날씨
 export const DAY_WEATHER = {
   SUN: 'sun',
   CLOUDY: 'cloudy',
@@ -29,6 +30,7 @@ export const DAY_WEATHER = {
   WIND: 'wind',
 } as const
 
+// 밤 날씨
 export const NIGHT_WEATHER = {
   MOON: 'moon',
   CLOUDY_NIGHT: 'cloudy-night',
@@ -44,6 +46,7 @@ export const PREFERRED_PATHS = {
   DIRT: 'dirt',
 } as const
 
+// 선택지 텍스트
 export const UI_TEXT = {
   PAGE_TITLE: '신규 반려동물 추가',
   BREED_MODAL_TITLE: '견종선택',
@@ -64,6 +67,7 @@ export const UI_TEXT = {
   PERSONALITY_INTROVERTED: '내향적',
 } as const
 
+// 단위 텍스트
 export const UNIT_OF_MEASURE = {
   KG: 'kg',
 }

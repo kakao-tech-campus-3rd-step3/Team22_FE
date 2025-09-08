@@ -35,6 +35,13 @@ interface DetailCharacterSectionProps {
   setWeight: Dispatch<SetStateAction<string>>
 }
 
+// 토글 상태 업데이트 공통 함수
+const toggleInArray = (setter: Dispatch<SetStateAction<string[]>>, value: string) => {
+  setter((prev) =>
+    prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value],
+  )
+}
+
 function DetailCharacterSection({
   dayWeather,
   setDayWeather,
@@ -52,62 +59,33 @@ function DetailCharacterSection({
   return (
     <div className="bg-neutral-900 p-4 rounded-lg space-y-4">
       <h2 className="text-lg font-bold text-left mb-4">{UI_TEXT.DETAIL_SECTION_TITLE}</h2>
+
       <InfoRow label={UI_TEXT.DAY_LABEL}>
         <div className="flex w-full gap-1">
           <IconButton
             icon={<FaRegSun size={20} />}
             isSelected={dayWeather.includes(DAY_WEATHER.SUN)}
-            onClick={() =>
-              setDayWeather((prev) =>
-                prev.includes(DAY_WEATHER.SUN)
-                  ? prev.filter((item) => item !== DAY_WEATHER.SUN)
-                  : [...prev, DAY_WEATHER.SUN],
-              )
-            }
+            onClick={() => toggleInArray(setDayWeather, DAY_WEATHER.SUN)}
           />
           <IconButton
             icon={<FaCloudSun size={20} />}
             isSelected={dayWeather.includes(DAY_WEATHER.CLOUDY)}
-            onClick={() =>
-              setDayWeather((prev) =>
-                prev.includes(DAY_WEATHER.CLOUDY)
-                  ? prev.filter((item) => item !== DAY_WEATHER.CLOUDY)
-                  : [...prev, DAY_WEATHER.CLOUDY],
-              )
-            }
+            onClick={() => toggleInArray(setDayWeather, DAY_WEATHER.CLOUDY)}
           />
           <IconButton
             icon={<IoRainyOutline size={20} />}
             isSelected={dayWeather.includes(DAY_WEATHER.RAIN)}
-            onClick={() =>
-              setDayWeather((prev) =>
-                prev.includes(DAY_WEATHER.RAIN)
-                  ? prev.filter((item) => item !== DAY_WEATHER.RAIN)
-                  : [...prev, DAY_WEATHER.RAIN],
-              )
-            }
+            onClick={() => toggleInArray(setDayWeather, DAY_WEATHER.RAIN)}
           />
           <IconButton
             icon={<RiSnowyLine size={20} />}
             isSelected={dayWeather.includes(DAY_WEATHER.SNOW)}
-            onClick={() =>
-              setDayWeather((prev) =>
-                prev.includes(DAY_WEATHER.SNOW)
-                  ? prev.filter((item) => item !== DAY_WEATHER.SNOW)
-                  : [...prev, DAY_WEATHER.SNOW],
-              )
-            }
+            onClick={() => toggleInArray(setDayWeather, DAY_WEATHER.SNOW)}
           />
           <IconButton
             icon={<TiWeatherWindy size={20} />}
             isSelected={dayWeather.includes(DAY_WEATHER.WIND)}
-            onClick={() =>
-              setDayWeather((prev) =>
-                prev.includes(DAY_WEATHER.WIND)
-                  ? prev.filter((item) => item !== DAY_WEATHER.WIND)
-                  : [...prev, DAY_WEATHER.WIND],
-              )
-            }
+            onClick={() => toggleInArray(setDayWeather, DAY_WEATHER.WIND)}
           />
         </div>
       </InfoRow>
@@ -117,57 +95,27 @@ function DetailCharacterSection({
           <IconButton
             icon={<FaRegMoon size={20} />}
             isSelected={nightWeather.includes(NIGHT_WEATHER.MOON)}
-            onClick={() =>
-              setNightWeather((prev) =>
-                prev.includes(NIGHT_WEATHER.MOON)
-                  ? prev.filter((item) => item !== NIGHT_WEATHER.MOON)
-                  : [...prev, NIGHT_WEATHER.MOON],
-              )
-            }
+            onClick={() => toggleInArray(setNightWeather, NIGHT_WEATHER.MOON)}
           />
           <IconButton
             icon={<CiCloudMoon size={20} />}
             isSelected={nightWeather.includes(NIGHT_WEATHER.CLOUDY_NIGHT)}
-            onClick={() =>
-              setNightWeather((prev) =>
-                prev.includes(NIGHT_WEATHER.CLOUDY_NIGHT)
-                  ? prev.filter((item) => item !== NIGHT_WEATHER.CLOUDY_NIGHT)
-                  : [...prev, NIGHT_WEATHER.CLOUDY_NIGHT],
-              )
-            }
+            onClick={() => toggleInArray(setNightWeather, NIGHT_WEATHER.CLOUDY_NIGHT)}
           />
           <IconButton
             icon={<IoRainyOutline size={20} />}
             isSelected={nightWeather.includes(NIGHT_WEATHER.RAINY_NIGHT)}
-            onClick={() =>
-              setNightWeather((prev) =>
-                prev.includes(NIGHT_WEATHER.RAINY_NIGHT)
-                  ? prev.filter((item) => item !== NIGHT_WEATHER.RAINY_NIGHT)
-                  : [...prev, NIGHT_WEATHER.RAINY_NIGHT],
-              )
-            }
+            onClick={() => toggleInArray(setNightWeather, NIGHT_WEATHER.RAINY_NIGHT)}
           />
           <IconButton
             icon={<RiSnowyLine size={20} />}
             isSelected={nightWeather.includes(NIGHT_WEATHER.SNOWY_NIGHT)}
-            onClick={() =>
-              setNightWeather((prev) =>
-                prev.includes(NIGHT_WEATHER.SNOWY_NIGHT)
-                  ? prev.filter((item) => item !== NIGHT_WEATHER.SNOWY_NIGHT)
-                  : [...prev, NIGHT_WEATHER.SNOWY_NIGHT],
-              )
-            }
+            onClick={() => toggleInArray(setNightWeather, NIGHT_WEATHER.SNOWY_NIGHT)}
           />
           <IconButton
             icon={<TiWeatherWindy size={20} />}
             isSelected={nightWeather.includes(NIGHT_WEATHER.WINDY_NIGHT)}
-            onClick={() =>
-              setNightWeather((prev) =>
-                prev.includes(NIGHT_WEATHER.WINDY_NIGHT)
-                  ? prev.filter((item) => item !== NIGHT_WEATHER.WINDY_NIGHT)
-                  : [...prev, NIGHT_WEATHER.WINDY_NIGHT],
-              )
-            }
+            onClick={() => toggleInArray(setNightWeather, NIGHT_WEATHER.WINDY_NIGHT)}
           />
         </div>
       </InfoRow>
@@ -188,13 +136,7 @@ function DetailCharacterSection({
           <IconButton
             icon={<img src={Road} className="object-cover" alt={PREFERRED_PATHS.ASPHALT} />}
             isSelected={preferredPaths.includes(PREFERRED_PATHS.ASPHALT)}
-            onClick={() =>
-              setPreferredPaths((prev) =>
-                prev.includes(PREFERRED_PATHS.ASPHALT)
-                  ? prev.filter((item) => item !== PREFERRED_PATHS.ASPHALT)
-                  : [...prev, PREFERRED_PATHS.ASPHALT],
-              )
-            }
+            onClick={() => toggleInArray(setPreferredPaths, PREFERRED_PATHS.ASPHALT)}
           />
           <IconButton
             icon={
@@ -205,24 +147,12 @@ function DetailCharacterSection({
               />
             }
             isSelected={preferredPaths.includes(PREFERRED_PATHS.TRAIL)}
-            onClick={() =>
-              setPreferredPaths((prev) =>
-                prev.includes(PREFERRED_PATHS.TRAIL)
-                  ? prev.filter((item) => item !== PREFERRED_PATHS.TRAIL)
-                  : [...prev, PREFERRED_PATHS.TRAIL],
-              )
-            }
+            onClick={() => toggleInArray(setPreferredPaths, PREFERRED_PATHS.TRAIL)}
           />
           <IconButton
             icon={<img src={DirtRoad} alt={PREFERRED_PATHS.DIRT} />}
             isSelected={preferredPaths.includes(PREFERRED_PATHS.DIRT)}
-            onClick={() =>
-              setPreferredPaths((prev) =>
-                prev.includes(PREFERRED_PATHS.DIRT)
-                  ? prev.filter((item) => item !== PREFERRED_PATHS.DIRT)
-                  : [...prev, PREFERRED_PATHS.DIRT],
-              )
-            }
+            onClick={() => toggleInArray(setPreferredPaths, PREFERRED_PATHS.DIRT)}
           />
         </div>
       </InfoRow>
@@ -264,4 +194,5 @@ function DetailCharacterSection({
     </div>
   )
 }
+
 export default DetailCharacterSection

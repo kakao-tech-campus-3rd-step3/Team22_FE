@@ -16,7 +16,7 @@ import {
 function AddNewPetPage() {
   const [isFormValid, setIsFormValid] = useState(false)
   const [gender, setGender] = useState<string>(GENDER.MALE)
-  const [neturalize, setNeturalize] = useState<string>(BOOLEAN_CHOICE.NO)
+  const [neutralize, setNeutralize] = useState<string>(BOOLEAN_CHOICE.NO)
   const [vaccinated, setVaccinated] = useState<string>(BOOLEAN_CHOICE.NO)
   const [dayWeather, setDayWeather] = useState<string[]>([])
   const [nightWeather, setNightWeather] = useState<string[]>([])
@@ -56,7 +56,7 @@ function AddNewPetPage() {
     const petProfileData = {
       selectedBreed,
       gender,
-      neutralize: neturalize,
+      neutralize,
       vaccinated,
       personality,
       dayWeather,
@@ -90,7 +90,7 @@ function AddNewPetPage() {
     const currentData = {
       selectedBreed,
       gender,
-      neutralize: neturalize,
+      neutralize,
       vaccinated,
       personality,
       dayWeather,
@@ -109,7 +109,7 @@ function AddNewPetPage() {
   }, [
     selectedBreed,
     gender,
-    neturalize,
+    neutralize,
     vaccinated,
     personality,
     dayWeather,
@@ -148,8 +148,8 @@ function AddNewPetPage() {
           setIsBreedModalOpen={setIsBreedModalOpen}
           gender={gender}
           setGender={setGender}
-          neturalize={neturalize}
-          setNeturalize={setNeturalize}
+          neutralize={neutralize}
+          setNeutralize={setNeutralize}
           vaccinated={vaccinated}
           setVaccinated={setVaccinated}
           birthYear={birthYear}

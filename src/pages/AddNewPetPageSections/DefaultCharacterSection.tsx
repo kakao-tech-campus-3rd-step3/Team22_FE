@@ -7,8 +7,8 @@ interface DefaultProfileSectionProps {
   setIsBreedModalOpen: (isOpen: boolean) => void
   gender: string
   setGender: (value: string) => void
-  neturalize: string
-  setNeturalize: (value: string) => void
+  neutralize: string
+  setNeutralize: (value: string) => void
   vaccinated: string
   setVaccinated: (value: string) => void
   birthYear: string
@@ -24,8 +24,8 @@ function DefaultCharacterSection({
   setIsBreedModalOpen,
   gender,
   setGender,
-  neturalize,
-  setNeturalize,
+  neutralize,
+  setNeutralize,
   vaccinated,
   setVaccinated,
   birthYear,
@@ -100,10 +100,10 @@ function DefaultCharacterSection({
         />
       </InfoRow>
       <InfoRow label="중성화여부">
-        <TextButton onClick={() => setNeturalize('yes')} isSelected={neturalize === 'yes'}>
+        <TextButton onClick={() => setNeutralize('yes')} isSelected={neutralize === 'yes'}>
           예
         </TextButton>
-        <TextButton onClick={() => setNeturalize('no')} isSelected={neturalize === 'no'}>
+        <TextButton onClick={() => setNeutralize('no')} isSelected={neutralize === 'no'}>
           아니오
         </TextButton>
       </InfoRow>

@@ -3,17 +3,11 @@ import { z } from 'zod'
 export const petProfileSchema = z.object({
   selectedBreed: z.string().min(1, { message: '견종을 선택해주세요.' }),
 
-  gender: z.string().refine((value) => ['male', 'female'].includes(value), {
-    message: '유효한 성별이 아닙니다.',
-  }),
+  gender: z.enum(['male', 'female']),
 
-  neutralize: z.string({}).refine((value) => ['yes', 'no'].includes(value), {
-    message: "중성화 여부는 'yes' 또는 'no'여야 합니다.",
-  }),
+  neutralize: z.enum(['yes', 'no']),
 
-  vaccinated: z.string({}).refine((value) => ['yes', 'no'].includes(value), {
-    message: "예방접종 여부는 'yes' 또는 'no'여야 합니다.",
-  }),
+  vaccinated: z.enum(['yes', 'no']),
   birthdate: z
     .string()
     .regex(/^\d{4}-\d{2}-\d{2}$/, '날짜 형식이 YYYY-MM-DD가 아닙니다.')

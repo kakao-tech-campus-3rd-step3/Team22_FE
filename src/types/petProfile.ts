@@ -22,9 +22,7 @@ export const petProfileSchema = z.object({
       return inputDate <= now
     }, '생년월일이 현재보다 미래일 수 없습니다.'),
 
-  personality: z.string({}).refine((value) => ['extroverted', 'introverted'].includes(value), {
-    message: '유효한 성격 유형이 아닙니다.',
-  }),
+  personality: z.enum(['extroverted', 'introverted']),
 
   dayWeather: z.array(z.string()).nonempty({ message: '낮 날씨를 선택해주세요.' }),
   nightWeather: z.array(z.string()).nonempty({ message: '밤 날씨를 선택해주세요.' }),

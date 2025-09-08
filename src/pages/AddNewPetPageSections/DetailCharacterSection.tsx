@@ -35,7 +35,6 @@ interface DetailCharacterSectionProps {
   setWeight: Dispatch<SetStateAction<string>>
 }
 
-// 토글 상태 업데이트 공통 함수
 const toggleInArray = (setter: Dispatch<SetStateAction<string[]>>, value: string) => {
   setter((prev) =>
     prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value],

@@ -1,5 +1,5 @@
 import MapSetting from '@/components/map/MapSetting.tsx'
-import { MapCenterMarker } from '@/components/map/MapCenterMarker.tsx'
+import startMarker from '@/assets/icons/StartMarker.png'
 import ButtonBar from '@/components/common/ButtonBar.tsx'
 import useKakaoMapLoader from '@/hooks/useKakaoMapLoader.ts'
 import useLocation from '@/hooks/useLocation.tsx'
@@ -7,6 +7,7 @@ import { useRef } from 'react'
 import useKakaoMap from '@/hooks/useKakaoMap.tsx'
 import { useNavigate } from '@tanstack/react-router'
 import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
+import { MARKER_IMAGE_HEIGHT, MARKER_IMAGE_WIDTH } from '@/constant/marker.ts'
 
 export default function LocationSetting() {
   const loaded = useKakaoMapLoader()
@@ -46,9 +47,13 @@ export default function LocationSetting() {
       <div className="w-[390px] h-[844px] bg-[#121212] text-white shadow-2xl rounded-3xl overflow-y-auto p-6 space-y-6">
         <div className="relative w-full h-full">
           <MapSetting mapRef={mapRef} />
-          <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center z-20 pointer-events-none">
-            <MapCenterMarker />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full z-10 pointer-events-none">
+            <img
+              src={startMarker}
+              className={`w-[${MARKER_IMAGE_WIDTH}] h-${MARKER_IMAGE_HEIGHT}]`}
+            />
           </div>
+
           <div className="absolute bottom-0 left-0 w-full z-10 ">
             <ButtonBar buttonText="주 산책 시작 위치설정하기" onButtonClick={handleSetLocation}>
               <div className="text-white my-1.5">장소: {place}</div>

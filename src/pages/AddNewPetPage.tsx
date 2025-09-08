@@ -43,15 +43,7 @@ function AddNewPetPage() {
   }
 
   const handleSave = () => {
-    const year = birthYear.trim()
-    const month = birthMonth.trim()
-    const day = birthDay.trim()
-    let birthdate = ''
-    if (year && month && day) {
-      const formattedMonth = month.padStart(2, '0')
-      const formattedDay = day.padStart(2, '0')
-      birthdate = `${year}-${formattedMonth}-${formattedDay}`
-    }
+    const birthdate = getFormattedBirthdate(birthYear, birthMonth, birthDay)
 
     const petProfileData = {
       selectedBreed,
@@ -75,17 +67,20 @@ function AddNewPetPage() {
       alert('입력값에 오류가 있습니다. 다시 확인해주세요.')
     }
   }
+  const getFormattedBirthdate = (year: string, month: string, day: string): string => {
+    const y = year.trim()
+    const m = month.trim()
+    const d = day.trim()
+    if (y && m && d) {
+      const formattedMonth = m.padStart(2, '0')
+      const formattedDay = d.padStart(2, '0')
+      return `${y}-${formattedMonth}-${formattedDay}`
+    }
+    return ''
+  }
 
   useEffect(() => {
-    const year = birthYear.trim()
-    const month = birthMonth.trim()
-    const day = birthDay.trim()
-    let birthdate = ''
-    if (year && month && day) {
-      const formattedMonth = month.padStart(2, '0')
-      const formattedDay = day.padStart(2, '0')
-      birthdate = `${year}-${formattedMonth}-${formattedDay}`
-    }
+    const birthdate = getFormattedBirthdate(birthYear, birthMonth, birthDay)
 
     const currentData = {
       selectedBreed,

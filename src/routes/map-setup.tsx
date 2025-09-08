@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
-import MapSetupComplete from '@/pages/MapSetupComplete.tsx'
+import MapSetupCompletePage from '@/pages/MapSetupCompletePage'
 
 export const Route = createFileRoute('/map-setup')({
-  component: MapSetupComplete,
+  component: MapSetupCompletePage,
 })

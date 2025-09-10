@@ -10,16 +10,28 @@ export const BOOLEAN_CHOICE = {
   NO: 'no',
 } as const
 
-// 성격 옵션
+// 성격 전달 목록
 export const PERSONALITY = {
   EXTROVERTED: 'extroverted',
   INTROVERTED: 'introverted',
   // 다른 성격들도 여기에 추가
 } as const
 
-// 선택 모달 옵션 목록
-export const BREED_OPTIONS = ['몰티즈', '골든리트리버', '푸들']
-export const DISEASE_OPTIONS = ['관절관련', '심장관련', '기관지관련']
+export const BREED_VALUES = ['Maltese', 'Golden Retriever', 'Poodle'] as const
+export const DISEASE_VALUES = ['Joint', 'Heart', 'Bronchial'] as const
+
+// 2. UI 선택 옵션용 데이터 (value와 label을 함께 관리)
+export const BREED_OPTIONS_DATA = [
+  { value: 'Maltese', label: '몰티즈' },
+  { value: 'Golden Retriever', label: '골든리트리버' },
+  { value: 'Poodle', label: '푸들' },
+] as const
+
+export const DISEASE_OPTIONS_DATA = [
+  { value: 'Joint', label: '관절관련' },
+  { value: 'Heart', label: '심장관련' },
+  { value: 'Bronchial', label: '기관지관련' },
+] as const
 
 // 낮 날씨
 export const DAY_WEATHER = {
@@ -48,12 +60,12 @@ export const PREFERRED_PATHS = {
 
 // 선택지 텍스트
 export const UI_TEXT = {
+  BREED_TYPE: '견종',
+  SEX: '성별',
   PAGE_TITLE: '신규 반려동물 추가',
   BREED_MODAL_TITLE: '견종선택',
   DISEASE_MODAL_TITLE: '지병선택',
   SAVE_BUTTON: '저장하기',
-
-  // DetailCharacterSection.tsx에서 사용하는 상수
   DETAIL_SECTION_TITLE: '상세설정',
   DAY_LABEL: '햇님',
   NIGHT_LABEL: '달님',
@@ -65,6 +77,13 @@ export const UI_TEXT = {
   SET_BUTTON: '설정하기',
   PERSONALITY_EXTROVERTED: '외향적',
   PERSONALITY_INTROVERTED: '내향적',
+  BIRTH_DATE: '생년월일',
+  NETURALIZE: '중성화여부',
+  VACCINATED: '예방접종여부',
+  YES: '예',
+  NO: '아니오',
+  BOY: '남아',
+  GIRL: '여아',
 } as const
 
 // 단위 텍스트

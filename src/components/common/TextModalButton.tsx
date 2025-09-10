@@ -1,22 +1,16 @@
-interface TextModalButtonProps {
-  selectedStatus: string;
-  buttonTypeText: string;
-  setIsBreedModalOpen: (isOpen: boolean) => void;
-}
-
-function TextModalButton({
-  selectedStatus,
-  buttonTypeText,
-  setIsBreedModalOpen,
-}: TextModalButtonProps) {
+function TextModalButton(props: {
+  selectedStatus: string
+  buttonTypeText: string
+  setIsBreedModalOpen: (isOpen: boolean) => void
+}) {
   return (
     <button
-      onClick={() => setIsBreedModalOpen(true)}
+      onClick={() => props.setIsBreedModalOpen(true)}
       className="w-full text-left bg-neutral-700 p-2 rounded-md text-sm text-neutral-300 truncate"
     >
-      {selectedStatus || buttonTypeText}
+      {props.selectedStatus || props.buttonTypeText}
     </button>
-  );
+  )
 }
 
-export default TextModalButton;
+export default TextModalButton

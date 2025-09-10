@@ -1,24 +1,16 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react'
 
-interface IconButtonProps {
-  icon: ReactNode;
-  onClick: () => void;
-  isSelected?: boolean;
-}
-
-function IconButton({ icon, onClick, isSelected }: IconButtonProps) {
+function IconButton(props: { icon: ReactNode; onClick: () => void; isSelected?: boolean }) {
   return (
     <button
-      onClick={onClick}
+      onClick={props.onClick}
       className={`p-3 rounded-full transition-colors duration-200 ${
-        isSelected
-          ? "bg-blue-600 text-white"
-          : "bg-neutral-700 text-neutral-300"
+        props.isSelected ? 'bg-blue-600 text-white' : 'bg-neutral-700 text-neutral-300'
       }`}
     >
-      <div className="w-6 h-6 flex items-center justify-center">{icon}</div>
+      <div className="w-6 h-6 flex items-center justify-center">{props.icon}</div>
     </button>
-  );
+  )
 }
 
-export default IconButton;
+export default IconButton

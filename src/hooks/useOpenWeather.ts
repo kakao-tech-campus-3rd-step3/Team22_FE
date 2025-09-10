@@ -1,40 +1,38 @@
 import { useEffect, useState } from 'react'
 
-interface useOpenWeatherProps {
+export default function useOpenWeather(props: {
   location: {
-    latitude: number;
-    longitude: number;
-  } | null;
-}
-
-export default function useOpenWeather({ location }: useOpenWeatherProps) {
-  const [weather, setWeather] = useState<WeatherData | null>(null);
-  const [loading , setLoading] = useState(false);
+    latitude: number
+    longitude: number
+  } | null
+}) {
+  const [weather, setWeather] = useState<WeatherData | null>(null)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    if (!location) return;
+    if (props.location === null) return
+    const { latitude, longitude } = props.location
 
     const fetchWeather = async () => {
-      setLoading(true);
-
-      const url =
-        `https://api.openweathermap.org/data/2.5/forecast?lat=${location.latitude}&lon=${location.longitude}&appid=${import.meta.env.VITE_OPEN_WEATHER_API_KEY}&units=metric&lang=kr`
+      setLoading(true)
       try {
-        const response = await fetch(url);
+        const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${import.meta.env.VITE_OPEN_WEATHER_API_KEY}&units=metric&lang=kr` //UI 테스트용
+        const response = await fetch(url)
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error(`HTTP error! status: ${response.status}`)
         }
-        const data = await response.json();
-        setWeather(data);
+        const data = await response.json()
+        setWeather(data)
       } catch (e) {
-        setWeather(null);
-        console.error("날씨 정보 fetching 실패:", e);
+        setWeather(null)
+        console.error('날씨 정보 fetching 실패:', e)
+      } finally {
+        setLoading(false)
       }
     }
 
-    fetchWeather();
-    setLoading(false);
-  }, [location]);
+    fetchWeather()
+  }, [props.location])
 
-  return { weather, loading };
+  return { weather, loading }
 }

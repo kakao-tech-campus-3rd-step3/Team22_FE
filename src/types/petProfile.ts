@@ -1,7 +1,8 @@
 import { z } from 'zod'
+import { BREED_VALUES } from '@/constants/constants'
 
 export const petProfileSchema = z.object({
-  selectedBreed: z.string().min(1, { message: '견종을 선택해주세요.' }),
+  selectedBreed: z.enum(BREED_VALUES, { message: '견종을 선택해주세요.' }),
 
   gender: z.enum(['male', 'female']),
 

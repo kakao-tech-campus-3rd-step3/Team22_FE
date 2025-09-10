@@ -8,9 +8,9 @@ import {
   GENDER,
   BOOLEAN_CHOICE,
   PERSONALITY,
-  BREED_OPTIONS,
-  DISEASE_OPTIONS,
   UI_TEXT,
+  BREED_OPTIONS_DATA, // 이 부분을 추가하세요
+  DISEASE_OPTIONS_DATA,
 } from '@/constants/constants.ts'
 
 function AddNewPetPage() {
@@ -125,7 +125,7 @@ function AddNewPetPage() {
           isOpen={isBreedModalOpen}
           onClose={() => setIsBreedModalOpen(false)}
           title={UI_TEXT.BREED_MODAL_TITLE}
-          options={BREED_OPTIONS}
+          options={BREED_OPTIONS_DATA}
           onSelect={handleBreedSelect}
           selectedValue={selectedBreed}
         />
@@ -133,7 +133,7 @@ function AddNewPetPage() {
           isOpen={isDiseaseModalOpen}
           onClose={() => setIsDiseaseModalOpen(false)}
           title={UI_TEXT.DISEASE_MODAL_TITLE}
-          options={DISEASE_OPTIONS}
+          options={DISEASE_OPTIONS_DATA}
           onSelect={handleDiseaseToggle}
           selectedValue={selectedDiseases}
         />

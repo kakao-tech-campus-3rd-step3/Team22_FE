@@ -7,12 +7,11 @@ import { useRef } from 'react'
 import useKakaoMap from '@/hooks/useKakaoMap.tsx'
 import { useNavigate } from '@tanstack/react-router'
 import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
-import { MARKER_IMAGE_HEIGHT, MARKER_IMAGE_WIDTH } from '@/constant/marker.ts'
 
 export default function LocationSetting() {
   const loaded = useKakaoMapLoader()
   const { location, status } = useLocation()
-  const mapRef = useRef<HTMLDivElement | null>(null)
+  const mapRef = useRef<HTMLDivElement>(null!)
   const { address, place, centerLocation } = useKakaoMap({ mapRef, location, loaded })
   const setLocation = useMapSetupStore((state) => state.setLocation)
   const navigate = useNavigate({ from: '/' })
@@ -30,6 +29,7 @@ export default function LocationSetting() {
   }
 
   if (status === 'loading') {
+    console.log('loading중')
     return <div>현재 위치를 찾는 중입니다...</div>
   }
 
@@ -47,13 +47,10 @@ export default function LocationSetting() {
       <div className="w-[390px] h-[844px] bg-[#121212] text-white shadow-2xl rounded-3xl overflow-y-auto p-6 space-y-6">
         <div className="relative w-full h-full">
           <MapSetting mapRef={mapRef} />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full z-10 pointer-events-none">
-            <img
-              src={startMarker}
-              className={`w-[${MARKER_IMAGE_WIDTH}] h-${MARKER_IMAGE_HEIGHT}]`}
-            />
-          </div>
-
+          <img
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full z-10 pointer-events-none w-[50px] h-[40px]"
+            src={startMarker}
+          />
           <div className="absolute bottom-0 left-0 w-full z-10 ">
             <ButtonBar buttonText="주 산책 시작 위치설정하기" onButtonClick={handleSetLocation}>
               <div className="text-white my-1.5">장소: {place}</div>

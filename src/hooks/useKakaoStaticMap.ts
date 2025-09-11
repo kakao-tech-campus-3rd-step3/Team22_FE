@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import startMarker from '@/assets/icons/startMarker.png';
+import startMarker from '@/assets/icons/startMarker.png'
 import { MARKER_IMAGE_HEIGHT, MARKER_IMAGE_WIDTH, MARKER_IMAGE_X, MARKER_IMAGE_Y } from '@/constants/marker.ts'
 
 export default function useKakaoStaticMap(props: {
@@ -23,22 +23,18 @@ export default function useKakaoStaticMap(props: {
     };
 
     const map = new window.kakao.maps.Map(mapContainerRef.current, mapOption);
-
     mapInstanceRef.current = map;
 
     const imageSrc = startMarker;
     const imageSize = new window.kakao.maps.Size(MARKER_IMAGE_WIDTH, MARKER_IMAGE_HEIGHT);
-    const imageOption = { offset: new window.kakao.maps.Point(MARKER_IMAGE_X, MARKER_IMAGE_Y) };
+    const imageOption = { offset: new window.kakao.maps.Point(MARKER_IMAGE_X, MARKER_IMAGE_Y), };
     const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 
-    const marker = new window.kakao.maps.Marker({
+    markerInstanceRef.current = new window.kakao.maps.Marker({
       position: startPosition,
       image: markerImage,
+      map: map,
     });
-    markerInstanceRef.current = marker;
-
-    marker.setMap(map);
-
   }, [props.loaded, props.latitude, props.longitude]);
 
   useEffect(() => {

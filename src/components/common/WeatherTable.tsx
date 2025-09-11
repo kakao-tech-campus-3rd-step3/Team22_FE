@@ -3,9 +3,7 @@ import useOpenWeather from '@/hooks/useOpenWeather.ts';
 
 export default function WeatherTable() {
   const { location, status } = useLocation();
-  const { weather, loading } = useOpenWeather({ location });
-
-  console.log(weather)
+  const { weather } = useOpenWeather({ location });
 
   if (status === 'loading') {
     return <div>현재 위치를 찾는 중입니다...</div>;
@@ -18,8 +16,6 @@ export default function WeatherTable() {
       </div>
     );
   }
-
-  if (loading) return <div>날씨 정보를 불러오는 중...</div>;
 
   if (!weather || !weather.list) {
     return <div>데이터가 없습니다.</div>;

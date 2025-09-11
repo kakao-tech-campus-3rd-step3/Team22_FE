@@ -23,9 +23,8 @@ export default function useKakaoMap(props: {
   })
 
   useEffect(() => {
-    if (!props.loaded || !props.location || !props.mapRef.current) {
-      return
-    }
+    if (!props.loaded || !props.location || !props.mapRef.current) { return; }
+    if (mapInstanceRef.current) return;
 
     const currentPosition = new window.kakao.maps.LatLng(
       props.location.latitude,

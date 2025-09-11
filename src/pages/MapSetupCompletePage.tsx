@@ -32,7 +32,7 @@ export default function MapSetupComplete() {
             <div className="h-[130px] p-4 bg-zinc-800 rounded-lg flex flex-col">
               <h2 className="font-bold mb-2 flex-shrink-0">주요 산책 시간</h2>
               <div className="flex-1 overflow-y-auto no-scrollbar">
-                {walkTimes?.map((item) => (
+                {walkTimes.map((item) => (
                   <div key={item.id} className="flex justify-center gap-4 mb-1">
                     <div>{item.day}요일</div>
                     <div>{item.hour}시</div>

@@ -1,13 +1,55 @@
 import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
+import ButtonBar from '@/components/common/ButtonBar.tsx'
+import { useNavigate } from '@tanstack/react-router'
+import useKakaoStaticMap from '@/hooks/useKakaoStaticMap.ts'
+import useKakaoMapLoader from '@/hooks/useKakaoMapLoader.ts'
 
 export default function MapSetupComplete() {
-  const { walkTimes, address, place, latitude, longitude } = useMapSetupStore()
+  const loaded = useKakaoMapLoader();
+  const { walkTimes, address, place, latitude, longitude } = useMapSetupStore();
+  const navigate = useNavigate({ from: '/map-setup'});
+  const { mapContainerRef } = useKakaoStaticMap({ latitude, longitude, loaded });
 
-  console.log(walkTimes)
-  console.log(address)
-  console.log(place)
-  console.log(latitude)
-  console.log(longitude)
+  const handleSetTime = () => {
+    console.log('세팅 완료 페이지')
+    navigate({ to: '/location-setting' });
+  };
 
-  return <div>맵 세팅 페이지</div>
+  return (
+    <div className="flex flex-col h-full w-full font-bold text-white">
+      <div className="flex-1 overflow-y-auto no-scrollbar pt-20 pb-20 px-4">
+        <div className="flex justify-center mb-6">
+          <div
+            ref={mapContainerRef}
+            className="w-[300px] h-[300px] rounded-xl"
+          />
+        </div>
+
+        <div className="mb-6 p-4 bg-zinc-800 rounded-lg">
+          <h2 className="text-xl mb-2 font-bold">{place}</h2>
+          <h3 className="text-sm text-gray-300">{address}</h3>
+        </div>
+
+        <div className="h-[130px] p-4 bg-zinc-800 rounded-lg flex flex-col">
+          <h2 className="font-bold mb-2 flex-shrink-0">주요 산책 시간</h2>
+          <div className="flex-1 overflow-y-auto no-scrollbar">
+            {walkTimes?.map((item) => (
+              <div key={item.id} className="flex justify-center gap-4 mb-1">
+                <div>{item.day}요일</div>
+                <div>{item.hour}시</div>
+                <div>{item.minute}분</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <ButtonBar
+        buttonText="주 산책 시간 설정하기"
+        onButtonClick={handleSetTime}
+      >
+        <div className="text-white my-1.5">해당 시간에 알림 경로 추천 알림 받기</div>
+      </ButtonBar>
+    </div>
+  );
 }

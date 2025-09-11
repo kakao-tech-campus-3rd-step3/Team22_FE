@@ -50,6 +50,7 @@ export default function LocationSetting() {
           <img
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full z-10 pointer-events-none w-[50px] h-[40px]"
             src={startMarker}
+            alt='시작 마커'
           />
           <div className="absolute bottom-0 left-0 w-full z-10 ">
             <ButtonBar buttonText="주 산책 시작 위치설정하기" onButtonClick={handleSetLocation}>

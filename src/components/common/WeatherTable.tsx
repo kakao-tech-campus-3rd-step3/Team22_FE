@@ -3,11 +3,9 @@ import useOpenWeather from '@/hooks/useOpenWeather.ts';
 
 export default function WeatherTable() {
   const { location, status } = useLocation();
-  const { weather } = useOpenWeather({ location });
+  const { weather, loading, error } = useOpenWeather({ location });
 
-  if (status === 'loading') {
-    return <div>현재 위치를 찾는 중입니다...</div>;
-  }
+  if (status === 'loading') return <div>현재 위치를 찾는 중입니다...</div>;
 
   if (status === 'denied') {
     return (
@@ -17,9 +15,9 @@ export default function WeatherTable() {
     );
   }
 
-  if (!weather || !weather.list) {
-    return <div>데이터가 없습니다.</div>;
-  }
+  if (!weather || !weather.list) return <div>데이터가 없습니다.</div>;
+  if (error) return <div>{error}</div>
+  if (loading) return <div>날씨 불러오는 중...</div>
 
   return (
     <div className="w-full flex justify-center">

@@ -22,7 +22,7 @@ export default function WalkTimeScheduler() {
   };
 
   return (
-    <div className="w-full flex justify-center my-6">
+    <div className="w-full flex justify-center mt-6 mb-2">
       <div className="w-[90%] max-w-lg h-50 bg-zinc-800 rounded-lg p-4 text-white shadow-lg max-h-60 overflow-auto no-scrollbar">
         <div className="mb-3 text-lg font-bold text-center">주로 산책하는 시간 고르기</div>
 

@@ -29,6 +29,7 @@ declare global {
 
   interface KakaoMap {
     getCenter(): KakaoLatLng;
+    panTo(position: KakaoLatLng): void;
   }
 
   interface KakaoMarkerOptions {
@@ -41,6 +42,7 @@ declare global {
   interface KakaoMarker {
     setMap(map: KakaoMap | null): void;
     getPosition(): KakaoLatLng;
+    setPosition(position: KakaoLatLng): void;
   }
 
   interface KakaoCustomOverlayOptions {

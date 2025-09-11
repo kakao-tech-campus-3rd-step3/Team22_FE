@@ -30,6 +30,7 @@ export default tseslint.config([
       indent: 'off',
       'object-curly-spacing': 'off',
       'array-bracket-spacing': 'off',
+      'eol-last': ['error', 'always'],
     },
     languageOptions: {
       ecmaVersion: 2020,

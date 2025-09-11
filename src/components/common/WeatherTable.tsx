@@ -15,9 +15,9 @@ export default function WeatherTable() {
     );
   }
 
-  if (!weather || !weather.list) return <div>데이터가 없습니다.</div>;
   if (error) return <div>{error}</div>
   if (loading) return <div>날씨 정보를 불러오는 중...</div>;
+  if (!weather || !weather.list) return <div>데이터가 없습니다.</div>;
 
   return (
     <div className="w-full flex justify-center">

@@ -10,7 +10,7 @@ export default function MapSetupComplete() {
   const navigate = useNavigate({ from: '/map-setup' })
   const { mapContainerRef } = useKakaoStaticMap({ latitude, longitude, loaded })
 
-  const handleSetTime = () => {
+  const handleComplete = () => {
     navigate({ to: '/location-setting' })
   }
 
@@ -45,7 +45,7 @@ export default function MapSetupComplete() {
           <div className="absolute bottom-0 left-0 w-full z-10 ">
             <ButtonBar
               buttonText="주 산책 시간 설정하기"
-              onButtonClick={handleSetTime}
+              onButtonClick={handleComplete}
             >
               <div className="text-white my-1.5">해당 시간에 알림 경로 추천 알림 받기</div>
             </ButtonBar>

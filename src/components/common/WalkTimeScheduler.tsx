@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
-import { DAY } from '@/constant/day.ts'
+import { DAY } from '@/constants/day.ts'
 
 export default function WalkTimeScheduler() {
   const { walkTimes, addWalkTime, removeWalkTime } = useMapSetupStore();

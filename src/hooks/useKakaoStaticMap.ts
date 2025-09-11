@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import startMarker from '@/assets/icons/startMarker.png';
-import { MARKER_IMAGE_HEIGHT, MARKER_IMAGE_WIDTH, MARKER_IMAGE_X, MARKER_IMAGE_Y } from '@/constant/marker.ts'
+import { MARKER_IMAGE_HEIGHT, MARKER_IMAGE_WIDTH, MARKER_IMAGE_X, MARKER_IMAGE_Y } from '@/constants/marker.ts'
 
 export default function useKakaoStaticMap(props: {
   latitude: number | null

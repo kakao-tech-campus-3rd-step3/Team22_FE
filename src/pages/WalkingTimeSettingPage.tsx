@@ -2,11 +2,23 @@ import ButtonBar from '@/components/common/ButtonBar.tsx'
 import WeatherTable from '@/components/common/WeatherTable.tsx'
 import WalkTimeScheduler from '@/components/common/WalkTimeScheduler.tsx'
 import { useNavigate } from '@tanstack/react-router'
+import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
+import { useEffect, useState } from 'react'
 
 export default function WalkingTimeSettingPage() {
-  const navigate = useNavigate({ from: '/walk-time-setting' })
+  const navigate = useNavigate({ from: '/walk-time-setting' });
+  const [walkTimesEmpty, setWalkTimesEmpty] = useState(false);
+  const { walkTimes } = useMapSetupStore();
+
+  useEffect(() => {
+    if (walkTimes.length !== 0) {
+      setWalkTimesEmpty(false);
+    }
+  }, [walkTimes])
 
   const handleSetTime = () => {
+    if (walkTimes.length === 0) return setWalkTimesEmpty(true);
+
     navigate({
       to: '/map-setup',
     })
@@ -18,7 +30,10 @@ export default function WalkingTimeSettingPage() {
         <div className="relative w-full h-full">
           <WeatherTable />
           <WalkTimeScheduler />
-          <div className="w-full flex justify-center my-4">
+          <div className="flex justify-center">
+            {walkTimesEmpty && <span className="text-red-500 text-xs">산책 시간을 설정해 주세요.</span>}
+          </div>
+          <div className="w-full flex justify-center my-2">
             <span className="w-[90%] max-w-lg px-4 py-3 text-center text-white text-sm leading-relaxed font-bold bg-zinc-800 rounded-lg shadow-md">
               시간을 모두 상세하게 설정해주세요.
               <br />

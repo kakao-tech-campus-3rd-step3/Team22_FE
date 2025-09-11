@@ -27,7 +27,7 @@ export default function useKakaoStaticMap(props: {
 
     const imageSrc = startMarker;
     const imageSize = new window.kakao.maps.Size(MARKER_IMAGE_WIDTH, MARKER_IMAGE_HEIGHT);
-    const imageOption = { offset: new window.kakao.maps.Point(MARKER_IMAGE_X, MARKER_IMAGE_Y), };
+    const imageOption = { offset: new window.kakao.maps.Point(MARKER_IMAGE_X, MARKER_IMAGE_Y) };
     const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 
     markerInstanceRef.current = new window.kakao.maps.Marker({

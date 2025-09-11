@@ -12,15 +12,15 @@ export default function useKakaoMap(props: {
   location: { latitude: number; longitude: number }
   loaded: boolean
 }) {
-  const mapInstanceRef = useRef<KakaoMap | null>(null)
-  const overlayRef = useRef<KakaoCustomOverlay | null>(null)
-  const overlayRootRef = useRef<Root | null>(null)
-  const [address, setAddress] = useState<string>('위치를 찾는 중...')
-  const [place, setPlace] = useState<string>('장소를 찾는 중...')
+  const mapInstanceRef = useRef<KakaoMap | null>(null);
+  const overlayRef = useRef<KakaoCustomOverlay | null>(null);
+  const overlayRootRef = useRef<Root | null>(null);
+  const [address, setAddress] = useState<string>('위치를 찾는 중...');
+  const [place, setPlace] = useState<string>('장소를 찾는 중...');
   const [centerLocation, setCenterLocation] = useState<CenterLocationState>({
     latitude: 0,
     longitude: 0,
-  })
+  });
 
   useEffect(() => {
     if (!props.loaded || !props.location || !props.mapRef.current) { return; }

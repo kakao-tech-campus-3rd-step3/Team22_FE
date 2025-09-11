@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
-import { DAY } from '@/constants/day.ts'
+import { DAY, HOURS, MINUTES } from '@/constants/day.ts'
 
 export default function WalkTimeScheduler() {
   const { walkTimes, addWalkTime, removeWalkTime } = useMapSetupStore();
@@ -42,7 +42,7 @@ export default function WalkTimeScheduler() {
             onChange={(e) => setCurrentTime({ ...currentTime, hour: e.target.value })}
             className="bg-zinc-700 text-white px-3 py-1 rounded hover:bg-zinc-600"
           >
-            {Array.from({ length: 24 }, (_, i) => (
+            {HOURS.map((i) => (
               <option key={i} value={i.toString().padStart(2, '0')}>{i}시</option>
             ))}
           </select>
@@ -52,7 +52,7 @@ export default function WalkTimeScheduler() {
             onChange={(e) => setCurrentTime({ ...currentTime, minute: e.target.value })}
             className="bg-zinc-700 text-white px-3 py-1 rounded hover:bg-zinc-600"
           >
-            {Array.from({ length: 6 }, (_, i) => {
+            {MINUTES.map((i) => {
               const minute = i * 10;
               return (
                 <option key={i} value={minute.toString().padStart(2, '0')}>

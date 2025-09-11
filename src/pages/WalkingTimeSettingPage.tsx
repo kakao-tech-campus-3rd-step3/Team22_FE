@@ -7,7 +7,6 @@ export default function WalkingTimeSettingPage() {
   const navigate = useNavigate({ from: '/walk-time-setting' })
 
   const handleSetTime = () => {
-    console.log('세팅 완료 페이지')
     navigate({
       to: '/map-setup',
     })

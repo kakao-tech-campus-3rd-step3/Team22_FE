@@ -11,7 +11,6 @@ export default function MapSetupComplete() {
   const { mapContainerRef } = useKakaoStaticMap({ latitude, longitude, loaded })
 
   const handleSetTime = () => {
-    console.log('세팅 완료 페이지')
     navigate({ to: '/location-setting' })
   }
 

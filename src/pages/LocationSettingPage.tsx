@@ -18,7 +18,6 @@ export default function LocationSetting() {
 
   const handleSetLocation = () => {
     setLocation(address, place, centerLocation.latitude, centerLocation.longitude)
-    console.log(`위치 설정 완료! 장소: ${place}, 주소: ${address}`)
     navigate({
       to: '/walk-time-setting',
     })

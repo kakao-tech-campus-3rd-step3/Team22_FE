@@ -12,20 +12,19 @@ export default function useKakaoMap(props: {
   location: { latitude: number; longitude: number }
   loaded: boolean
 }) {
-  const mapInstanceRef = useRef<KakaoMap | null>(null)
-  const overlayRef = useRef<KakaoCustomOverlay | null>(null)
-  const overlayRootRef = useRef<Root | null>(null)
-  const [address, setAddress] = useState<string>('위치를 찾는 중...')
-  const [place, setPlace] = useState<string>('장소를 찾는 중...')
+  const mapInstanceRef = useRef<KakaoMap | null>(null);
+  const overlayRef = useRef<KakaoCustomOverlay | null>(null);
+  const overlayRootRef = useRef<Root | null>(null);
+  const [address, setAddress] = useState<string>('위치를 찾는 중...');
+  const [place, setPlace] = useState<string>('장소를 찾는 중...');
   const [centerLocation, setCenterLocation] = useState<CenterLocationState>({
     latitude: 0,
     longitude: 0,
-  })
+  });
 
   useEffect(() => {
-    if (!props.loaded || !props.location || !props.mapRef.current) {
-      return
-    }
+    if (!props.loaded || !props.location || !props.mapRef.current) { return; }
+    if (mapInstanceRef.current) return;
 
     const currentPosition = new window.kakao.maps.LatLng(
       props.location.latitude,
@@ -45,10 +44,10 @@ export default function useKakaoMap(props: {
       content: customOverlayContent,
       xAnchor: 0.5,
       yAnchor: 0.5,
-    })
-    overlayRef.current?.setMap(mapInstanceRef.current)
-    overlayRootRef.current = createRoot(customOverlayContent)
-    overlayRootRef.current?.render(<LocationDotIcon />)
+    });
+    overlayRef.current?.setMap(mapInstanceRef.current);
+    overlayRootRef.current = createRoot(customOverlayContent);
+    overlayRootRef.current?.render(<LocationDotIcon />);
   }, [props.mapRef, props.location, props.loaded])
 
   useEffect(() => {

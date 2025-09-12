@@ -1,33 +1,28 @@
 import { useState } from 'react';
 import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
+import { DAY, HOURS, MINUTES } from '@/constants/day.ts'
 
 export default function WalkTimeScheduler() {
-  const { walkTimes, setWalkTimes } = useMapSetupStore();
+  const { walkTimes, addWalkTime, removeWalkTime } = useMapSetupStore();
   const [currentTime, setCurrentTime] = useState({ day: '월', hour: '18', minute: '00' });
   const [duplicateMessage, setDuplicateMessage] = useState('');
 
   const handleAddTime = () => {
-    const isDuplicate = walkTimes.some(
-      (time) =>
-        time.day === currentTime.day &&
-        time.hour === currentTime.hour &&
-        time.minute === currentTime.minute
-    );
+    const wasAdded = addWalkTime(currentTime);
 
-    if (!isDuplicate) {
-      setWalkTimes([...walkTimes, { ...currentTime, id: Date.now() }]);
-      setDuplicateMessage('');
+    if (!wasAdded) {
+      setDuplicateMessage("이미 추가된 시간입니다.");
     } else {
-      setDuplicateMessage('이미 추가된 시간입니다.');
+      setDuplicateMessage('');
     }
   };
 
   const handleRemoveTime = (idToRemove: number) => {
-    setWalkTimes(walkTimes.filter(time => time.id !== idToRemove));
+    removeWalkTime(idToRemove);
   };
 
   return (
-    <div className="w-full flex justify-center my-6">
+    <div className="w-full flex justify-center mt-6 mb-2">
       <div className="w-[90%] max-w-lg h-50 bg-zinc-800 rounded-lg p-4 text-white shadow-lg max-h-60 overflow-auto no-scrollbar">
         <div className="mb-3 text-lg font-bold text-center">주로 산책하는 시간 고르기</div>
 
@@ -37,7 +32,7 @@ export default function WalkTimeScheduler() {
             onChange={(e) => setCurrentTime({ ...currentTime, day: e.target.value })}
             className="bg-zinc-700 text-white px-3 py-1 rounded hover:bg-zinc-600"
           >
-            {['월', '화', '수', '목', '금', '토', '일'].map(day => (
+            {DAY.map(day => (
               <option key={day} value={day}>{day}</option>
             ))}
           </select>
@@ -47,7 +42,7 @@ export default function WalkTimeScheduler() {
             onChange={(e) => setCurrentTime({ ...currentTime, hour: e.target.value })}
             className="bg-zinc-700 text-white px-3 py-1 rounded hover:bg-zinc-600"
           >
-            {Array.from({ length: 24 }, (_, i) => (
+            {HOURS.map((i) => (
               <option key={i} value={i.toString().padStart(2, '0')}>{i}시</option>
             ))}
           </select>
@@ -57,7 +52,7 @@ export default function WalkTimeScheduler() {
             onChange={(e) => setCurrentTime({ ...currentTime, minute: e.target.value })}
             className="bg-zinc-700 text-white px-3 py-1 rounded hover:bg-zinc-600"
           >
-            {Array.from({ length: 6 }, (_, i) => {
+            {MINUTES.map((i) => {
               const minute = i * 10;
               return (
                 <option key={i} value={minute.toString().padStart(2, '0')}>

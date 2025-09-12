@@ -1,34 +1,41 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-interface useOpenWeatherProps {
+export default function useOpenWeather(props: {
   location: {
     latitude: number;
     longitude: number;
   } | null;
-}
-
-export default function useOpenWeather({ location }: useOpenWeatherProps) {
+}) {
   const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!location) return;
+    if (!props.location) return;
+    const { latitude, longitude } = props.location;
 
     const fetchWeather = async () => {
+      setLoading(true);
+      setError(null);
+
       try {
         const url =
-          `https://api.openweathermap.org/data/2.5/forecast?lat=${location.latitude}&lon=${location.longitude}&appid=${import.meta.env.VITE_OPEN_WEATHER_API_KEY}&units=metric&lang=kr`
+          `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${import.meta.env.VITE_OPEN_WEATHER_API_KEY}&units=metric&lang=kr`
         const response = await axios.get(url);
         const data = response.data;
         setWeather(data);
       } catch (e) {
         setWeather(null);
+        setError("날씨 정보 불러오는 데 실패했습니다.");
         console.error("날씨 정보 fetching 실패: ", e);
+      } finally {
+        setLoading(false);
       }
     }
 
     fetchWeather();
-  }, [location]);
+  }, [props.location]);
 
-  return { weather };
+  return { weather, loading, error };
 }

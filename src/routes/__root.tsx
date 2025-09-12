@@ -1,19 +1,14 @@
-import { createRootRoute, Outlet } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-
-const RootComponent = () => {
-  return (
-    <div className="w-screen h-screen bg-gray-100 flex justify-center items-center">
-      {/* Root는 위치 기준점 역할을 하도록 relative */}
-      <div className="relative w-[390px] h-[844px] bg-black shadow-lg rounded-xl overflow-hidden">
-        <Outlet />
-      </div>
-
-      <TanStackRouterDevtools />
-    </div>
-  )
-}
+import { Outlet, createRootRoute } from '@tanstack/react-router'
 
 export const Route = createRootRoute({
-  component: RootComponent,
+  component: () => (
+    <>
+      <nav>
+        <a href="/add-new-pet">펫정보테스트</a> | <a href="/location-setting">지도테스트</a> |
+        <a href="/walk-time-setting">시간 설정</a> | <a href="/map-setup">설정 완료</a>
+      </nav>
+      <hr />
+      <Outlet />
+    </>
+  ),
 })

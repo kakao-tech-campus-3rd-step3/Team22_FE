@@ -20,10 +20,7 @@ export default function MapSetupComplete() {
         <div className=" relative h-full w-full">
           <div className="flex-1 overflow-y-auto pb-20 px-4">
             <div className="flex justify-center mb-6">
-              <div
-                ref={mapContainerRef}
-                className="w-[300px] h-[300px] rounded-xl"
-              />
+              <div ref={mapContainerRef} className="w-[300px] h-[300px] rounded-xl" />
             </div>
             <div className="mb-6 p-4 bg-zinc-800 rounded-lg">
               <h2 className="text-xl mb-2 font-bold">{place}</h2>
@@ -43,10 +40,7 @@ export default function MapSetupComplete() {
             </div>
           </div>
           <div className="absolute bottom-0 left-0 w-full z-10 ">
-            <ButtonBar
-              buttonText="주 산책 시간 설정하기"
-              onButtonClick={handleComplete}
-            >
+            <ButtonBar buttonText="주 산책 시간 설정하기" onButtonClick={handleComplete}>
               <div className="text-white my-1.5">해당 시간에 알림 경로 추천 알림 받기</div>
             </ButtonBar>
           </div>

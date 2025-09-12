@@ -1,25 +1,25 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
 import { DAY, HOURS, MINUTES } from '@/constants/day.ts'
 
 export default function WalkTimeScheduler() {
-  const { walkTimes, addWalkTime, removeWalkTime } = useMapSetupStore();
-  const [currentTime, setCurrentTime] = useState({ day: '월', hour: '18', minute: '00' });
-  const [duplicateMessage, setDuplicateMessage] = useState('');
+  const { walkTimes, addWalkTime, removeWalkTime } = useMapSetupStore()
+  const [currentTime, setCurrentTime] = useState({ day: '월', hour: '18', minute: '00' })
+  const [duplicateMessage, setDuplicateMessage] = useState('')
 
   const handleAddTime = () => {
-    const wasAdded = addWalkTime(currentTime);
+    const wasAdded = addWalkTime(currentTime)
 
     if (!wasAdded) {
-      setDuplicateMessage("이미 추가된 시간입니다.");
+      setDuplicateMessage('이미 추가된 시간입니다.')
     } else {
-      setDuplicateMessage('');
+      setDuplicateMessage('')
     }
-  };
+  }
 
   const handleRemoveTime = (idToRemove: number) => {
-    removeWalkTime(idToRemove);
-  };
+    removeWalkTime(idToRemove)
+  }
 
   return (
     <div className="w-full flex justify-center mt-6 mb-2">
@@ -32,8 +32,10 @@ export default function WalkTimeScheduler() {
             onChange={(e) => setCurrentTime({ ...currentTime, day: e.target.value })}
             className="bg-zinc-700 text-white px-3 py-1 rounded hover:bg-zinc-600"
           >
-            {DAY.map(day => (
-              <option key={day} value={day}>{day}</option>
+            {DAY.map((day) => (
+              <option key={day} value={day}>
+                {day}
+              </option>
             ))}
           </select>
 
@@ -43,7 +45,9 @@ export default function WalkTimeScheduler() {
             className="bg-zinc-700 text-white px-3 py-1 rounded hover:bg-zinc-600"
           >
             {HOURS.map((i) => (
-              <option key={i} value={i.toString().padStart(2, '0')}>{i}시</option>
+              <option key={i} value={i.toString().padStart(2, '0')}>
+                {i}시
+              </option>
             ))}
           </select>
 
@@ -53,12 +57,12 @@ export default function WalkTimeScheduler() {
             className="bg-zinc-700 text-white px-3 py-1 rounded hover:bg-zinc-600"
           >
             {MINUTES.map((i) => {
-              const minute = i * 10;
+              const minute = i
               return (
                 <option key={i} value={minute.toString().padStart(2, '0')}>
                   {minute}분
                 </option>
-              );
+              )
             })}
           </select>
         </div>
@@ -96,5 +100,5 @@ export default function WalkTimeScheduler() {
         </div>
       </div>
     </div>
-  );
+  )
 }

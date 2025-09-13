@@ -42,22 +42,18 @@ export default function LocationSetting() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-neutral-800 font-sans">
-      <div className="w-[390px] h-[844px] bg-[#121212] text-white shadow-2xl rounded-3xl overflow-y-auto p-6 space-y-6">
-        <div className="relative w-full h-full">
-          <MapSetting mapRef={mapRef} />
-          <img
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full z-10 pointer-events-none w-[50px] h-[40px]"
-            src={startMarker}
-            alt='시작 마커'
-          />
-          <div className="absolute bottom-0 left-0 w-full z-10 ">
-            <ButtonBar buttonText="주 산책 시작 위치설정하기" onButtonClick={handleSetLocation}>
-              <div className="text-white my-1.5">장소: {place}</div>
-              <div className="text-white my-1.5">위치: {address}</div>
-            </ButtonBar>
-          </div>
-        </div>
+    <div className="relative w-full h-full">
+      <MapSetting mapRef={mapRef} />
+      <img
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full z-10 pointer-events-none w-[50px] h-[40px]"
+        src={startMarker}
+        alt="시작 마커"
+      />
+      <div className="absolute bottom-0 left-0 w-full z-10 ">
+        <ButtonBar buttonText="주 산책 시작 위치설정하기" onButtonClick={handleSetLocation}>
+          <div className="text-white my-1.5">장소: {place}</div>
+          <div className="text-white my-1.5">위치: {address}</div>
+        </ButtonBar>
       </div>
     </div>
   )

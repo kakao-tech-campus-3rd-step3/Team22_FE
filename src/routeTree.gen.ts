@@ -13,6 +13,7 @@ import { Route as WalkTimeSettingRouteImport } from './routes/walk-time-setting'
 import { Route as MapSetupRouteImport } from './routes/map-setup'
 import { Route as LocationSettingRouteImport } from './routes/location-setting'
 import { Route as AddNewPetRouteImport } from './routes/add-new-pet'
+import { Route as IndexRouteImport } from './routes/index'
 
 const WalkTimeSettingRoute = WalkTimeSettingRouteImport.update({
   id: '/walk-time-setting',
@@ -34,14 +35,21 @@ const AddNewPetRoute = AddNewPetRouteImport.update({
   path: '/add-new-pet',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
   '/add-new-pet': typeof AddNewPetRoute
   '/location-setting': typeof LocationSettingRoute
   '/map-setup': typeof MapSetupRoute
   '/walk-time-setting': typeof WalkTimeSettingRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof IndexRoute
   '/add-new-pet': typeof AddNewPetRoute
   '/location-setting': typeof LocationSettingRoute
   '/map-setup': typeof MapSetupRoute
@@ -49,6 +57,7 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
   '/add-new-pet': typeof AddNewPetRoute
   '/location-setting': typeof LocationSettingRoute
   '/map-setup': typeof MapSetupRoute
@@ -57,14 +66,21 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
     | '/add-new-pet'
     | '/location-setting'
     | '/map-setup'
     | '/walk-time-setting'
   fileRoutesByTo: FileRoutesByTo
-  to: '/add-new-pet' | '/location-setting' | '/map-setup' | '/walk-time-setting'
+  to:
+    | '/'
+    | '/add-new-pet'
+    | '/location-setting'
+    | '/map-setup'
+    | '/walk-time-setting'
   id:
     | '__root__'
+    | '/'
     | '/add-new-pet'
     | '/location-setting'
     | '/map-setup'
@@ -72,6 +88,7 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   AddNewPetRoute: typeof AddNewPetRoute
   LocationSettingRoute: typeof LocationSettingRoute
   MapSetupRoute: typeof MapSetupRoute
@@ -108,10 +125,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AddNewPetRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   AddNewPetRoute: AddNewPetRoute,
   LocationSettingRoute: LocationSettingRoute,
   MapSetupRoute: MapSetupRoute,

@@ -1,4 +1,4 @@
-import Navbar from '@/components/common/navBar'
+import Navbar from '@/components/common/NavBar'
 import { Outlet, createRootRoute } from '@tanstack/react-router'
 
 export const Route = createRootRoute({

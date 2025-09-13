@@ -78,7 +78,7 @@ function DefaultCharacterSection(props: {
   ]
 
   return (
-    <div className="bg-neutral-900 p-4 rounded-lg">
+    <div className="bg-neutral-900 p-4 rounded-lg flex flex-col gap-4">
       <InfoRow label={UI_TEXT.BREED_TYPE}>
         <TextModalButton
           selectedStatus={props.selectedBreed}
@@ -131,7 +131,7 @@ function DefaultCharacterSection(props: {
         />
       </InfoRow>
 
-      <InfoRow label={UI_TEXT.VACCINATED} className="border-none">
+      <InfoRow label={UI_TEXT.VACCINATED} className="">
         <OptionButtonGroup
           options={[
             { value: BOOLEAN_CHOICE.YES, label: UI_TEXT.YES },

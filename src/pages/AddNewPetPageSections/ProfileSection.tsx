@@ -10,7 +10,7 @@ function ProfileSection() {
           <IconPlus size={12} className="" />
         </button>
       </div>
-      <div className="flex items-center gap-2 ">
+      <div className="flex items-center">
         <input
           type="text"
           placeholder="멍멍이"

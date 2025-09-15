@@ -11,7 +11,7 @@ export default function MapSetupComplete() {
   const { mapContainerRef } = useKakaoStaticMap({ latitude, longitude, loaded })
 
   const handleComplete = () => {
-    navigate({ to: '/location-setting' })
+    navigate({ to: '/route-draw' })
   }
 
   return (

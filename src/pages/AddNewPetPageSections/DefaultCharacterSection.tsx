@@ -2,7 +2,6 @@ import { GENDER, BOOLEAN_CHOICE, UI_TEXT } from '@/constants/constants'
 import InfoRow from '@/components/common/InfoRow'
 import TextButton from '@/components/common/TextButton'
 import TextModalButton from '@/components/common/TextModalButton'
-import type { Dispatch, SetStateAction } from 'react'
 
 function OptionButtonGroup<T extends string>(props: {
   options: { value: T; label: string }[]
@@ -25,32 +24,29 @@ function OptionButtonGroup<T extends string>(props: {
   )
 }
 
-type DateField = {
-  key: 'birthYear' | 'birthMonth' | 'birthDay'
-  placeholder: string
-  maxLength: number
-  value: string
-  setter: Dispatch<SetStateAction<string>>
-  pattern: RegExp
-}
-
 function DefaultCharacterSection(props: {
   selectedBreed: string
   setIsBreedModalOpen: (isOpen: boolean) => void
-  gender: string
-  setGender: Dispatch<SetStateAction<string>>
-  neutralize: string
-  setNeutralize: Dispatch<SetStateAction<string>>
-  vaccinated: string
-  setVaccinated: Dispatch<SetStateAction<string>>
+
+  gender: 'male' | 'female'
+  setGender: (value: 'male' | 'female') => void
+
+  neutralize: 'yes' | 'no'
+  setNeutralize: (value: 'yes' | 'no') => void
+
+  vaccinated: 'yes' | 'no'
+  setVaccinated: (value: 'yes' | 'no') => void
+
   birthYear: string
-  setBirthYear: Dispatch<SetStateAction<string>>
+  setBirthYear: (value: string) => void
+
   birthMonth: string
-  setBirthMonth: Dispatch<SetStateAction<string>>
+  setBirthMonth: (value: string) => void
+
   birthDay: string
-  setBirthDay: Dispatch<SetStateAction<string>>
+  setBirthDay: (value: string) => void
 }) {
-  const dateFields: DateField[] = [
+  const dateFields = [
     {
       key: 'birthYear',
       placeholder: '년도 (4자리)',
@@ -131,7 +127,7 @@ function DefaultCharacterSection(props: {
         />
       </InfoRow>
 
-      <InfoRow label={UI_TEXT.VACCINATED} className="">
+      <InfoRow label={UI_TEXT.VACCINATED}>
         <OptionButtonGroup
           options={[
             { value: BOOLEAN_CHOICE.YES, label: UI_TEXT.YES },

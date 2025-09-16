@@ -5,7 +5,7 @@ import DetailSetSection from './AddNewPetPageSections/DetailCharacterSection'
 import SelectionModal from '@/components/common/SelectionModal'
 import { petProfileSchema } from '@/types/petProfile'
 import { UI_TEXT, BREED_OPTIONS_DATA, DISEASE_OPTIONS_DATA } from '@/constants/constants.ts'
-import { usePetProfileState, type Breed } from '@/hooks/usePetProfileState' // 경로 맞게 수정
+import { usePetProfileState, type Breed } from '@/hooks/usePetProfileState'
 
 function AddNewPetPage() {
   const [isFormValid, setIsFormValid] = useState(false)
@@ -14,7 +14,6 @@ function AddNewPetPage() {
   const [isBreedModalOpen, setIsBreedModalOpen] = useState(false)
   const [isDiseaseModalOpen, setIsDiseaseModalOpen] = useState(false)
 
-  // 생일 포맷 함수
   const getFormattedBirthdate = (year: string, month: string, day: string): string => {
     const y = year.trim()
     const m = month.trim()
@@ -27,7 +26,6 @@ function AddNewPetPage() {
     return ''
   }
 
-  // 질병 토글 핸들러
   const handleDiseaseToggle = (disease: string) => {
     const currentDiseases = petProfile.selectedDiseases
     const newDiseases = currentDiseases.includes(disease)
@@ -36,7 +34,6 @@ function AddNewPetPage() {
     updatePetProfile('selectedDiseases', newDiseases)
   }
 
-  // 저장 버튼 클릭 시
   const handleSave = () => {
     const birthdate = getFormattedBirthdate(
       petProfile.birthYear,
@@ -57,7 +54,6 @@ function AddNewPetPage() {
     }
   }
 
-  // 유효성 검사 useEffect
   useEffect(() => {
     const birthdate = getFormattedBirthdate(
       petProfile.birthYear,

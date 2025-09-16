@@ -1,30 +1,26 @@
+import CardBox from '@/components/common/CardBox'
 import InfoRow from '@/components/common/InfoRow'
 import WeatherTable from '@/components/common/WeatherTable'
+import useAuthStore from '@/stores/authStore'
+import { useRouter } from '@tanstack/react-router'
 
 export default function MainPage() {
+  const username = useAuthStore((state) => state.username)
+  const router = useRouter()
+
+  const handleCardClick = () => {
+    router.navigate({ to: `/map-setup` })
+  }
+
   return (
-    <>
-      <div className="w-full flex justify-center">
-        <div className="w-[90%]  h-fit">
-          <InfoRow label="">
-            <div className="flex flex-col bg-neutral-800 rounded-lg shadow-xl p-6 w-full">
-              <span>meem3443</span>
-              <div className="flex"></div>
-            </div>
-          </InfoRow>
+    <div className="flex flex-col gap-10">
+      <InfoRow label="">
+        <div className="flex flex-col bg-neutral-800 rounded-lg shadow-xl p-6 w-full">
+          <span>{username}</span>
         </div>
-      </div>
+      </InfoRow>
       <WeatherTable />
-      <div className=" bg-white rounded-lg space-y-4 w-[90%]">
-        <img
-          className="w-full h-3/4 rounded-lg"
-          src={'https://cdn.travie.com/news/photo/first/201611/img_19431_1.jpg'}
-        />
-        <div className="flex flex-col">
-          <span className=" text-black">주경로 보기</span>
-          <span className=" text-black">주경로 보기</span>
-        </div>
-      </div>
-    </>
+      <CardBox onClick={handleCardClick} />
+    </div>
   )
 }

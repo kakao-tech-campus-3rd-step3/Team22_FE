@@ -56,10 +56,9 @@ export default function WalkTimeScheduler() {
             onChange={(e) => setCurrentTime({ ...currentTime, minute: e.target.value })}
             className="bg-zinc-700 text-white px-3 py-1 rounded hover:bg-zinc-600"
           >
-            {MINUTES.map((i) => {
-              const minute = i
+            {MINUTES.map((minute) => {
               return (
-                <option key={i} value={minute.toString().padStart(2, '0')}>
+                <option key={minute} value={minute.toString().padStart(2, '0')}>
                   {minute}분
                 </option>
               )

@@ -7,7 +7,7 @@ export default function Navbar() {
   const iconSize = 24
 
   return (
-    <nav className="w-full h-20 bg-neutral-900 flex justify-around items-center rounded-b-3xl">
+    <nav className="w-full h-full bg-neutral-900 flex justify-around items-center rounded-b-3xl p-3">
       <Link
         to="/"
         className="flex flex-col items-center transition hover:text-cyan-400"
@@ -31,7 +31,7 @@ export default function Navbar() {
       </Link>
 
       <Link
-        to="/"
+        to="/start-walk"
         className="flex flex-col items-center transition hover:text-cyan-400"
         activeProps={{
           className: 'text-cyan-400',
@@ -42,7 +42,7 @@ export default function Navbar() {
       </Link>
 
       <Link
-        to="/"
+        to="/setting"
         className="flex flex-col items-center transition hover:text-cyan-400"
         activeProps={{
           className: 'text-cyan-400',

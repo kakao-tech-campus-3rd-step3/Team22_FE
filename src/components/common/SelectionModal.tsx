@@ -1,3 +1,5 @@
+import { getIsSelected } from '@/utils/selection'
+
 type Option = {
   readonly value: string
   readonly label: string
@@ -25,9 +27,7 @@ function SelectionModal(props: {
 
         <div className="space-y-3">
           {props.options.map((option) => {
-            const isSelected = Array.isArray(props.selectedValue)
-              ? props.selectedValue.includes(option.value)
-              : props.selectedValue === option.value
+            const isSelected = getIsSelected(props.selectedValue, option.value)
 
             return (
               <button

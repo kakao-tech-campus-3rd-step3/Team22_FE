@@ -1,12 +1,13 @@
-import { useState } from 'react'
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 export type Breed = 'Maltese' | 'Golden Retriever' | 'Poodle'
 
 export interface PetProfileFormState {
   selectedBreed: Breed
   gender: 'male' | 'female'
-  neutralize: 'yes' | 'no'
-  vaccinated: 'yes' | 'no'
+  neutralize: true | false
+  vaccinated: true | false
   birthYear: string
   birthMonth: string
   birthDay: string
@@ -21,8 +22,8 @@ export interface PetProfileFormState {
 const initialPetProfileState: PetProfileFormState = {
   selectedBreed: 'Maltese',
   gender: 'male',
-  neutralize: 'no',
-  vaccinated: 'no',
+  neutralize: false,
+  vaccinated: false,
   birthYear: '',
   birthMonth: '',
   birthDay: '',
@@ -34,15 +35,29 @@ const initialPetProfileState: PetProfileFormState = {
   weight: '20',
 }
 
-export function usePetProfileState() {
-  const [petProfile, setPetProfile] = useState<PetProfileFormState>(initialPetProfileState)
-
-  const updatePetProfile = <K extends keyof PetProfileFormState>(
+type PetProfileState = {
+  petProfile: PetProfileFormState
+  updatePetProfile: <K extends keyof PetProfileFormState>(
     key: K,
     value: PetProfileFormState[K],
-  ) => {
-    setPetProfile((prev) => ({ ...prev, [key]: value }))
-  }
-
-  return { petProfile, updatePetProfile }
+  ) => void
 }
+
+export const usePetProfileState = create<PetProfileState>()(
+  persist(
+    (set) => ({
+      petProfile: initialPetProfileState,
+      updatePetProfile: (key, value) =>
+        set((state) => ({
+          petProfile: {
+            ...state.petProfile,
+            [key]: value,
+          },
+        })),
+    }),
+    {
+      name: 'pet-profile-storage', // localStorage key
+      // optionally you can add serialize/de-serialize if needed
+    },
+  ),
+)

@@ -5,7 +5,7 @@ import DetailSetSection from './AddNewPetPageSections/DetailCharacterSection'
 import SelectionModal from '@/components/common/SelectionModal'
 import { petProfileSchema } from '@/types/petProfile'
 import { UI_TEXT, BREED_OPTIONS_DATA, DISEASE_OPTIONS_DATA } from '@/constants/constants.ts'
-import { usePetProfileState, type Breed } from '@/hooks/usePetProfileState' // 경로 맞게 수정
+import { usePetProfileState, type Breed } from '@/hooks/usePetProfileState'
 
 function AddNewPetPage() {
   const [isFormValid, setIsFormValid] = useState(false)
@@ -14,7 +14,13 @@ function AddNewPetPage() {
   const [isBreedModalOpen, setIsBreedModalOpen] = useState(false)
   const [isDiseaseModalOpen, setIsDiseaseModalOpen] = useState(false)
 
-  // 생일 포맷 함수
+  const isExistingProfile =
+    petProfile.birthYear.trim() !== '' ||
+    petProfile.birthMonth.trim() !== '' ||
+    petProfile.birthDay.trim() !== '' ||
+    petProfile.selectedDiseases.length > 0 ||
+    petProfile.weight.trim() !== ''
+
   const getFormattedBirthdate = (year: string, month: string, day: string): string => {
     const y = year.trim()
     const m = month.trim()
@@ -27,7 +33,6 @@ function AddNewPetPage() {
     return ''
   }
 
-  // 질병 토글 핸들러
   const handleDiseaseToggle = (disease: string) => {
     const currentDiseases = petProfile.selectedDiseases
     const newDiseases = currentDiseases.includes(disease)
@@ -36,7 +41,6 @@ function AddNewPetPage() {
     updatePetProfile('selectedDiseases', newDiseases)
   }
 
-  // 저장 버튼 클릭 시
   const handleSave = () => {
     const birthdate = getFormattedBirthdate(
       petProfile.birthYear,
@@ -57,7 +61,6 @@ function AddNewPetPage() {
     }
   }
 
-  // 유효성 검사 useEffect
   useEffect(() => {
     const birthdate = getFormattedBirthdate(
       petProfile.birthYear,
@@ -76,7 +79,9 @@ function AddNewPetPage() {
 
   return (
     <>
-      <h1 className="text-xl font-bold text-center">{UI_TEXT.PAGE_TITLE}</h1>
+      <h1 className="text-xl font-bold text-center">
+        {isExistingProfile ? '반려동물 정보 수정' : UI_TEXT.PAGE_TITLE}
+      </h1>
 
       <SelectionModal
         isOpen={isBreedModalOpen}
@@ -102,9 +107,9 @@ function AddNewPetPage() {
         gender={petProfile.gender}
         setGender={(value: 'male' | 'female') => updatePetProfile('gender', value)}
         neutralize={petProfile.neutralize}
-        setNeutralize={(value: 'yes' | 'no') => updatePetProfile('neutralize', value)}
+        setNeutralize={(value: true | false) => updatePetProfile('neutralize', value)}
         vaccinated={petProfile.vaccinated}
-        setVaccinated={(value: 'yes' | 'no') => updatePetProfile('vaccinated', value)}
+        setVaccinated={(value: true | false) => updatePetProfile('vaccinated', value)}
         birthYear={petProfile.birthYear}
         setBirthYear={(value: string) => updatePetProfile('birthYear', value)}
         birthMonth={petProfile.birthMonth}

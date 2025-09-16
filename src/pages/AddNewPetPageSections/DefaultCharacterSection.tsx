@@ -3,7 +3,7 @@ import InfoRow from '@/components/common/InfoRow'
 import TextButton from '@/components/common/TextButton'
 import TextModalButton from '@/components/common/TextModalButton'
 
-function OptionButtonGroup<T extends string>(props: {
+function OptionButtonGroup<T extends string | boolean>(props: {
   options: { value: T; label: string }[]
   selectedValue: T
   onSelect: (value: T) => void
@@ -13,7 +13,7 @@ function OptionButtonGroup<T extends string>(props: {
     <>
       {props.options.map(({ value, label }) => (
         <TextButton
-          key={value}
+          key={String(value)}
           onClick={() => props.onSelect(value)}
           isSelected={props.selectedValue === value}
         >
@@ -31,11 +31,11 @@ function DefaultCharacterSection(props: {
   gender: 'male' | 'female'
   setGender: (value: 'male' | 'female') => void
 
-  neutralize: 'yes' | 'no'
-  setNeutralize: (value: 'yes' | 'no') => void
+  neutralize: boolean
+  setNeutralize: (value: true | false) => void
 
-  vaccinated: 'yes' | 'no'
-  setVaccinated: (value: 'yes' | 'no') => void
+  vaccinated: boolean
+  setVaccinated: (value: true | false) => void
 
   birthYear: string
   setBirthYear: (value: string) => void
@@ -117,7 +117,7 @@ function DefaultCharacterSection(props: {
       </InfoRow>
 
       <InfoRow label={UI_TEXT.NETURALIZE}>
-        <OptionButtonGroup
+        <OptionButtonGroup<boolean>
           options={[
             { value: BOOLEAN_CHOICE.YES, label: UI_TEXT.YES },
             { value: BOOLEAN_CHOICE.NO, label: UI_TEXT.NO },
@@ -128,7 +128,7 @@ function DefaultCharacterSection(props: {
       </InfoRow>
 
       <InfoRow label={UI_TEXT.VACCINATED}>
-        <OptionButtonGroup
+        <OptionButtonGroup<boolean>
           options={[
             { value: BOOLEAN_CHOICE.YES, label: UI_TEXT.YES },
             { value: BOOLEAN_CHOICE.NO, label: UI_TEXT.NO },

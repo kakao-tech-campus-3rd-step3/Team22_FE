@@ -5,6 +5,7 @@ import useLocation from '@/hooks/useLocation.tsx'
 import { useEffect, useState } from 'react'
 import useKakaoRouteMap from '@/hooks/useKakaoRouteMap.ts'
 import WalkingTimerBar from '@/components/map/WalkingTimerBar.tsx'
+import useDistance from '@/hooks/useDistance.ts'
 
 export default function RouteDrawPage() {
   const loaded = useKakaoMapLoader()
@@ -12,7 +13,9 @@ export default function RouteDrawPage() {
   const { latitude, longitude } = useMapSetupStore()
   const [route, setRoute] = useState<{ lat: number; lng: number }[]>([])
   const { mapContainerRef } = useKakaoRouteMap({ loaded, latitude, longitude, route })
+  const totalDistance = useDistance({ route });
 
+  console.log(totalDistance)
   console.log(location);
 
   useEffect(() => {
@@ -34,7 +37,7 @@ export default function RouteDrawPage() {
         <div className="relative w-full h-full">
           <MapSetting mapRef={mapContainerRef} />
           <div className="absolute bottom-0 left-0 w-full z-10 ">
-            <WalkingTimerBar />
+            <WalkingTimerBar totalDistance={totalDistance} />
           </div>
         </div>
       </div>

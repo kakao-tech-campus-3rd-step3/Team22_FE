@@ -4,7 +4,7 @@ import { PiPlayFill } from "react-icons/pi";
 import { useState } from 'react'
 import UpTimer from '@/components/map/UpTimer.tsx'
 
-export default function WalkingTimerBar() {
+export default function WalkingTimerBar(props: { totalDistance: number }) {
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [isActive, setIsActive] = useState(false);
@@ -18,15 +18,13 @@ export default function WalkingTimerBar() {
       >
         <div className="flex justify-around items-center text-center">
           <div className="flex flex-col items-center">
-            <span>0.0</span>
+            <span>{(props.totalDistance / 1000).toFixed(2)}</span>
             <span>거리(km)</span>
           </div>
           <div className="h-10 w-px bg-zinc-700" />
           <UpTimer seconds={seconds} setSeconds={setSeconds} minutes={minutes} setMinutes={setMinutes} isActive={isActive} />
         </div>
-
         <div className="flex flex-row justify-around items-center text-center py-8">
-
           {isActive ? (
             <button
               className="bg-neutral-800 rounded-full border border-indigo-600 p-4 cursor-pointer"

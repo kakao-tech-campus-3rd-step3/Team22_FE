@@ -6,12 +6,12 @@ export default function useKakaoRouteMap(props: {
   latitude: number | null
   longitude: number | null
   loaded: boolean
-  route: [{ lat: number | null, lng: number | null }]
+  route: { lat: number | null, lng: number | null }[]
 }) {
   const mapContainerRef  = useRef<HTMLDivElement | null>(null);
   const mapInstanceRef = useRef<KakaoMap | null>(null);
   const markerInstanceRef = useRef<KakaoMarker | null>(null);
-  const polylineRef = useRef(null);
+  const polylineRef = useRef<KakaoPolyline | null>(null);
 
   useEffect(() => {
     if (!props.loaded || props.latitude == null || props.longitude == null || !mapContainerRef.current) return;
@@ -61,9 +61,9 @@ export default function useKakaoRouteMap(props: {
         strokeOpacity: 0.7,
         strokeStyle: 'solid'
       });
-      polylineRef.current.setMap(mapInstanceRef.current);
+      polylineRef.current?.setMap(mapInstanceRef.current);
     } else {
-      polylineRef.current.setPath(linePath);
+      polylineRef.current?.setPath(linePath);
     }
   }, [props.route]);
 

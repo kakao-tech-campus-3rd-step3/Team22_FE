@@ -1,19 +1,18 @@
 import useKakaoMapLoader from '@/hooks/useKakaoMapLoader.ts'
 import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
 import MapSetting from '@/components/map/MapSetting.tsx'
-import useKakaoStaticMap from '@/hooks/useKakaoStaticMap.ts'
 import useLocation from '@/hooks/useLocation.tsx'
 import { useEffect, useState } from 'react'
 import useKakaoRouteMap from '@/hooks/useKakaoRouteMap.ts'
 
 export default function RouteDrawPage() {
-  const loaded = useKakaoMapLoader()
+  const loaded = useKakaoMapLoader();
   const { location: currentLocation, status } = useLocation();
-  const { walkTimes, address, place, latitude, longitude } = useMapSetupStore()
+  const { latitude, longitude } = useMapSetupStore();
   const [route, setRoute] = useState<{ lat: number; lng: number }[]>([]);
   const { mapContainerRef } = useKakaoRouteMap({ loaded, latitude, longitude, route });
 
-  console.log(location)
+  console.log(location);
 
   useEffect(() => {
     if (status === "success") {

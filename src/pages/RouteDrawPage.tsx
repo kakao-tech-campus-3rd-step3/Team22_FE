@@ -9,23 +9,26 @@ import useDistance from '@/hooks/useDistance.ts'
 
 export default function RouteDrawPage() {
   const loaded = useKakaoMapLoader()
+  const [isActive, setIsActive] = useState(false);
   const { location: currentLocation, status } = useLocation()
   const { latitude, longitude } = useMapSetupStore()
   const [route, setRoute] = useState<{ lat: number; lng: number }[]>([])
   const { mapContainerRef } = useKakaoRouteMap({ loaded, latitude, longitude, route })
-  const totalDistance = useDistance({ route });
+  const { totalDistance, setTotalDistance } = useDistance({ route });
 
   console.log(totalDistance)
   console.log(location);
 
   useEffect(() => {
+    if (!isActive) return;
+
     if (status === 'success') {
       setRoute((prev) => [
         ...prev,
         { lat: currentLocation.latitude, lng: currentLocation.longitude },
       ])
     }
-  }, [currentLocation.latitude, currentLocation.longitude, status])
+  }, [currentLocation.latitude, currentLocation.longitude, status, isActive])
 
   console.log(route);
 
@@ -37,7 +40,7 @@ export default function RouteDrawPage() {
         <div className="relative w-full h-full">
           <MapSetting mapRef={mapContainerRef} />
           <div className="absolute bottom-0 left-0 w-full z-10 ">
-            <WalkingTimerBar totalDistance={totalDistance} />
+            <WalkingTimerBar totalDistance={totalDistance} setTotalDistance={setTotalDistance} isActive={isActive} setIsActive={setIsActive} route={route} setRoute={setRoute} />
           </div>
         </div>
       </div>

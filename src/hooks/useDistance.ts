@@ -13,5 +13,5 @@ export default function useDistance(props: {
     setTotalDistance(getPathLength(validRoute));
   }, [props.route]);
 
-  return totalDistance;
+  return { totalDistance, setTotalDistance };
 }

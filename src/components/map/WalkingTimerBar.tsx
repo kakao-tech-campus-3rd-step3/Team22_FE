@@ -1,7 +1,14 @@
 import { GrStopFill } from 'react-icons/gr'
 import { IoPause } from 'react-icons/io5'
+import { PiPlayFill } from "react-icons/pi";
+import { useState } from 'react'
+import UpTimer from '@/components/map/UpTimer.tsx'
 
 export default function WalkingTimerBar() {
+  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [isActive, setIsActive] = useState(false);
+
   return (
     <div className="w-full">
       <div
@@ -15,17 +22,30 @@ export default function WalkingTimerBar() {
             <span>거리(km)</span>
           </div>
           <div className="h-10 w-px bg-zinc-700" />
-          <div className="flex flex-col items-center">
-            <span>00:00</span>
-            <span>시간(분)</span>
-          </div>
+          <UpTimer seconds={seconds} setSeconds={setSeconds} minutes={minutes} setMinutes={setMinutes} isActive={isActive} />
         </div>
 
         <div className="flex flex-row justify-around items-center text-center py-8">
-          <button className="bg-neutral-800 rounded-full border border-indigo-600 p-4 cursor-pointer">
-            <IoPause className="w-8 h-8" />
-          </button>
-          <button className="bg-neutral-800 rounded-full border border-indigo-600 p-4 cursor-pointer">
+
+          {isActive ? (
+            <button
+              className="bg-neutral-800 rounded-full border border-indigo-600 p-4 cursor-pointer"
+              onClick={() => setIsActive(false)}
+            >
+              <PiPlayFill className="w-8 h-8" />
+            </button>) : (
+            <button
+              className="bg-neutral-800 rounded-full border border-indigo-600 p-4 cursor-pointer"
+              onClick={() => setIsActive(true)}
+            >
+              <IoPause className="w-8 h-8" />
+            </button>
+          )}
+
+          <button
+            className="bg-neutral-800 rounded-full border border-indigo-600 p-4 cursor-pointer"
+            onClick={() => { setSeconds(0); setMinutes(0); setIsActive(false) }}
+          >
             <GrStopFill className="w-8 h-8" />
           </button>
         </div>

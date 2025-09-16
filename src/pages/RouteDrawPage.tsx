@@ -13,7 +13,7 @@ export default function RouteDrawPage() {
   const [route, setRoute] = useState<{ lat: number; lng: number }[]>([])
   const { mapContainerRef } = useKakaoRouteMap({ loaded, latitude, longitude, route })
 
-  console.log(location)
+  console.log(location);
 
   useEffect(() => {
     if (status === 'success') {
@@ -24,7 +24,7 @@ export default function RouteDrawPage() {
     }
   }, [currentLocation.latitude, currentLocation.longitude, status])
 
-  console.log(route)
+  console.log(route);
 
   if (!loaded) return <div>지도 불러오는 중...</div>
 

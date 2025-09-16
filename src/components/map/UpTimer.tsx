@@ -19,7 +19,7 @@ export default function UpTimer(props: {
     if (isActive) {
       intervalRef.current = window.setInterval(() => {
         setSeconds((prev) => prev + 1);
-      }, 200);
+      }, 1000);
     }
 
     return () => {

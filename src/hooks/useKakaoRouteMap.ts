@@ -2,14 +2,16 @@ import { useEffect, useRef } from 'react'
 import startMarker from '@/assets/icons/StartMarker.png'
 import { MARKER_IMAGE_HEIGHT, MARKER_IMAGE_WIDTH, MARKER_IMAGE_X, MARKER_IMAGE_Y } from '@/constants/marker.ts'
 
-export default function useKakaoStaticMap(props: {
+export default function useKakaoRouteMap(props: {
   latitude: number | null
   longitude: number | null
   loaded: boolean
+  route: [{ lat: number | null, lng: number | null }]
 }) {
   const mapContainerRef  = useRef<HTMLDivElement | null>(null);
   const mapInstanceRef = useRef<KakaoMap | null>(null);
   const markerInstanceRef = useRef<KakaoMarker | null>(null);
+  const polylineRef = useRef(null);
 
   useEffect(() => {
     if (!props.loaded || props.latitude == null || props.longitude == null || !mapContainerRef.current) return;
@@ -45,6 +47,25 @@ export default function useKakaoStaticMap(props: {
     mapInstanceRef.current?.panTo(newPosition);
     markerInstanceRef.current?.setPosition(newPosition);
   }, [props.latitude, props.longitude]);
+
+  useEffect(() => {
+    if (!mapInstanceRef.current || props.route.length === 0) return;
+
+    const linePath = props.route.map((p) => new window.kakao.maps.LatLng(p.lat!, p.lng!));
+
+    if (!polylineRef.current) {
+      polylineRef.current = new window.kakao.maps.Polyline({
+        path: linePath,
+        strokeWeight: 5,
+        strokeColor: '#FFAE00',
+        strokeOpacity: 0.7,
+        strokeStyle: 'solid'
+      });
+      polylineRef.current.setMap(mapInstanceRef.current);
+    } else {
+      polylineRef.current.setPath(linePath);
+    }
+  }, [props.route]);
 
   return {
     mapContainerRef

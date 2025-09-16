@@ -4,24 +4,25 @@ import MapSetting from '@/components/map/MapSetting.tsx'
 import useLocation from '@/hooks/useLocation.tsx'
 import { useEffect, useState } from 'react'
 import useKakaoRouteMap from '@/hooks/useKakaoRouteMap.ts'
+import WalkingTimerBar from '@/components/map/WalkingTimerBar.tsx'
 
 export default function RouteDrawPage() {
-  const loaded = useKakaoMapLoader();
-  const { location: currentLocation, status } = useLocation();
-  const { latitude, longitude } = useMapSetupStore();
-  const [route, setRoute] = useState<{ lat: number; lng: number }[]>([]);
-  const { mapContainerRef } = useKakaoRouteMap({ loaded, latitude, longitude, route });
+  const loaded = useKakaoMapLoader()
+  const { location: currentLocation, status } = useLocation()
+  const { latitude, longitude } = useMapSetupStore()
+  const [route, setRoute] = useState<{ lat: number; lng: number }[]>([])
+  const { mapContainerRef } = useKakaoRouteMap({ loaded, latitude, longitude, route })
 
-  console.log(location);
+  console.log(location)
 
   useEffect(() => {
-    if (status === "success") {
+    if (status === 'success') {
       setRoute((prev) => [
         ...prev,
         { lat: currentLocation.latitude, lng: currentLocation.longitude },
       ])
     }
-  }, [currentLocation.latitude, currentLocation.longitude, status]);
+  }, [currentLocation.latitude, currentLocation.longitude, status])
 
   console.log(route)
 
@@ -32,6 +33,9 @@ export default function RouteDrawPage() {
       <div className="w-[390px] h-[844px] bg-[#121212] text-white shadow-2xl rounded-3xl overflow-y-auto p-6 space-y-6">
         <div className="relative w-full h-full">
           <MapSetting mapRef={mapContainerRef} />
+          <div className="absolute bottom-0 left-0 w-full z-10 ">
+            <WalkingTimerBar />
+          </div>
         </div>
       </div>
     </div>

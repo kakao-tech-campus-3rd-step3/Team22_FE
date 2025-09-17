@@ -33,7 +33,7 @@ export default function useDistance(props: {
       setStartDistance(distance);
       return;
     }
-  }, [props.route, props.currentLocation, props.latitude, props.longitude]);
+  }, [props.currentLocation, props.latitude, props.longitude]);
 
   return { totalDistance, setTotalDistance, startDistance };
 }

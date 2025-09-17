@@ -27,7 +27,7 @@ export default function UpTimer(props: {
         clearInterval(intervalRef.current!);
       }
     }
-  }, [isActive, seconds, setSeconds]);
+  }, [isActive, setSeconds]);
 
   useEffect(() => {
     if (seconds === 60) {

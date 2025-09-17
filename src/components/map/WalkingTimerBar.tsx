@@ -3,6 +3,7 @@ import { IoPause } from 'react-icons/io5'
 import { PiPlayFill } from "react-icons/pi";
 import { useState } from 'react'
 import UpTimer from '@/components/map/UpTimer.tsx'
+import { DISTANCE_KM, MAX_START_DISTANCE } from '@/constants/location.ts'
 
 export default function WalkingTimerBar(props: {
   totalDistance: number
@@ -17,7 +18,7 @@ export default function WalkingTimerBar(props: {
   const [minutes, setMinutes] = useState(0);
 
   const onHandleOpenWaliking = () => {
-    if (props.startDistance > 200 && props.route.length === 0) {
+    if (props.startDistance > MAX_START_DISTANCE && props.route.length === 0) {
       alert("시작 위치와 거리가 너무 멉니다!");
       return;
     }
@@ -47,7 +48,7 @@ export default function WalkingTimerBar(props: {
       >
         <div className="flex justify-around items-center text-center">
           <div className="flex flex-col items-center">
-            <span>{(props.totalDistance / 1000).toFixed(2)}</span>
+            <span>{(props.totalDistance / DISTANCE_KM).toFixed(2)}</span>
             <span>거리(km)</span>
           </div>
           <div className="h-10 w-px bg-zinc-700" />

@@ -17,9 +17,10 @@ export default function RouteDrawPage() {
   const { totalDistance, setTotalDistance } = useDistance({ route });
   const { startDistance } = useDistance({ currentLocation, latitude, longitude })
 
-  console.log("start", startDistance)
-  console.log(totalDistance)
-  console.log(location);
+  // console.log("start", startDistance)
+  // console.log(totalDistance)
+  // console.log(location);
+  // console.log(route);
 
   useEffect(() => {
     if (!isActive) return;
@@ -32,7 +33,6 @@ export default function RouteDrawPage() {
     }
   }, [currentLocation.latitude, currentLocation.longitude, status, isActive])
 
-  console.log(route);
 
   if (!loaded) return <div>지도 불러오는 중...</div>
 

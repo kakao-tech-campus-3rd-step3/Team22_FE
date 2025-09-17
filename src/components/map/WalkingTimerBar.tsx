@@ -25,11 +25,11 @@ export default function WalkingTimerBar(props: {
   }
 
   const onHandleEndWalking = () => {
-    console.log("데이터", {
-      "totalDistance_m": props.totalDistance,
-      "walkingTime_sec": minutes * 60 + seconds,
-      "path": props.route
-    })
+    // console.log("데이터", {
+    //   "totalDistance_m": props.totalDistance,
+    //   "walkingTime_sec": minutes * 60 + seconds,
+    //   "path": props.route
+    // })
 
     setSeconds(0);
     setMinutes(0);

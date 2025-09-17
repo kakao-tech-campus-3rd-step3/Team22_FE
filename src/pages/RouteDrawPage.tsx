@@ -3,7 +3,7 @@ import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
 import MapSetting from '@/components/map/MapSetting.tsx'
 import useLocation from '@/hooks/useLocation.tsx'
 import { useEffect, useState } from 'react'
-import useKakaoRouteMap from '@/hooks/useKakaoRouteMap.ts'
+import useKakaoRouteMap from '@/hooks/useKakaoRouteMap.tsx'
 import WalkingTimerBar from '@/components/map/WalkingTimerBar.tsx'
 import useDistance from '@/hooks/useDistance.ts'
 
@@ -13,7 +13,7 @@ export default function RouteDrawPage() {
   const { location: currentLocation, status } = useLocation()
   const { latitude, longitude } = useMapSetupStore()
   const [route, setRoute] = useState<{ lat: number; lng: number }[]>([])
-  const { mapContainerRef } = useKakaoRouteMap({ loaded, latitude, longitude, route })
+  const { mapContainerRef } = useKakaoRouteMap({ loaded, latitude, longitude, route, currentLocation })
   const { totalDistance, setTotalDistance } = useDistance({ route });
 
   console.log(totalDistance)
@@ -40,7 +40,7 @@ export default function RouteDrawPage() {
         <div className="relative w-full h-full">
           <MapSetting mapRef={mapContainerRef} />
           <div className="absolute bottom-0 left-0 w-full z-10 ">
-            <WalkingTimerBar totalDistance={totalDistance} setTotalDistance={setTotalDistance} isActive={isActive} setIsActive={setIsActive} route={route} setRoute={setRoute} />
+            <WalkingTimerBar totalDistance={totalDistance} setTotalDistance={setTotalDistance} isActive={isActive} setIsActive={setIsActive} route={route} setRoute={setRoute} currentLocation={currentLocation} latitude={latitude} longitude={longitude} />
           </div>
         </div>
       </div>

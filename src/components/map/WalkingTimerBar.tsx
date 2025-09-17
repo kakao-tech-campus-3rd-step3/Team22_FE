@@ -59,13 +59,13 @@ export default function WalkingTimerBar(props: {
               className="bg-neutral-800 rounded-full border border-indigo-600 p-4 cursor-pointer"
               onClick={() => props.setIsActive(false)}
             >
-              <PiPlayFill className="w-8 h-8" />
+              <IoPause className="w-8 h-8" />
             </button>) : (
             <button
               className="bg-neutral-800 rounded-full border border-indigo-600 p-4 cursor-pointer"
               onClick={onHandleOpenWaliking}
             >
-              <IoPause className="w-8 h-8" />
+              <PiPlayFill className="w-8 h-8" />
             </button>
           )}
           <button

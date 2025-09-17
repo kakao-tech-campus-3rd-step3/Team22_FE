@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { MAXIUM_AGE, TIME_OUT } from '@/constants/location.ts'
+import { MAXIMUM_AGE, TIME_OUT } from '@/constants/location.ts'
 
 type LocationStatus = 'loading' | 'success' | 'denied' | 'error'
 
@@ -55,7 +55,7 @@ export default function useLocation() {
     const watcherId = navigator.geolocation.watchPosition(success, error, {
       enableHighAccuracy: true,
       timeout: TIME_OUT,
-      maximumAge: MAXIUM_AGE,
+      maximumAge: MAXIMUM_AGE,
     })
 
     return () => {

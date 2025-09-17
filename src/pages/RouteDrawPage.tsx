@@ -14,8 +14,7 @@ export default function RouteDrawPage() {
   const { latitude, longitude } = useMapSetupStore()
   const [route, setRoute] = useState<{ lat: number; lng: number }[]>([])
   const { mapContainerRef } = useKakaoRouteMap({ loaded, latitude, longitude, route, currentLocation })
-  const { totalDistance, setTotalDistance } = useDistance({ route });
-  const { startDistance } = useDistance({ currentLocation, latitude, longitude })
+  const { totalDistance, setTotalDistance, startDistance } = useDistance({ route, currentLocation, latitude, longitude });
 
   // console.log("start", startDistance)
   // console.log(totalDistance)

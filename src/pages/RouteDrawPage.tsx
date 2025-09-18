@@ -1,7 +1,7 @@
 import useKakaoMapLoader from '@/hooks/useKakaoMapLoader.ts'
 import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
 import MapSetting from '@/components/map/MapSetting.tsx'
-import useLocation from '@/hooks/useLocation.tsx'
+import useLocation from '@/hooks/useLocation.ts'
 import { useEffect, useState } from 'react'
 import useKakaoRouteMap from '@/hooks/useKakaoRouteMap.tsx'
 import WalkingTimerBar from '@/components/map/WalkingTimerBar.tsx'

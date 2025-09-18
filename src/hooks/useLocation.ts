@@ -32,11 +32,11 @@ export default function useLocation() {
           longitude: position.coords.longitude,
         },
         status: 'success',
-      });
+      })
     }
 
     const error = (err: GeolocationPositionError) => {
-      console.warn('현재 위치 찾기 실패', err);
+      console.warn('현재 위치 찾기 실패', err)
 
       if (err.code === 1) {
         setLocation({

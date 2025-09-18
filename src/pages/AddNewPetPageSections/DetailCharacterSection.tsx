@@ -9,7 +9,6 @@ import {
   UNIT_OF_MEASURE,
 } from '@/constants/constants'
 
-import type { Dispatch, SetStateAction } from 'react'
 import { FaRegSun, FaRegMoon } from 'react-icons/fa'
 import { FaCloudSun } from 'react-icons/fa6'
 import { CiCloudMoon } from 'react-icons/ci'
@@ -20,41 +19,58 @@ import GrassRoad from '@/assets/GrassRoad.png'
 import DirtRoad from '@/assets/DirtRoad.png'
 import Road from '@/assets/Road.svg'
 
-interface DetailCharacterSectionProps {
+const toggleInArray = (
+  currentArray: string[],
+  setter: (value: string[]) => void,
+  value: string,
+) => {
+  const newArray = currentArray.includes(value)
+    ? currentArray.filter((item) => item !== value)
+    : [...currentArray, value]
+  setter(newArray)
+}
+
+function DetailCharacterSection(props: {
   dayWeather: string[]
-  setDayWeather: Dispatch<SetStateAction<string[]>>
+  setDayWeather: (value: string[]) => void
+
   nightWeather: string[]
-  setNightWeather: Dispatch<SetStateAction<string[]>>
+  setNightWeather: (value: string[]) => void
+
   selectedDiseases: string[]
   setIsDiseaseModalOpen: (isOpen: boolean) => void
+
   preferredPaths: string[]
-  setPreferredPaths: Dispatch<SetStateAction<string[]>>
-  personality: string
-  setPersonality: Dispatch<SetStateAction<string>>
+  setPreferredPaths: (value: string[]) => void
+
+  personality: 'extroverted' | 'introverted'
+  setPersonality: (value: 'extroverted' | 'introverted') => void
+
   weight: string
-  setWeight: Dispatch<SetStateAction<string>>
-}
+  setWeight: (value: string) => void
+}) {
+  const {
+    dayWeather,
+    setDayWeather,
+    nightWeather,
+    setNightWeather,
+    selectedDiseases,
+    setIsDiseaseModalOpen,
+    preferredPaths,
+    setPreferredPaths,
+    personality,
+    setPersonality,
+    weight,
+    setWeight,
+  } = props
 
-const toggleInArray = (setter: Dispatch<SetStateAction<string[]>>, value: string) => {
-  setter((prev) =>
-    prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value],
-  )
-}
+  const handleWeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value
+    if (/^\d*$/.test(newValue)) {
+      setWeight(newValue)
+    }
+  }
 
-function DetailCharacterSection({
-  dayWeather,
-  setDayWeather,
-  nightWeather,
-  setNightWeather,
-  selectedDiseases,
-  setIsDiseaseModalOpen,
-  preferredPaths,
-  setPreferredPaths,
-  personality,
-  setPersonality,
-  weight,
-  setWeight,
-}: DetailCharacterSectionProps) {
   return (
     <div className="bg-neutral-900 p-4 rounded-lg space-y-4">
       <h2 className="text-lg font-bold text-left mb-4">{UI_TEXT.DETAIL_SECTION_TITLE}</h2>
@@ -64,27 +80,27 @@ function DetailCharacterSection({
           <IconButton
             icon={<FaRegSun size={20} />}
             isSelected={dayWeather.includes(DAY_WEATHER.SUN)}
-            onClick={() => toggleInArray(setDayWeather, DAY_WEATHER.SUN)}
+            onClick={() => toggleInArray(dayWeather, setDayWeather, DAY_WEATHER.SUN)}
           />
           <IconButton
             icon={<FaCloudSun size={20} />}
             isSelected={dayWeather.includes(DAY_WEATHER.CLOUDY)}
-            onClick={() => toggleInArray(setDayWeather, DAY_WEATHER.CLOUDY)}
+            onClick={() => toggleInArray(dayWeather, setDayWeather, DAY_WEATHER.CLOUDY)}
           />
           <IconButton
             icon={<IoRainyOutline size={20} />}
             isSelected={dayWeather.includes(DAY_WEATHER.RAIN)}
-            onClick={() => toggleInArray(setDayWeather, DAY_WEATHER.RAIN)}
+            onClick={() => toggleInArray(dayWeather, setDayWeather, DAY_WEATHER.RAIN)}
           />
           <IconButton
             icon={<RiSnowyLine size={20} />}
             isSelected={dayWeather.includes(DAY_WEATHER.SNOW)}
-            onClick={() => toggleInArray(setDayWeather, DAY_WEATHER.SNOW)}
+            onClick={() => toggleInArray(dayWeather, setDayWeather, DAY_WEATHER.SNOW)}
           />
           <IconButton
             icon={<TiWeatherWindy size={20} />}
             isSelected={dayWeather.includes(DAY_WEATHER.WIND)}
-            onClick={() => toggleInArray(setDayWeather, DAY_WEATHER.WIND)}
+            onClick={() => toggleInArray(dayWeather, setDayWeather, DAY_WEATHER.WIND)}
           />
         </div>
       </InfoRow>
@@ -94,27 +110,27 @@ function DetailCharacterSection({
           <IconButton
             icon={<FaRegMoon size={20} />}
             isSelected={nightWeather.includes(NIGHT_WEATHER.MOON)}
-            onClick={() => toggleInArray(setNightWeather, NIGHT_WEATHER.MOON)}
+            onClick={() => toggleInArray(nightWeather, setNightWeather, NIGHT_WEATHER.MOON)}
           />
           <IconButton
             icon={<CiCloudMoon size={20} />}
             isSelected={nightWeather.includes(NIGHT_WEATHER.CLOUDY_NIGHT)}
-            onClick={() => toggleInArray(setNightWeather, NIGHT_WEATHER.CLOUDY_NIGHT)}
+            onClick={() => toggleInArray(nightWeather, setNightWeather, NIGHT_WEATHER.CLOUDY_NIGHT)}
           />
           <IconButton
             icon={<IoRainyOutline size={20} />}
             isSelected={nightWeather.includes(NIGHT_WEATHER.RAINY_NIGHT)}
-            onClick={() => toggleInArray(setNightWeather, NIGHT_WEATHER.RAINY_NIGHT)}
+            onClick={() => toggleInArray(nightWeather, setNightWeather, NIGHT_WEATHER.RAINY_NIGHT)}
           />
           <IconButton
             icon={<RiSnowyLine size={20} />}
             isSelected={nightWeather.includes(NIGHT_WEATHER.SNOWY_NIGHT)}
-            onClick={() => toggleInArray(setNightWeather, NIGHT_WEATHER.SNOWY_NIGHT)}
+            onClick={() => toggleInArray(nightWeather, setNightWeather, NIGHT_WEATHER.SNOWY_NIGHT)}
           />
           <IconButton
             icon={<TiWeatherWindy size={20} />}
             isSelected={nightWeather.includes(NIGHT_WEATHER.WINDY_NIGHT)}
-            onClick={() => toggleInArray(setNightWeather, NIGHT_WEATHER.WINDY_NIGHT)}
+            onClick={() => toggleInArray(nightWeather, setNightWeather, NIGHT_WEATHER.WINDY_NIGHT)}
           />
         </div>
       </InfoRow>
@@ -135,7 +151,9 @@ function DetailCharacterSection({
           <IconButton
             icon={<img src={Road} className="object-cover" alt={PREFERRED_PATHS.ASPHALT} />}
             isSelected={preferredPaths.includes(PREFERRED_PATHS.ASPHALT)}
-            onClick={() => toggleInArray(setPreferredPaths, PREFERRED_PATHS.ASPHALT)}
+            onClick={() =>
+              toggleInArray(preferredPaths, setPreferredPaths, PREFERRED_PATHS.ASPHALT)
+            }
           />
           <IconButton
             icon={
@@ -146,12 +164,12 @@ function DetailCharacterSection({
               />
             }
             isSelected={preferredPaths.includes(PREFERRED_PATHS.TRAIL)}
-            onClick={() => toggleInArray(setPreferredPaths, PREFERRED_PATHS.TRAIL)}
+            onClick={() => toggleInArray(preferredPaths, setPreferredPaths, PREFERRED_PATHS.TRAIL)}
           />
           <IconButton
             icon={<img src={DirtRoad} alt={PREFERRED_PATHS.DIRT} />}
             isSelected={preferredPaths.includes(PREFERRED_PATHS.DIRT)}
-            onClick={() => toggleInArray(setPreferredPaths, PREFERRED_PATHS.DIRT)}
+            onClick={() => toggleInArray(preferredPaths, setPreferredPaths, PREFERRED_PATHS.DIRT)}
           />
         </div>
       </InfoRow>
@@ -161,10 +179,7 @@ function DetailCharacterSection({
           className="w-full bg-neutral-700 p-2 rounded-md text-sm text-center"
           value={weight}
           inputMode="numeric"
-          onChange={(e) => {
-            const newValue = e.target.value
-            if (/^\d*$/.test(newValue)) setWeight(newValue)
-          }}
+          onChange={handleWeightChange}
           onBlur={() => {
             if (weight === '' || isNaN(Number(weight))) setWeight('20')
           }}

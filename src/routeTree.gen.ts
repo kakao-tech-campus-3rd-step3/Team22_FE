@@ -12,9 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WalkTimeSettingRouteImport } from './routes/walk-time-setting'
 import { Route as StartWalkRouteImport } from './routes/start-walk'
 import { Route as SettingRouteImport } from './routes/setting'
+import { Route as RouteDrawRouteImport } from './routes/route-draw'
 import { Route as MapSetupRouteImport } from './routes/map-setup'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as LocationSettingRouteImport } from './routes/location-setting'
 import { Route as AddNewPetRouteImport } from './routes/add-new-pet'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -33,6 +33,11 @@ const SettingRoute = SettingRouteImport.update({
   path: '/setting',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RouteDrawRoute = RouteDrawRouteImport.update({
+  id: '/route-draw',
+  path: '/route-draw',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MapSetupRoute = MapSetupRouteImport.update({
   id: '/map-setup',
   path: '/map-setup',
@@ -41,11 +46,6 @@ const MapSetupRoute = MapSetupRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LocationSettingRoute = LocationSettingRouteImport.update({
-  id: '/location-setting',
-  path: '/location-setting',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AddNewPetRoute = AddNewPetRouteImport.update({
@@ -62,9 +62,9 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/add-new-pet': typeof AddNewPetRoute
-  '/location-setting': typeof LocationSettingRoute
   '/login': typeof LoginRoute
   '/map-setup': typeof MapSetupRoute
+  '/route-draw': typeof RouteDrawRoute
   '/setting': typeof SettingRoute
   '/start-walk': typeof StartWalkRoute
   '/walk-time-setting': typeof WalkTimeSettingRoute
@@ -72,9 +72,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/add-new-pet': typeof AddNewPetRoute
-  '/location-setting': typeof LocationSettingRoute
   '/login': typeof LoginRoute
   '/map-setup': typeof MapSetupRoute
+  '/route-draw': typeof RouteDrawRoute
   '/setting': typeof SettingRoute
   '/start-walk': typeof StartWalkRoute
   '/walk-time-setting': typeof WalkTimeSettingRoute
@@ -83,9 +83,9 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/add-new-pet': typeof AddNewPetRoute
-  '/location-setting': typeof LocationSettingRoute
   '/login': typeof LoginRoute
   '/map-setup': typeof MapSetupRoute
+  '/route-draw': typeof RouteDrawRoute
   '/setting': typeof SettingRoute
   '/start-walk': typeof StartWalkRoute
   '/walk-time-setting': typeof WalkTimeSettingRoute
@@ -95,9 +95,9 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/add-new-pet'
-    | '/location-setting'
     | '/login'
     | '/map-setup'
+    | '/route-draw'
     | '/setting'
     | '/start-walk'
     | '/walk-time-setting'
@@ -105,9 +105,9 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/add-new-pet'
-    | '/location-setting'
     | '/login'
     | '/map-setup'
+    | '/route-draw'
     | '/setting'
     | '/start-walk'
     | '/walk-time-setting'
@@ -115,9 +115,9 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/add-new-pet'
-    | '/location-setting'
     | '/login'
     | '/map-setup'
+    | '/route-draw'
     | '/setting'
     | '/start-walk'
     | '/walk-time-setting'
@@ -126,9 +126,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AddNewPetRoute: typeof AddNewPetRoute
-  LocationSettingRoute: typeof LocationSettingRoute
   LoginRoute: typeof LoginRoute
   MapSetupRoute: typeof MapSetupRoute
+  RouteDrawRoute: typeof RouteDrawRoute
   SettingRoute: typeof SettingRoute
   StartWalkRoute: typeof StartWalkRoute
   WalkTimeSettingRoute: typeof WalkTimeSettingRoute
@@ -157,6 +157,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/route-draw': {
+      id: '/route-draw'
+      path: '/route-draw'
+      fullPath: '/route-draw'
+      preLoaderRoute: typeof RouteDrawRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/map-setup': {
       id: '/map-setup'
       path: '/map-setup'
@@ -169,13 +176,6 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/location-setting': {
-      id: '/location-setting'
-      path: '/location-setting'
-      fullPath: '/location-setting'
-      preLoaderRoute: typeof LocationSettingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/add-new-pet': {
@@ -198,9 +198,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AddNewPetRoute: AddNewPetRoute,
-  LocationSettingRoute: LocationSettingRoute,
   LoginRoute: LoginRoute,
   MapSetupRoute: MapSetupRoute,
+  RouteDrawRoute: RouteDrawRoute,
   SettingRoute: SettingRoute,
   StartWalkRoute: StartWalkRoute,
   WalkTimeSettingRoute: WalkTimeSettingRoute,

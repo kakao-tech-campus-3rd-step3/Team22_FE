@@ -13,8 +13,8 @@ interface MapSetupState {
   walkTimes: WalkTime[];
   address: string;
   place: string;
-  latitude: number | null;
-  longitude: number | null;
+  latitude: number;
+  longitude: number;
   setLocation: (address: string, place: string, lat: number, lng: number) => void;
   addWalkTime: (newTime: NewWalkTime) => boolean;
   removeWalkTime: (idToRemove: number) => void;
@@ -24,8 +24,8 @@ export const useMapSetupStore = create<MapSetupState>((set, get) => ({
   walkTimes: [],
   address: '',
   place: '',
-  latitude: null,
-  longitude: null,
+  latitude: 0,
+  longitude: 0,
   setLocation: (address, place, lat, lng) => set({ address, place, latitude: lat, longitude: lng }),
 
   addWalkTime: (newTime) => {

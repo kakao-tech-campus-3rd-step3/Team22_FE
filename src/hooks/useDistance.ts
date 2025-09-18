@@ -2,7 +2,7 @@ import { getDistance, getPathLength } from 'geolib'
 import { useEffect, useState } from 'react'
 
 export default function useDistance(props: {
-  currentLocation?: { latitude: number | null, longitude: number | null }
+  currentLocation?: { latitude: number, longitude: number }
   latitude?: number | null
   longitude?: number | null
   route?: { lat: number | null, lng: number | null }[]

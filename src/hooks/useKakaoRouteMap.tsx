@@ -9,7 +9,7 @@ export default function useKakaoRouteMap(props: {
   latitude: number | null
   longitude: number | null
   loaded: boolean
-  currentLocation: { latitude: number | null, longitude: number | null }
+  currentLocation: { latitude: number, longitude: number }
   route: { lat: number | null, lng: number | null }[]
 }) {
   const mapContainerRef  = useRef<HTMLDivElement | null>(null);

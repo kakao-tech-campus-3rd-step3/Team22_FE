@@ -9,7 +9,7 @@ interface CenterLocationState {
 
 export default function useKakaoMap(props: {
   mapRef: React.RefObject<HTMLDivElement>
-  location: { latitude: number | null; longitude: number | null }
+  location: { latitude: number; longitude: number }
   loaded: boolean
 }) {
   const mapInstanceRef = useRef<KakaoMap | null>(null);

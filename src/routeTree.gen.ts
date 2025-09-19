@@ -11,7 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WalkTimeSettingRouteImport } from './routes/walk-time-setting'
 import { Route as StartWalkRouteImport } from './routes/start-walk'
-import { Route as SettingRouteImport } from './routes/setting'
+import { Route as MypageRouteImport } from './routes/mypage'
 import { Route as MapSetupRouteImport } from './routes/map-setup'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LocationSettingRouteImport } from './routes/location-setting'
@@ -28,9 +28,9 @@ const StartWalkRoute = StartWalkRouteImport.update({
   path: '/start-walk',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SettingRoute = SettingRouteImport.update({
-  id: '/setting',
-  path: '/setting',
+const MypageRoute = MypageRouteImport.update({
+  id: '/mypage',
+  path: '/mypage',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MapSetupRoute = MapSetupRouteImport.update({
@@ -65,7 +65,7 @@ export interface FileRoutesByFullPath {
   '/location-setting': typeof LocationSettingRoute
   '/login': typeof LoginRoute
   '/map-setup': typeof MapSetupRoute
-  '/setting': typeof SettingRoute
+  '/mypage': typeof MypageRoute
   '/start-walk': typeof StartWalkRoute
   '/walk-time-setting': typeof WalkTimeSettingRoute
 }
@@ -75,7 +75,7 @@ export interface FileRoutesByTo {
   '/location-setting': typeof LocationSettingRoute
   '/login': typeof LoginRoute
   '/map-setup': typeof MapSetupRoute
-  '/setting': typeof SettingRoute
+  '/mypage': typeof MypageRoute
   '/start-walk': typeof StartWalkRoute
   '/walk-time-setting': typeof WalkTimeSettingRoute
 }
@@ -86,7 +86,7 @@ export interface FileRoutesById {
   '/location-setting': typeof LocationSettingRoute
   '/login': typeof LoginRoute
   '/map-setup': typeof MapSetupRoute
-  '/setting': typeof SettingRoute
+  '/mypage': typeof MypageRoute
   '/start-walk': typeof StartWalkRoute
   '/walk-time-setting': typeof WalkTimeSettingRoute
 }
@@ -98,7 +98,7 @@ export interface FileRouteTypes {
     | '/location-setting'
     | '/login'
     | '/map-setup'
-    | '/setting'
+    | '/mypage'
     | '/start-walk'
     | '/walk-time-setting'
   fileRoutesByTo: FileRoutesByTo
@@ -108,7 +108,7 @@ export interface FileRouteTypes {
     | '/location-setting'
     | '/login'
     | '/map-setup'
-    | '/setting'
+    | '/mypage'
     | '/start-walk'
     | '/walk-time-setting'
   id:
@@ -118,7 +118,7 @@ export interface FileRouteTypes {
     | '/location-setting'
     | '/login'
     | '/map-setup'
-    | '/setting'
+    | '/mypage'
     | '/start-walk'
     | '/walk-time-setting'
   fileRoutesById: FileRoutesById
@@ -129,7 +129,7 @@ export interface RootRouteChildren {
   LocationSettingRoute: typeof LocationSettingRoute
   LoginRoute: typeof LoginRoute
   MapSetupRoute: typeof MapSetupRoute
-  SettingRoute: typeof SettingRoute
+  MypageRoute: typeof MypageRoute
   StartWalkRoute: typeof StartWalkRoute
   WalkTimeSettingRoute: typeof WalkTimeSettingRoute
 }
@@ -150,11 +150,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StartWalkRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/setting': {
-      id: '/setting'
-      path: '/setting'
-      fullPath: '/setting'
-      preLoaderRoute: typeof SettingRouteImport
+    '/mypage': {
+      id: '/mypage'
+      path: '/mypage'
+      fullPath: '/mypage'
+      preLoaderRoute: typeof MypageRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/map-setup': {
@@ -201,7 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   LocationSettingRoute: LocationSettingRoute,
   LoginRoute: LoginRoute,
   MapSetupRoute: MapSetupRoute,
-  SettingRoute: SettingRoute,
+  MypageRoute: MypageRoute,
   StartWalkRoute: StartWalkRoute,
   WalkTimeSettingRoute: WalkTimeSettingRoute,
 }

@@ -9,13 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WalkingTimeRouteImport } from './routes/walking-time'
+import { Route as WalkTimeSettingRouteImport } from './routes/walk-time-setting'
 import { Route as MapSetupRouteImport } from './routes/map-setup'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as LocationSettingRouteImport } from './routes/location-setting'
+import { Route as AddNewPetRouteImport } from './routes/add-new-pet'
 
-const WalkingTimeRoute = WalkingTimeRouteImport.update({
-  id: '/walking-time',
-  path: '/walking-time',
+const WalkTimeSettingRoute = WalkTimeSettingRouteImport.update({
+  id: '/walk-time-setting',
+  path: '/walk-time-setting',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MapSetupRoute = MapSetupRouteImport.update({
@@ -23,49 +24,67 @@ const MapSetupRoute = MapSetupRouteImport.update({
   path: '/map-setup',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const LocationSettingRoute = LocationSettingRouteImport.update({
+  id: '/location-setting',
+  path: '/location-setting',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AddNewPetRoute = AddNewPetRouteImport.update({
+  id: '/add-new-pet',
+  path: '/add-new-pet',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/add-new-pet': typeof AddNewPetRoute
+  '/location-setting': typeof LocationSettingRoute
   '/map-setup': typeof MapSetupRoute
-  '/walking-time': typeof WalkingTimeRoute
+  '/walk-time-setting': typeof WalkTimeSettingRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/add-new-pet': typeof AddNewPetRoute
+  '/location-setting': typeof LocationSettingRoute
   '/map-setup': typeof MapSetupRoute
-  '/walking-time': typeof WalkingTimeRoute
+  '/walk-time-setting': typeof WalkTimeSettingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/add-new-pet': typeof AddNewPetRoute
+  '/location-setting': typeof LocationSettingRoute
   '/map-setup': typeof MapSetupRoute
-  '/walking-time': typeof WalkingTimeRoute
+  '/walk-time-setting': typeof WalkTimeSettingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/map-setup' | '/walking-time'
+  fullPaths:
+    | '/add-new-pet'
+    | '/location-setting'
+    | '/map-setup'
+    | '/walk-time-setting'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/map-setup' | '/walking-time'
-  id: '__root__' | '/' | '/map-setup' | '/walking-time'
+  to: '/add-new-pet' | '/location-setting' | '/map-setup' | '/walk-time-setting'
+  id:
+    | '__root__'
+    | '/add-new-pet'
+    | '/location-setting'
+    | '/map-setup'
+    | '/walk-time-setting'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  AddNewPetRoute: typeof AddNewPetRoute
+  LocationSettingRoute: typeof LocationSettingRoute
   MapSetupRoute: typeof MapSetupRoute
-  WalkingTimeRoute: typeof WalkingTimeRoute
+  WalkTimeSettingRoute: typeof WalkTimeSettingRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/walking-time': {
-      id: '/walking-time'
-      path: '/walking-time'
-      fullPath: '/walking-time'
-      preLoaderRoute: typeof WalkingTimeRouteImport
+    '/walk-time-setting': {
+      id: '/walk-time-setting'
+      path: '/walk-time-setting'
+      fullPath: '/walk-time-setting'
+      preLoaderRoute: typeof WalkTimeSettingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/map-setup': {
@@ -75,20 +94,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MapSetupRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/location-setting': {
+      id: '/location-setting'
+      path: '/location-setting'
+      fullPath: '/location-setting'
+      preLoaderRoute: typeof LocationSettingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/add-new-pet': {
+      id: '/add-new-pet'
+      path: '/add-new-pet'
+      fullPath: '/add-new-pet'
+      preLoaderRoute: typeof AddNewPetRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  AddNewPetRoute: AddNewPetRoute,
+  LocationSettingRoute: LocationSettingRoute,
   MapSetupRoute: MapSetupRoute,
-  WalkingTimeRoute: WalkingTimeRoute,
+  WalkTimeSettingRoute: WalkTimeSettingRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

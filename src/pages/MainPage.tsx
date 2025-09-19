@@ -2,14 +2,14 @@ import CardBox from '@/components/common/CardBox'
 import InfoRow from '@/components/common/InfoRow'
 import WeatherTable from '@/components/common/WeatherTable'
 import useAuthStore from '@/stores/authStore'
-import { useRouter } from '@tanstack/react-router'
+import { useNavigate } from '@tanstack/react-router'
 
 export default function MainPage() {
   const username = useAuthStore((state) => state.username)
-  const router = useRouter()
+  const navigate = useNavigate()
 
   const handleCardClick = () => {
-    router.navigate({ to: `/map-setup` })
+    navigate({ to: `/map-setup` })
   }
 
   return (

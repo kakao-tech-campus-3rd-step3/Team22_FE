@@ -5,7 +5,7 @@ export default function useOpenWeather(props: {
   location: {
     latitude: number
     longitude: number
-  } | null
+  }
 }) {
   const [weather, setWeather] = useState<WeatherData | null>(null)
   const [loading, setLoading] = useState<boolean>(false)

@@ -111,11 +111,28 @@ declare global {
     ): void
   }
 
+  interface KakaoPolylineOptions {
+    path: KakaoLatLng[];
+    strokeWeight?: number;
+    strokeColor?: string;
+    strokeOpacity?: number;
+    strokeStyle?: 'solid' | 'shortdash' | 'shortdot' | 'shortdashdot' | 'shortdashdotdot' | 'dot' | 'dash' | 'dashdot' | 'longdash' | 'longdashdot' | 'longdashdotdot';
+    zIndex?: number;
+  }
+
+  interface KakaoPolyline {
+    setMap(map: KakaoMap | null): void;
+    setPath(path: KakaoLatLng[]): void;
+    getPath(): KakaoLatLng[];
+    getLength(): number;
+    setOptions(options: KakaoPolylineOptions): void;
+  }
+
   interface Window {
     kakao: {
       maps: {
         load(callback: () => void): void
-        LatLng: new (lat: number, lng: number) => KakaoLatLng
+        LatLng: new (lat: number | null | undefined, lng: number | null | undefined) => KakaoLatLng
         Map: new (container: HTMLElement | null, options: KakaoMapOptions) => KakaoMap
         Marker: new (options: KakaoMarkerOptions) => KakaoMarker
         CustomOverlay: new (options: KakaoCustomOverlayOptions) => KakaoCustomOverlay
@@ -128,6 +145,8 @@ declare global {
           size: KakaoSize,
           options?: KakaoMarkerImageOptions,
         ) => KakaoMarkerImage
+
+        Polyline: new(options: KakaoPolylineOptions) => KakaoPolyline
 
         services: {
           Status: {

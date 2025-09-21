@@ -14,7 +14,7 @@ export default function LocationSetting() {
   const mapRef = useRef<HTMLDivElement>(null!)
   const { address, place, centerLocation } = useKakaoMap({ mapRef, location, loaded })
   const setLocation = useMapSetupStore((state) => state.setLocation)
-  const navigate = useNavigate({ from: '/' })
+  const navigate = useNavigate({ from: '/start-walk' })
 
   const handleSetLocation = () => {
     setLocation(address, place, centerLocation.latitude, centerLocation.longitude)

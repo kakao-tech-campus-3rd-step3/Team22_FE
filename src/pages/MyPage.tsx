@@ -16,7 +16,7 @@ function MyPage() {
           <strong>이름:</strong> {username || '로그인 정보가 없습니다'}
         </p>
         <p className="text-gray-700">
-          <strong>이메일:</strong> {username ? `${username}@example.com` : '로그인 정보가 없습니다'}
+          <strong>이메일:</strong> {username ? `${username}` : '로그인 정보가 없습니다'}
         </p>
       </div>
       <button

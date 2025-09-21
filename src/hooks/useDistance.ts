@@ -2,22 +2,24 @@ import { getDistance, getPathLength } from 'geolib'
 import { useEffect, useState } from 'react'
 
 export default function useDistance(props: {
-  currentLocation?: { latitude: number, longitude: number }
+  currentLocation?: { latitude: number; longitude: number }
   latitude?: number | null
   longitude?: number | null
-  route?: { lat: number | null, lng: number | null }[]
+  route?: { lat: number | null; lng: number | null }[]
 }) {
-  const [totalDistance, setTotalDistance] = useState(0);
-  const [startDistance, setStartDistance] = useState(0);
+  const [totalDistance, setTotalDistance] = useState(0)
+  const [startDistance, setStartDistance] = useState(0)
 
   useEffect(() => {
     if (props.route && props.route.length > 0) {
-      const validRoute = props.route.filter(
-        (p) => p.lat !== null && p.lng !== null) as { lat: number; lng: number }[];
-      setTotalDistance(getPathLength(validRoute));
-      return;
+      const validRoute = props.route.filter((p) => p.lat !== null && p.lng !== null) as {
+        lat: number
+        lng: number
+      }[]
+      setTotalDistance(getPathLength(validRoute))
+      return
     }
-  }, [props.route]);
+  }, [props.route])
 
   useEffect(() => {
     if (
@@ -28,12 +30,12 @@ export default function useDistance(props: {
     ) {
       const distance = getDistance(
         { latitude: props.latitude, longitude: props.longitude },
-        { latitude: props.currentLocation.latitude, longitude: props.currentLocation.longitude }
-      );
-      setStartDistance(distance);
-      return;
+        { latitude: props.currentLocation.latitude, longitude: props.currentLocation.longitude },
+      )
+      setStartDistance(distance)
+      return
     }
-  }, [props.currentLocation, props.latitude, props.longitude]);
+  }, [props.currentLocation, props.latitude, props.longitude])
 
-  return { totalDistance, setTotalDistance, startDistance };
+  return { totalDistance, setTotalDistance, startDistance }
 }

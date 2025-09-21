@@ -32,7 +32,7 @@ export const petProfileSchema = z.object({
   dayWeather: z.array(z.string()).nonempty({ message: '낮 날씨를 선택해주세요.' }),
   nightWeather: z.array(z.string()).nonempty({ message: '밤 날씨를 선택해주세요.' }),
   preferredPaths: z.array(z.string()).nonempty({ message: '산책로를 선택해주세요.' }),
-  selectedDiseases: z.array(z.string()).nonempty(),
+  selectedDiseases: z.array(z.string()).optional(),
   weight: z.preprocess(
     (val) => {
       if (typeof val === 'string') {

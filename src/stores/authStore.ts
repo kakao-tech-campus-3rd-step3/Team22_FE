@@ -13,7 +13,6 @@ const useAuthStore = create<AuthStore>()(
     (set) => ({
       accessToken: null,
       username: null,
-      email: null,
       login: (token: string, username: string) => set({ accessToken: token, username }),
       logout: () => set({ accessToken: null, username: null }),
     }),

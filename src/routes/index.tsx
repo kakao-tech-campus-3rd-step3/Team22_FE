@@ -7,7 +7,6 @@ export const Route = createFileRoute('/')({
   loader: () => {
     const isLoggedIn = useAuthStore.getState().accessToken
     if (!isLoggedIn) {
-      console.log('으아아아ㅏ')
       throw redirect({ to: '/login' })
     }
     return null

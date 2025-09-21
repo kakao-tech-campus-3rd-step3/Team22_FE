@@ -28,7 +28,6 @@ export default function LocationSetting() {
   }
 
   if (status === 'loading') {
-    console.log('loading중')
     return <div>현재 위치를 찾는 중입니다...</div>
   }
 

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
 import { DAY, HOURS, MINUTES } from '@/constants/day.ts'
+import CustomSelect from './CustomSelect'
 
 export default function WalkTimeScheduler() {
   const { walkTimes, addWalkTime, removeWalkTime } = useMapSetupStore()
@@ -9,7 +10,6 @@ export default function WalkTimeScheduler() {
 
   const handleAddTime = () => {
     const wasAdded = addWalkTime(currentTime)
-
     if (!wasAdded) {
       setDuplicateMessage('이미 추가된 시간입니다.')
     } else {
@@ -22,81 +22,51 @@ export default function WalkTimeScheduler() {
   }
 
   return (
-    <div className="w-full flex justify-center mt-6 mb-2">
-      <div className="w-[90%] max-w-lg h-50 bg-zinc-800 rounded-lg p-4 text-white shadow-lg max-h-60 overflow-auto no-scrollbar">
-        <div className="mb-3 text-lg font-bold text-center">주로 산책하는 시간 고르기</div>
+    <div className="w-full h-1/2 max-w-lg mx-auto bg-zinc-800 rounded-lg p-4 text-white shadow-lg max-h-full overflow-auto no-scrollbar">
+      <p className="mb-3 text-lg font-bold text-center">주로 산책하는 시간 고르기</p>
+      {duplicateMessage && (
+        <p className="text-red-500 text-center mb-2 font-bold">{duplicateMessage}</p>
+      )}
+      <div className="flex justify-center gap-2 mb-3">
+        <CustomSelect
+          value={currentTime.day}
+          options={DAY}
+          onChange={(day) => setCurrentTime({ ...currentTime, day })}
+        />
+        <CustomSelect
+          value={currentTime.hour}
+          options={HOURS}
+          onChange={(hour) => setCurrentTime({ ...currentTime, hour })}
+        />
+        <CustomSelect
+          value={currentTime.minute}
+          options={MINUTES}
+          onChange={(minute) => setCurrentTime({ ...currentTime, minute })}
+        />
+      </div>
 
-        <div className="flex justify-center gap-2 mb-3">
-          <select
-            value={currentTime.day}
-            onChange={(e) => setCurrentTime({ ...currentTime, day: e.target.value })}
-            className="bg-zinc-700 text-white px-3 py-1 rounded hover:bg-zinc-600"
+      <button
+        onClick={handleAddTime}
+        className="w-full bg-indigo-600 hover:bg-indigo-500 py-2 rounded-lg font-bold mb-3 transition-colors"
+      >
+        산책 시간 추가하기
+      </button>
+
+      <div className="flex flex-col gap-2">
+        {walkTimes.map((time) => (
+          <div
+            key={time.id}
+            className="flex justify-between items-center bg-zinc-700 px-3 py-1 rounded shadow"
           >
-            {DAY.map((day) => (
-              <option key={day} value={day}>
-                {day}
-              </option>
-            ))}
-          </select>
-
-          <select
-            value={currentTime.hour}
-            onChange={(e) => setCurrentTime({ ...currentTime, hour: e.target.value })}
-            className="bg-zinc-700 text-white px-3 py-1 rounded hover:bg-zinc-600"
-          >
-            {HOURS.map((i) => (
-              <option key={i} value={i.toString().padStart(2, '0')}>
-                {i}시
-              </option>
-            ))}
-          </select>
-
-          <select
-            value={currentTime.minute}
-            onChange={(e) => setCurrentTime({ ...currentTime, minute: e.target.value })}
-            className="bg-zinc-700 text-white px-3 py-1 rounded hover:bg-zinc-600"
-          >
-            {MINUTES.map((minute) => {
-              return (
-                <option key={minute} value={minute.toString().padStart(2, '0')}>
-                  {minute}분
-                </option>
-              )
-            })}
-          </select>
-        </div>
-
-        <button
-          onClick={handleAddTime}
-          className="w-full bg-indigo-600 hover:bg-indigo-500 py-2 rounded-lg font-bold mb-3 transition-colors"
-        >
-          산책 시간 추가하기
-        </button>
-
-        {duplicateMessage && (
-          <div className="text-red-500 text-center mb-2 font-bold">{duplicateMessage}</div>
-        )}
-
-        <div className="flex flex-col gap-2 overflow-auto">
-          {walkTimes.length > 0 ? (
-            walkTimes.map((time) => (
-              <div
-                key={time.id}
-                className="flex justify-between items-center bg-zinc-700 px-3 py-1 rounded shadow"
-              >
-                <span>{`${time.day}요일 ${time.hour}:${time.minute}`}</span>
-                <button
-                  onClick={() => handleRemoveTime(time.id)}
-                  className="bg-red-600 hover:bg-red-500 text-white px-2 py-0.5 rounded font-bold text-sm transition-colors"
-                >
-                  x
-                </button>
-              </div>
-            ))
-          ) : (
-            <div className="text-center text-zinc-400">산책 시간을 추가해 주세요.</div>
-          )}
-        </div>
+            <span>{`${time.day}요일 ${time.hour}:${time.minute}`}</span>
+            <button
+              onClick={() => handleRemoveTime(time.id)}
+              className="bg-red-600 hover:bg-red-500 text-white px-2 py-0.5 rounded font-bold text-sm transition-colors"
+            >
+              x
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   )

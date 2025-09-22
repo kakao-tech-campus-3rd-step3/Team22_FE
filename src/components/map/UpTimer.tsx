@@ -7,12 +7,7 @@ export default function UpTimer(props: {
   setMinutes: (value: number | ((prev: number) => number)) => void;
   isActive: boolean,
 }) {
-  const seconds = props.seconds;
-  const setSeconds = props.setSeconds;
-  const minutes = props.minutes;
-  const setMinutes = props.setMinutes;
-  const isActive = props.isActive;
-
+  const { seconds, setSeconds, minutes, setMinutes, isActive } = props;
   const intervalRef = useRef<number | null>(null);
 
   useEffect(() => {

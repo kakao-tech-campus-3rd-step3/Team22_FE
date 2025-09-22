@@ -21,7 +21,7 @@ function Login({ redirectTo = '/' }: LoginProps) {
 
     const fakeToken = 'example_access_token_' + username
 
-    login(fakeToken, username.split('@')[0])
+    login(fakeToken, username)
     navigate({ to: redirectTo })
   }
   const setShowNavbar = useUIStore((state) => state.setShowNavbar)

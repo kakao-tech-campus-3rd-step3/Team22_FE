@@ -1,6 +1,6 @@
 import { GrStopFill } from 'react-icons/gr'
 import { IoPause } from 'react-icons/io5'
-import { PiPlayFill } from "react-icons/pi";
+import { PiPlayFill } from 'react-icons/pi'
 import UpTimer from '@/components/map/UpTimer.tsx'
 import { DISTANCE_KM, MAX_START_DISTANCE } from '@/constants/location.ts'
 import { useState } from 'react'
@@ -10,15 +10,15 @@ export default function WalkingTimerBar(props: {
   setTotalDistance: (value: number) => void
   isActive: boolean
   setIsActive: (value: boolean) => void
-  route: { lat: number, lng: number}[]
-  setRoute: (value: { lat: number, lng: number }[]) => void
+  route: { lat: number; lng: number }[]
+  setRoute: (value: { lat: number; lng: number }[]) => void
   startDistance: number
 }) {
   const [stop, isStop] = useState(false)
 
   const onHandleOpenWaliking = () => {
     if (props.startDistance > MAX_START_DISTANCE && props.route.length === 0) {
-      alert("시작 위치와 거리가 너무 멉니다!")
+      alert('시작 위치와 거리가 너무 멉니다!')
       return
     }
     isStop(false)
@@ -54,7 +54,8 @@ export default function WalkingTimerBar(props: {
               onClick={() => props.setIsActive(false)}
             >
               <IoPause className="w-8 h-8" />
-            </button>) : (
+            </button>
+          ) : (
             <button
               className="bg-neutral-800 rounded-full border border-indigo-600 p-4 cursor-pointer"
               onClick={onHandleOpenWaliking}

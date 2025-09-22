@@ -6,8 +6,8 @@ export const GENDER = {
 
 // 예/아니오 옵션
 export const BOOLEAN_CHOICE = {
-  YES: 'yes',
-  NO: 'no',
+  YES: true,
+  NO: false,
 } as const
 
 // 성격 전달 목록

@@ -42,7 +42,7 @@ export default function Navbar() {
       </Link>
 
       <Link
-        to="/setting"
+        to="/mypage"
         className="flex flex-col items-center transition hover:text-cyan-400"
         activeProps={{
           className: 'text-cyan-400',

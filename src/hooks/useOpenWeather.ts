@@ -5,7 +5,7 @@ export default function useOpenWeather(props: {
   location: {
     latitude: number
     longitude: number
-  };
+  }
 }) {
   const [weather, setWeather] = useState<WeatherData | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
@@ -20,15 +20,13 @@ export default function useOpenWeather(props: {
       setError(null)
 
       try {
-        const url =
-          `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${import.meta.env.VITE_OPEN_WEATHER_API_KEY}&units=metric&lang=kr`
+        const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${import.meta.env.VITE_OPEN_WEATHER_API_KEY}&units=metric&lang=kr`
         const response = await axios.get(url)
         const data = response.data
         setWeather(data)
-      } catch (e) {
+      } catch {
         setWeather(null)
-        setError("날씨 정보 불러오는 데 실패했습니다.")
-        console.error("날씨 정보 fetching 실패: ", e)
+        setError('날씨 정보 불러오는 데 실패했습니다.')
       } finally {
         setLoading(false)
       }

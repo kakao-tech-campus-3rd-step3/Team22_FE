@@ -38,7 +38,11 @@ export default function MapSetupComplete() {
         </div>
       </div>
       <div className="absolute bottom-0 left-0 w-full z-10 ">
-        <ButtonBar buttonText="주 산책 시간 설정하기" onButtonClick={handleComplete}>
+        <ButtonBar
+          buttonText="주 산책 시간 설정하기"
+          onButtonClick={handleComplete}
+          isButtonDisable={false}
+        >
           <div className="text-white my-1.5">해당 시간에 알림 경로 추천 알림 받기</div>
         </ButtonBar>
       </div>

@@ -56,8 +56,7 @@ export const usePetProfileState = create<PetProfileState>()(
         })),
     }),
     {
-      name: 'pet-profile-storage', // localStorage key
-      // optionally you can add serialize/de-serialize if needed
+      name: 'pet-profile-storage',
     },
   ),
 )

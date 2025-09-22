@@ -78,7 +78,7 @@ function AddNewPetPage() {
   }, [petProfile])
 
   return (
-    <>
+    <div className="flex flex-col gap-2">
       <h1 className="text-xl font-bold text-center">
         {isExistingProfile ? '반려동물 정보 수정' : UI_TEXT.PAGE_TITLE}
       </h1>
@@ -137,7 +137,7 @@ function AddNewPetPage() {
         setWeight={(value: string) => updatePetProfile('weight', value)}
       />
       <button
-        className={`w-full p-4 rounded-lg font-bold mt-4 transition-colors ${
+        className={`w-full p-4 rounded-lg font-bold transition-colors ${
           isFormValid ? 'bg-blue-600 hover:bg-blue-700' : 'bg-neutral-500 cursor-not-allowed'
         }`}
         onClick={handleSave}
@@ -145,7 +145,7 @@ function AddNewPetPage() {
       >
         {UI_TEXT.SAVE_BUTTON}
       </button>
-    </>
+    </div>
   )
 }
 

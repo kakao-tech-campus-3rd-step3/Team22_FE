@@ -7,14 +7,15 @@ import { useRef } from 'react'
 import useKakaoMap from '@/hooks/useKakaoMap.tsx'
 import { useNavigate } from '@tanstack/react-router'
 import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
+import LoadingBox from '@/components/common/LoadingBox'
 
-export default function LocationSetting() {
+export default function LocationSettingPage() {
   const loaded = useKakaoMapLoader()
   const { location, status } = useLocation()
   const mapRef = useRef<HTMLDivElement>(null!)
   const { address, place, centerLocation } = useKakaoMap({ mapRef, location, loaded })
   const setLocation = useMapSetupStore((state) => state.setLocation)
-  const navigate = useNavigate({ from: '/start-walk' })
+  const navigate = useNavigate({ from: '/location-setting' })
 
   const handleSetLocation = () => {
     setLocation(address, place, centerLocation.latitude, centerLocation.longitude)
@@ -24,11 +25,19 @@ export default function LocationSetting() {
   }
 
   if (!loaded) {
-    return <div>지도를 불러오는 중입니다...</div>
+    return (
+      <div className="w-full h-full">
+        <LoadingBox hsize="full"></LoadingBox>
+      </div>
+    )
   }
 
   if (status === 'loading') {
-    return <div>현재 위치를 찾는 중입니다...</div>
+    return (
+      <div className="w-full h-full">
+        <LoadingBox hsize="full"></LoadingBox>
+      </div>
+    )
   }
 
   if (status === 'denied') {
@@ -49,7 +58,11 @@ export default function LocationSetting() {
         alt="시작 마커"
       />
       <div className="absolute bottom-0 left-0 w-full z-10 ">
-        <ButtonBar buttonText="주 산책 시작 위치설정하기" onButtonClick={handleSetLocation}>
+        <ButtonBar
+          buttonText="주 산책 시작 위치설정하기"
+          onButtonClick={handleSetLocation}
+          isButtonDisable={false}
+        >
           <div className="text-white my-1.5">장소: {place}</div>
           <div className="text-white my-1.5">위치: {address}</div>
         </ButtonBar>

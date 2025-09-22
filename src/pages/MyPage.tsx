@@ -1,11 +1,14 @@
 import useAuthStore from '@/stores/authStore'
+import { useNavigate } from '@tanstack/react-router'
 
 function MyPage() {
   const username = useAuthStore((state) => state.username)
   const logout = useAuthStore((state) => state.logout)
+  const navigate = useNavigate()
 
   const handleLogout = () => {
     logout()
+    navigate({ to: '/login' })
   }
 
   return (

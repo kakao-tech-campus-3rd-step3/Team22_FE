@@ -1,4 +1,3 @@
-// stores/uiStore.ts
 import { create } from 'zustand'
 
 interface UIState {
@@ -7,6 +6,6 @@ interface UIState {
 }
 
 export const useUIStore = create<UIState>((set) => ({
-  showNavbar: true, // 기본 보여주기
+  showNavbar: true,
   setShowNavbar: (show) => set({ showNavbar: show }),
 }))

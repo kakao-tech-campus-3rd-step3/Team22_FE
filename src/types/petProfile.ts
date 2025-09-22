@@ -4,22 +4,22 @@ import { BREED_VALUES } from '@/constants/constants'
 export const defaultPetProfile: PetProfile = {
   selectedBreed: 'Maltese',
   gender: 'male',
-  neutralize: 'no',
-  vaccinated: 'no',
+  neutralize: false,
+  vaccinated: false,
   birthdate: '2020-01-01',
   personality: 'extroverted',
-  dayWeather: ['맑음'],
-  nightWeather: ['맑음'],
-  preferredPaths: ['공원'],
-  selectedDiseases: [],
+  dayWeather: [''],
+  nightWeather: [''],
+  preferredPaths: [''],
+  selectedDiseases: [''],
   weight: 3,
 }
 
 export const petProfileSchema = z.object({
   selectedBreed: z.enum(BREED_VALUES, { message: '견종을 선택해주세요.' }),
   gender: z.enum(['male', 'female']),
-  neutralize: z.enum(['yes', 'no']),
-  vaccinated: z.enum(['yes', 'no']),
+  neutralize: z.boolean(),
+  vaccinated: z.boolean(),
   birthdate: z
     .string()
     .regex(/^\d{4}-\d{2}-\d{2}$/, '날짜 형식이 YYYY-MM-DD가 아닙니다.')

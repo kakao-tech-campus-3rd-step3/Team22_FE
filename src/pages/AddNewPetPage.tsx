@@ -14,6 +14,13 @@ function AddNewPetPage() {
   const [isBreedModalOpen, setIsBreedModalOpen] = useState(false)
   const [isDiseaseModalOpen, setIsDiseaseModalOpen] = useState(false)
 
+  const isExistingProfile =
+    petProfile.birthYear.trim() !== '' ||
+    petProfile.birthMonth.trim() !== '' ||
+    petProfile.birthDay.trim() !== '' ||
+    petProfile.selectedDiseases.length > 0 ||
+    petProfile.weight.trim() !== ''
+
   const getFormattedBirthdate = (year: string, month: string, day: string): string => {
     const y = year.trim()
     const m = month.trim()
@@ -72,7 +79,9 @@ function AddNewPetPage() {
 
   return (
     <>
-      <h1 className="text-xl font-bold text-center">{UI_TEXT.PAGE_TITLE}</h1>
+      <h1 className="text-xl font-bold text-center">
+        {isExistingProfile ? '반려동물 정보 수정' : UI_TEXT.PAGE_TITLE}
+      </h1>
 
       <SelectionModal
         isOpen={isBreedModalOpen}
@@ -98,9 +107,9 @@ function AddNewPetPage() {
         gender={petProfile.gender}
         setGender={(value: 'male' | 'female') => updatePetProfile('gender', value)}
         neutralize={petProfile.neutralize}
-        setNeutralize={(value: 'yes' | 'no') => updatePetProfile('neutralize', value)}
+        setNeutralize={(value: true | false) => updatePetProfile('neutralize', value)}
         vaccinated={petProfile.vaccinated}
-        setVaccinated={(value: 'yes' | 'no') => updatePetProfile('vaccinated', value)}
+        setVaccinated={(value: true | false) => updatePetProfile('vaccinated', value)}
         birthYear={petProfile.birthYear}
         setBirthYear={(value: string) => updatePetProfile('birthYear', value)}
         birthMonth={petProfile.birthMonth}

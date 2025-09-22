@@ -13,14 +13,14 @@ export default function useKakaoMapLoader() {
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${
       import.meta.env.VITE_KAKAO_MAP_JS_KEY
     }&autoload=false&libraries=services`
-    script.async = true;
+    script.async = true
     document.head.appendChild(script)
 
     script.onload = () => {
       window.kakao.maps.load(() => {
         setLoaded(true)
-      });
-    };
+      })
+    }
 
     return () => {
       document.head.removeChild(script)

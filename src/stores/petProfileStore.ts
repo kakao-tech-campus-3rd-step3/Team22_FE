@@ -1,4 +1,3 @@
-// src/stores/petProfileStore.ts
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { type PetProfile, defaultPetProfile } from '@/types/petProfile'
@@ -6,7 +5,7 @@ import { type PetProfile, defaultPetProfile } from '@/types/petProfile'
 interface PetProfileStore {
   petProfile: PetProfile
   updatePetProfile: <K extends keyof PetProfile>(key: K, value: PetProfile[K]) => void
-  setPetProfile: (data: Partial<PetProfile>) => void // 여러 필드 한 번에 변경 시
+  setPetProfile: (data: Partial<PetProfile>) => void
   resetPetProfile: () => void
 }
 

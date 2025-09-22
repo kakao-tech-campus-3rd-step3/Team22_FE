@@ -2,6 +2,7 @@ export default function ButtonBar(props: {
   children: React.ReactNode
   buttonText: string
   onButtonClick: () => void
+  isButtonDisable: boolean
 }) {
   return (
     <div className="w-full">
@@ -12,8 +13,13 @@ export default function ButtonBar(props: {
       >
         <div className="h-full overflow-y-auto pb-4">{props.children}</div>
         <button
-          className="h-12 my-1.5 text-white bg-indigo-600 rounded-xl cursor-pointer"
+          className={`h-12 my-1.5 text-white rounded-xl ${
+            props.isButtonDisable
+              ? 'bg-gray-500 cursor-not-allowed opacity-60'
+              : 'bg-indigo-600 cursor-pointer hover:bg-indigo-500'
+          }`}
           onClick={props.onButtonClick}
+          disabled={props.isButtonDisable}
         >
           {props.buttonText}
         </button>

@@ -18,23 +18,17 @@ export default function WalkingTimerBar(props: {
 
   const onHandleOpenWaliking = () => {
     if (props.startDistance > MAX_START_DISTANCE && props.route.length === 0) {
-      alert("시작 위치와 거리가 너무 멉니다!");
-      return;
+      alert("시작 위치와 거리가 너무 멉니다!")
+      return
     }
     isStop(false)
-    props.setIsActive(true);
+    props.setIsActive(true)
   }
 
   const onHandleEndWalking = () => {
-    // console.log("데이터", {
-    //   "totalDistance_m": props.totalDistance,
-    //   "walkingTime_sec": minutes * 60 + seconds,
-    //   "path": props.route
-    // })
-
     isStop(true)
-    props.setTotalDistance(0);
-    props.setRoute([]);
+    props.setTotalDistance(0)
+    props.setRoute([])
     props.setIsActive(false)
   }
 

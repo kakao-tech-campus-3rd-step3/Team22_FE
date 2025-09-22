@@ -9,20 +9,15 @@ import useDistance from '@/hooks/useDistance.ts'
 
 export default function RouteDrawPage() {
   const loaded = useKakaoMapLoader()
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(false)
   const { location: currentLocation, status } = useLocation()
   const { latitude, longitude } = useMapSetupStore()
   const [route, setRoute] = useState<{ lat: number; lng: number }[]>([])
   const { mapContainerRef } = useKakaoRouteMap({ loaded, latitude, longitude, route, currentLocation })
-  const { totalDistance, setTotalDistance, startDistance } = useDistance({ route, currentLocation, latitude, longitude });
-
-  // console.log("start", startDistance)
-  // console.log(totalDistance)
-  // console.log(location);
-  // console.log(route);
+  const { totalDistance, setTotalDistance, startDistance } = useDistance({ route, currentLocation, latitude, longitude })
 
   useEffect(() => {
-    if (!isActive) return;
+    if (!isActive) return
 
     if (status === 'success') {
       setRoute((prev) => [

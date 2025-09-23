@@ -1,6 +1,8 @@
 import { getDistance, getPathLength } from 'geolib'
 import { useEffect, useState } from 'react'
 
+type ValidRoutePoint = { lat: number; lng: number };
+
 export default function useDistance(props: {
   currentLocation?: { latitude: number; longitude: number }
   latitude?: number | null
@@ -12,11 +14,10 @@ export default function useDistance(props: {
 
   useEffect(() => {
     if (props.route && props.route.length > 0) {
-      const validRoute = props.route.filter((p) => p.lat !== null && p.lng !== null) as {
-        lat: number
-        lng: number
-      }[]
-      setTotalDistance(getPathLength(validRoute))
+      const validRoute = props.route.filter(
+        (p): p is ValidRoutePoint => p.lat !== null && p.lng !== null)
+
+      if (validRoute.length > 0) { setTotalDistance(getPathLength(validRoute)) }
       return
     }
   }, [props.route])

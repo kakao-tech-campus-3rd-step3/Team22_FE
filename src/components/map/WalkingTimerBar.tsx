@@ -14,19 +14,19 @@ export default function WalkingTimerBar(props: {
   setRoute: (value: { lat: number; lng: number }[]) => void
   startDistance: number
 }) {
-  const [stop, isStop] = useState(false)
+  const [stop, setStop] = useState(false)
 
   const onHandleOpenWaliking = () => {
     if (props.startDistance > MAX_START_DISTANCE && props.route.length === 0) {
       alert('시작 위치와 거리가 너무 멉니다!')
       return
     }
-    isStop(false)
+    setStop(false)
     props.setIsActive(true)
   }
 
   const onHandleEndWalking = () => {
-    isStop(true)
+    setStop(true)
     props.setTotalDistance(0)
     props.setRoute([])
     props.setIsActive(false)

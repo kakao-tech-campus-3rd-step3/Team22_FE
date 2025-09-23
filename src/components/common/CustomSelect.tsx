@@ -1,13 +1,12 @@
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react'
 import { FaCheck, FaChevronDown } from 'react-icons/fa'
 
-type CustomSelectProps = {
-  value: string
-  options: Array<string | number>
-  onChange: (value: string) => void
-}
-
-export default function CustomSelect({ value, options, onChange }: CustomSelectProps) {
+export default function CustomSelect<T extends string | number>(props: {
+  value: T
+  options: readonly T[]
+  onChange: (value: T) => void
+}) {
+  const { value, options, onChange } = props
   return (
     <Listbox value={value} onChange={onChange}>
       <div className="relative w-24">

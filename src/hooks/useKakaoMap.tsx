@@ -21,24 +21,22 @@ export default function useKakaoMap(props: {
     latitude: 0,
     longitude: 0,
   })
+  const { mapRef, location, loaded } = props
 
   useEffect(() => {
-    if (!props.loaded || !props.location || !props.mapRef.current) {
+    if (!loaded || !location || !mapRef.current) {
       return
     }
     if (mapInstanceRef.current) return
 
-    const currentPosition = new window.kakao.maps.LatLng(
-      props.location.latitude,
-      props.location.longitude,
-    )
+    const currentPosition = new window.kakao.maps.LatLng(location.latitude, location.longitude)
 
     const mapOptions = {
       center: currentPosition,
       level: 1,
     }
 
-    mapInstanceRef.current = new window.kakao.maps.Map(props.mapRef.current, mapOptions)
+    mapInstanceRef.current = new window.kakao.maps.Map(mapRef.current, mapOptions)
 
     const customOverlayContent = document.createElement('div')
     overlayRef.current = new window.kakao.maps.CustomOverlay({
@@ -50,7 +48,7 @@ export default function useKakaoMap(props: {
     overlayRef.current?.setMap(mapInstanceRef.current)
     overlayRootRef.current = createRoot(customOverlayContent)
     overlayRootRef.current?.render(<LocationDotIcon />)
-  }, [props.mapRef, props.location, props.loaded])
+  }, [mapRef, location, loaded])
 
   useEffect(() => {
     const map = mapInstanceRef.current
@@ -95,7 +93,7 @@ export default function useKakaoMap(props: {
     return () => {
       window.kakao.maps.event.removeListener(map, 'idle', fetchLocationInfo)
     }
-  }, [props.loaded, props.location])
+  }, [loaded, location])
 
   return { address, place, centerLocation }
 }

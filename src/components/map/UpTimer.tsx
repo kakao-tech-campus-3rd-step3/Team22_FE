@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-export default function UpTimer(props: {
-  isActive: boolean
-  stop: boolean
-}) {
+export default function UpTimer(props: { isActive: boolean; stop: boolean }) {
   const { isActive, stop } = props
   const [elapsedTime, setElapsedTime] = useState(0)
   const startTimeRef = useRef<number | null>(null)
@@ -16,7 +13,7 @@ export default function UpTimer(props: {
     }
 
     if (isActive) {
-      startTimeRef.current = Date.now() - elapsedTime;
+      startTimeRef.current = Date.now() - elapsedTime
       intervalRef.current = window.setInterval(() => {
         setElapsedTime(Date.now() - (startTimeRef.current ?? 0))
       }, 1000)
@@ -31,7 +28,7 @@ export default function UpTimer(props: {
       if (intervalRef.current !== null) {
         clearInterval(intervalRef.current)
       }
-    };
+    }
   }, [stop, elapsedTime, isActive])
 
   const totalSeconds = Math.floor(elapsedTime / 1000)
@@ -40,8 +37,10 @@ export default function UpTimer(props: {
 
   return (
     <div className="flex flex-col items-center">
-      <span>{minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}</span>
+      <span>
+        {minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}
+      </span>
       <span>시간</span>
     </div>
-  );
+  )
 }

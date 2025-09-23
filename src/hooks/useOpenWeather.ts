@@ -7,13 +7,14 @@ export default function useOpenWeather(props: {
     longitude: number
   }
 }) {
+  const { location } = props
   const [weather, setWeather] = useState<WeatherData | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    if (!props.location) return
-    const { latitude, longitude } = props.location
+    if (!location) return
+    const { latitude, longitude } = location
 
     const fetchWeather = async () => {
       setLoading(true)
@@ -33,7 +34,7 @@ export default function useOpenWeather(props: {
     }
 
     fetchWeather()
-  }, [props.location])
+  }, [location])
 
   return { weather, loading, error }
 }

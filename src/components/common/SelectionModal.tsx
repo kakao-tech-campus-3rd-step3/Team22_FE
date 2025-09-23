@@ -13,26 +13,27 @@ function SelectionModal(props: {
   onSelect: (value: string) => void
   selectedValue: string | string[]
 }) {
-  if (!props.isOpen) return null
+  const { isOpen, onClose, title, options, onSelect, selectedValue } = props
+  if (!isOpen) return null
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
       <div className="bg-neutral-800 rounded-lg shadow-xl w-4/5 max-w-sm p-6">
         <div className="flex justify-between items-center border-b border-neutral-700 pb-3 mb-4">
-          <h2 className="text-lg font-bold">{props.title}</h2>
-          <button onClick={props.onClose} className="text-2xl text-neutral-400 hover:text-white">
+          <h2 className="text-lg font-bold">{title}</h2>
+          <button onClick={onClose} className="text-2xl text-neutral-400 hover:text-white">
             &times;
           </button>
         </div>
 
         <div className="space-y-3">
-          {props.options.map((option) => {
-            const isSelected = getIsSelected(props.selectedValue, option.value)
+          {options.map((option) => {
+            const isSelected = getIsSelected(selectedValue, option.value)
 
             return (
               <button
                 key={option.value}
-                onClick={() => props.onSelect(option.value)}
+                onClick={() => onSelect(option.value)}
                 className={`w-full p-3 rounded-md text-sm font-semibold text-left transition-colors ${
                   isSelected
                     ? 'bg-blue-600 text-white'

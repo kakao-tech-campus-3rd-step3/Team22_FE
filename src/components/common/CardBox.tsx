@@ -1,6 +1,7 @@
 export default function CardBox(props: { onClick: () => void }) {
+  const { onClick } = props
   return (
-    <button className="bg-white rounded-lg space-y-4" onClick={props.onClick}>
+    <button className="bg-white rounded-lg space-y-4" onClick={onClick}>
       <img
         className="w-full h-48 rounded-lg object-cover"
         src={'https://cdn.travie.com/news/photo/first/201611/img_19431_1.jpg'}

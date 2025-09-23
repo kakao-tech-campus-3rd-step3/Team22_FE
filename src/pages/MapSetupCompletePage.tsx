@@ -4,7 +4,7 @@ import { useNavigate } from '@tanstack/react-router'
 import useKakaoStaticMap from '@/hooks/useKakaoStaticMap.ts'
 import useKakaoMapLoader from '@/hooks/useKakaoMapLoader.ts'
 
-export default function MapSetupComplete() {
+export default function MapSetupCompletePage() {
   const loaded = useKakaoMapLoader()
   const { walkTimes, address, place, latitude, longitude } = useMapSetupStore()
   const navigate = useNavigate({ from: '/map-setup' })

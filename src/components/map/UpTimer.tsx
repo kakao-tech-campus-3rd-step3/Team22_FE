@@ -1,45 +1,47 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function UpTimer(props: {
-  seconds: number,
-  setSeconds: (value: number | ((prev: number) => number)) => void,
-  minutes: number,
-  setMinutes: (value: number | ((prev: number) => number)) => void;
-  isActive: boolean,
+  isActive: boolean
+  stop: boolean
 }) {
-  const seconds = props.seconds;
-  const setSeconds = props.setSeconds;
-  const minutes = props.minutes;
-  const setMinutes = props.setMinutes;
-  const isActive = props.isActive;
-
-  const intervalRef = useRef<number | null>(null);
+  const { isActive, stop } = props
+  const [elapsedTime, setElapsedTime] = useState(0)
+  const startTimeRef = useRef<number | null>(null)
+  const intervalRef = useRef<number | null>(null)
 
   useEffect(() => {
+    if (stop) {
+      setElapsedTime(0)
+      return
+    }
+
     if (isActive) {
+      startTimeRef.current = Date.now() - elapsedTime;
       intervalRef.current = window.setInterval(() => {
-        setSeconds((prev) => prev + 1);
-      }, 1000);
+        setElapsedTime(Date.now() - (startTimeRef.current ?? 0))
+      }, 1000)
+    } else {
+      if (intervalRef.current !== null) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
     }
 
     return () => {
       if (intervalRef.current !== null) {
-        clearInterval(intervalRef.current!);
+        clearInterval(intervalRef.current)
       }
-    }
-  }, [isActive, setSeconds]);
+    };
+  }, [stop, elapsedTime, isActive])
 
-  useEffect(() => {
-    if (seconds === 60) {
-      setSeconds(0);
-      setMinutes((prev) => prev + 1);
-    }
-  }, [seconds, minutes, setSeconds, setMinutes]);
+  const totalSeconds = Math.floor(elapsedTime / 1000)
+  const minutes = Math.floor(totalSeconds / 60)
+  const seconds = totalSeconds % 60
 
   return (
     <div className="flex flex-col items-center">
-      <span>{minutes.toString().padStart(2, "0")}:{seconds.toString().padStart(2, "0")}</span>
+      <span>{minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}</span>
       <span>시간</span>
     </div>
-  )
+  );
 }

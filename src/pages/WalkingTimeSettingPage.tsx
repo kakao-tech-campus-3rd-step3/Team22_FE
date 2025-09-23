@@ -6,18 +6,18 @@ import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
 import { useEffect, useState } from 'react'
 
 export default function WalkingTimeSettingPage() {
-  const navigate = useNavigate({ from: '/walk-time-setting' });
-  const [walkTimesEmpty, setWalkTimesEmpty] = useState(false);
-  const { walkTimes } = useMapSetupStore();
+  const navigate = useNavigate({ from: '/walk-time-setting' })
+  const [walkTimesEmpty, setWalkTimesEmpty] = useState(false)
+  const { walkTimes } = useMapSetupStore()
 
   useEffect(() => {
     if (walkTimes.length !== 0) {
-      setWalkTimesEmpty(false);
+      setWalkTimesEmpty(false)
     }
   }, [walkTimes])
 
   const handleSetTime = () => {
-    if (walkTimes.length === 0) return setWalkTimesEmpty(true);
+    if (walkTimes.length === 0) return setWalkTimesEmpty(true)
 
     navigate({
       to: '/map-setup',

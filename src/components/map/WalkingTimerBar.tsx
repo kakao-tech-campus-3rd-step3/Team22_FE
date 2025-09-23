@@ -1,9 +1,9 @@
 import { GrStopFill } from 'react-icons/gr'
 import { IoPause } from 'react-icons/io5'
 import { PiPlayFill } from 'react-icons/pi'
-import { useState } from 'react'
 import UpTimer from '@/components/map/UpTimer.tsx'
 import { DISTANCE_KM, MAX_START_DISTANCE } from '@/constants/location.ts'
+import { useState } from 'react'
 
 export default function WalkingTimerBar(props: {
   totalDistance: number
@@ -14,20 +14,19 @@ export default function WalkingTimerBar(props: {
   setRoute: (value: { lat: number; lng: number }[]) => void
   startDistance: number
 }) {
-  const [seconds, setSeconds] = useState(0)
-  const [minutes, setMinutes] = useState(0)
+  const [stop, setStop] = useState(false)
 
   const onHandleOpenWaliking = () => {
     if (props.startDistance > MAX_START_DISTANCE && props.route.length === 0) {
       alert('시작 위치와 거리가 너무 멉니다!')
       return
     }
+    setStop(false)
     props.setIsActive(true)
   }
 
   const onHandleEndWalking = () => {
-    setSeconds(0)
-    setMinutes(0)
+    setStop(true)
     props.setTotalDistance(0)
     props.setRoute([])
     props.setIsActive(false)
@@ -46,13 +45,7 @@ export default function WalkingTimerBar(props: {
             <span>거리(km)</span>
           </div>
           <div className="h-10 w-px bg-zinc-700" />
-          <UpTimer
-            seconds={seconds}
-            setSeconds={setSeconds}
-            minutes={minutes}
-            setMinutes={setMinutes}
-            isActive={props.isActive}
-          />
+          <UpTimer isActive={props.isActive} stop={stop} />
         </div>
         <div className="flex flex-row justify-around items-center text-center py-8">
           {props.isActive ? (

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { MAXIMUM_AGE, TIME_OUT } from '@/constants/location.ts'
 
 type LocationStatus = 'loading' | 'success' | 'denied' | 'error'
 
@@ -32,11 +33,11 @@ export default function useLocation() {
           longitude: position.coords.longitude,
         },
         status: 'success',
-      });
+      })
     }
 
     const error = (err: GeolocationPositionError) => {
-      console.warn('현재 위치 찾기 실패', err);
+      console.warn('현재 위치 찾기 실패', err)
 
       if (err.code === 1) {
         setLocation({
@@ -53,8 +54,8 @@ export default function useLocation() {
 
     const watcherId = navigator.geolocation.watchPosition(success, error, {
       enableHighAccuracy: true,
-      timeout: 10000,
-      maximumAge: 0,
+      timeout: TIME_OUT,
+      maximumAge: MAXIMUM_AGE,
     })
 
     return () => {

@@ -46,11 +46,13 @@ export default function RouteDrawPage() {
     setEndModal(true)
   }
 
-  // const handleEndWalking = () => {
-  //   setTotalDistance(0)
-  //   setRoute([])
-  //   setIsActive(false)
-  // }
+  const handleEndWalking = () => {
+    setTotalDistance(0)
+    setElapsedTime(0)
+    setRoute([])
+    setIsActive(false)
+    setEndModal(false)
+  }
 
   if (!loaded) return <div>지도 불러오는 중...</div>
 
@@ -61,7 +63,13 @@ export default function RouteDrawPage() {
         <div className="w-full h-full">
           <MapSetting mapRef={mapContainerRef} />
           {endModal ? (
-            <WalkingEndModalComponent totalDistance={totalDistance} elapsedTime={elapsedTime} setEndModal={setEndModal} />
+            <WalkingEndModalComponent
+              totalDistance={totalDistance}
+              elapsedTime={elapsedTime}
+              route={route}
+              setEndModal={setEndModal}
+              handleEndWalking={handleEndWalking}
+            />
           ) : (
             <div className="absolute bottom-0 left-0 w-full z-10 ">
               <WalkingTimerBar

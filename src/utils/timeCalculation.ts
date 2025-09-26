@@ -5,7 +5,5 @@ export const formatTime = (elapsedTime: number) => {
   const total = getTotalSeconds(elapsedTime)
   const minutes = getMinutes(total)
   const seconds = getSeconds(total)
-  return `${minutes.toString().padStart(2, '0')}:${seconds
-    .toString()
-    .padStart(2, '0')}`
+  return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
 }

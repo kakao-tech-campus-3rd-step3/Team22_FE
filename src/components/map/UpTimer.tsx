@@ -1,20 +1,17 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
+import { formatTime } from '@/utils/timeCalculation.ts'
 
 export default function UpTimer(props: {
   isActive: boolean
   stop: boolean
+  elapsedTime: number
+  setElapsedTime: (value: number) => void
 }) {
-  const { isActive, stop } = props
-  const [elapsedTime, setElapsedTime] = useState(0)
+  const { isActive, stop, elapsedTime, setElapsedTime } = props
   const startTimeRef = useRef<number | null>(null)
   const intervalRef = useRef<number | null>(null)
 
   useEffect(() => {
-    if (stop) {
-      setElapsedTime(0)
-      return
-    }
-
     if (isActive) {
       startTimeRef.current = Date.now() - elapsedTime;
       intervalRef.current = window.setInterval(() => {
@@ -32,15 +29,17 @@ export default function UpTimer(props: {
         clearInterval(intervalRef.current)
       }
     };
-  }, [stop, elapsedTime, isActive])
+  }, [elapsedTime, isActive, setElapsedTime])
 
-  const totalSeconds = Math.floor(elapsedTime / 1000)
-  const minutes = Math.floor(totalSeconds / 60)
-  const seconds = totalSeconds % 60
+  useEffect(() => {
+    if (stop) {
+      setElapsedTime(0)
+    }
+  }, [stop, setElapsedTime])
 
   return (
     <div className="flex flex-col items-center">
-      <span>{minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}</span>
+      <span>{formatTime(elapsedTime)}</span>
       <span>시간</span>
     </div>
   );

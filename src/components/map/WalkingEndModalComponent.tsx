@@ -1,5 +1,6 @@
 import { formatTime, getTotalSeconds } from '@/utils/timeCalculation.ts'
 import { useNavigate } from '@tanstack/react-router'
+import { walkingResultSchema, WalkingResultState } from '@/types/routeResult.ts'
 
 export default function WalkingEndModalComponent(props: {
   totalDistance: number
@@ -12,11 +13,20 @@ export default function WalkingEndModalComponent(props: {
   const navigate = useNavigate();
 
   const handleSubmitResult = () => {
-    const result = {
+    const rawResult = {
       totalDistance_m: totalDistance,
       walkingTime_sec: getTotalSeconds(elapsedTime),
       path: route,
     }
+
+    const parsed = walkingResultSchema.safeParse(rawResult)
+
+    if (!parsed.success) {
+      alert("산책 기록 데이터가 유효하지 않습니다.")
+      return
+    }
+
+    const result: WalkingResultState = parsed.data
 
     alert(JSON.stringify(result, null, 2))
     handleEndWalking()

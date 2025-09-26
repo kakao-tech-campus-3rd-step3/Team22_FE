@@ -1,24 +1,11 @@
 import { z } from 'zod'
-import { BREED_VALUES } from '@/constants/constants'
-
-export const defaultPetProfile: PetProfile = {
-  selectedBreed: 'Maltese',
-  gender: 'male',
-  neutralize: false,
-  vaccinated: false,
-  birthdate: '2020-01-01',
-  personality: 'extroverted',
-  dayWeather: [''],
-  nightWeather: [''],
-  preferredPaths: [''],
-  selectedDiseases: [''],
-  weight: 3,
-}
+import { BREED_VALUES, GENDER_VALUES, PERSONALITY_VALUES } from '@/constants/constants'
 
 export const petProfileSchema = z.object({
+  name: z.string().nonempty(),
   selectedBreed: z.enum(BREED_VALUES, { message: '견종을 선택해주세요.' }),
-  gender: z.enum(['male', 'female']),
-  neutralize: z.boolean(),
+  gender: z.enum(GENDER_VALUES),
+  neutered: z.boolean(),
   vaccinated: z.boolean(),
   birthdate: z
     .string()
@@ -28,11 +15,10 @@ export const petProfileSchema = z.object({
       return !isNaN(time)
     }, '유효하지 않은 날짜입니다.')
     .refine((date) => new Date(date) <= new Date(), '생년월일이 현재보다 미래일 수 없습니다.'),
-  personality: z.enum(['extroverted', 'introverted']),
-  dayWeather: z.array(z.string()).nonempty({ message: '낮 날씨를 선택해주세요.' }),
-  nightWeather: z.array(z.string()).nonempty({ message: '밤 날씨를 선택해주세요.' }),
+  personality: z.enum(PERSONALITY_VALUES),
   preferredPaths: z.array(z.string()).nonempty({ message: '산책로를 선택해주세요.' }),
-  selectedDiseases: z.array(z.string()).optional(),
+  preferredWeather: z.array(z.string()).nonempty({ message: '날씨를 선택해주세요.' }),
+  chronicDisease: z.array(z.string()).optional(),
   weight: z.preprocess(
     (val) => {
       if (typeof val === 'string') {

@@ -1,4 +1,4 @@
-import { GENDER, BOOLEAN_CHOICE, UI_TEXT } from '@/constants/constants'
+import { GENDER, BOOLEAN_CHOICE, UI_TEXT, type GenderType } from '@/constants/constants'
 import InfoRow from '@/components/common/InfoRow'
 import TextButton from '@/components/common/TextButton'
 import TextModalButton from '@/components/common/TextModalButton'
@@ -29,8 +29,8 @@ function DefaultCharacterSection(props: {
   selectedBreed: string
   setIsBreedModalOpen: (isOpen: boolean) => void
 
-  gender: 'male' | 'female'
-  setGender: (value: 'male' | 'female') => void
+  gender: GenderType
+  setGender: (value: GenderType) => void
 
   neutralize: boolean
   setNeutralize: (value: true | false) => void
@@ -38,14 +38,8 @@ function DefaultCharacterSection(props: {
   vaccinated: boolean
   setVaccinated: (value: true | false) => void
 
-  birthYear: string
-  setBirthYear: (value: string) => void
-
-  birthMonth: string
-  setBirthMonth: (value: string) => void
-
-  birthDay: string
-  setBirthDay: (value: string) => void
+  birthdate: string
+  setBirthdate: (value: string) => void
 }) {
   const {
     selectedBreed,
@@ -56,37 +50,50 @@ function DefaultCharacterSection(props: {
     setNeutralize,
     vaccinated,
     setVaccinated,
-    birthYear,
-    setBirthYear,
-    birthMonth,
-    setBirthMonth,
-    birthDay,
-    setBirthDay,
+    birthdate,
+    setBirthdate,
   } = props
+
+  const [year, month, day] = birthdate ? birthdate.split('-') : ['', '', '']
+
+  // 2. 날짜 일부(년/월/일)를 업데이트하는 핸들러 함수
+  const handleDateChange = (part: 'year' | 'month' | 'day', value: string) => {
+    // 현재 birthdate 값을 기준으로 새로운 날짜 조합
+    let newYear = year
+    let newMonth = month
+    let newDay = day
+
+    if (part === 'year') newYear = value
+    if (part === 'month') newMonth = value
+    if (part === 'day') newDay = value
+
+    // YYYY-MM-DD 형식의 부분적인 문자열이라도 부모 상태로 바로 업데이트
+    setBirthdate(`${newYear}-${newMonth}-${newDay}`)
+  }
 
   const dateFields = [
     {
-      key: 'birthYear',
+      key: 'year',
       placeholder: '년도 (4자리)',
       maxLength: 4,
-      value: birthYear,
-      setter: setBirthYear,
+      value: year, // 파생된 값 사용
+      setter: (val: string) => handleDateChange('year', val), // 핸들러 호출
       pattern: /^\d{0,4}$/,
     },
     {
-      key: 'birthMonth',
+      key: 'month',
       placeholder: '월',
       maxLength: 2,
-      value: birthMonth,
-      setter: setBirthMonth,
+      value: month, // 파생된 값 사용
+      setter: (val: string) => handleDateChange('month', val), // 핸들러 호출
       pattern: /^\d{0,2}$/,
     },
     {
-      key: 'birthDay',
+      key: 'day',
       placeholder: '일',
       maxLength: 2,
-      value: birthDay,
-      setter: setBirthDay,
+      value: day, // 파생된 값 사용
+      setter: (val: string) => handleDateChange('day', val), // 핸들러 호출
       pattern: /^\d{0,2}$/,
     },
   ]

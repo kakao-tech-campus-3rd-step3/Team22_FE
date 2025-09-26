@@ -2,7 +2,7 @@ import useKakaoMapLoader from '@/hooks/useKakaoMapLoader.ts'
 import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
 import MapSetting from '@/components/map/MapSetting.tsx'
 import useLocation from '@/hooks/useLocation.ts'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import useKakaoRouteMap from '@/hooks/useKakaoRouteMap.tsx'
 import WalkingTimerBar from '@/components/map/WalkingTimerBar.tsx'
 import useDistance from '@/hooks/useDistance.ts'
@@ -46,13 +46,13 @@ export default function RouteDrawPage() {
     setEndModal(true)
   }
 
-  const handleEndWalking = () => {
+  const handleEndWalking = useCallback(() => {
     setTotalDistance(0)
     setElapsedTime(0)
     setRoute([])
     setIsActive(false)
     setEndModal(false)
-  }
+  }, [setTotalDistance, setElapsedTime, setRoute, setIsActive, setEndModal])
 
   if (!loaded) return <div>지도 불러오는 중...</div>
 

@@ -29,7 +29,7 @@ export default function UpTimer(props: {
         clearInterval(intervalRef.current)
       }
     };
-  }, [isActive, setElapsedTime])
+  }, [elapsedTime, isActive, setElapsedTime])
 
   useEffect(() => {
     if (stop) {

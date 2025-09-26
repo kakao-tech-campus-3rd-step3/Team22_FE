@@ -1,3 +1,5 @@
+import { type GenderType } from '@/constants/constants'
+import { petProfileDefaultsForForm } from '@/constants/petProfileDefault'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -5,34 +7,15 @@ export type Breed = 'Maltese' | 'Golden Retriever' | 'Poodle'
 
 export interface PetProfileFormState {
   selectedBreed: Breed
-  gender: 'male' | 'female'
+  gender: GenderType
   neutralize: true | false
   vaccinated: true | false
-  birthYear: string
-  birthMonth: string
-  birthDay: string
+  birthdate: string
   personality: 'extroverted' | 'introverted'
-  dayWeather: string[]
-  nightWeather: string[]
+  preferredWeather: string[]
   preferredPaths: string[]
-  selectedDiseases: string[]
+  chronicDisease: string[]
   weight: string
-}
-
-const initialPetProfileState: PetProfileFormState = {
-  selectedBreed: 'Maltese',
-  gender: 'male',
-  neutralize: false,
-  vaccinated: false,
-  birthYear: '',
-  birthMonth: '',
-  birthDay: '',
-  personality: 'extroverted',
-  dayWeather: [],
-  nightWeather: [],
-  preferredPaths: [],
-  selectedDiseases: [],
-  weight: '20',
 }
 
 type PetProfileState = {
@@ -46,7 +29,7 @@ type PetProfileState = {
 export const usePetProfileState = create<PetProfileState>()(
   persist(
     (set) => ({
-      petProfile: initialPetProfileState,
+      petProfile: petProfileDefaultsForForm,
       updatePetProfile: (key, value) =>
         set((state) => ({
           petProfile: {

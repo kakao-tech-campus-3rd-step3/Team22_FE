@@ -1,6 +1,6 @@
 import { formatTime, getTotalSeconds } from '@/utils/timeCalculation.ts'
 import { useNavigate } from '@tanstack/react-router'
-import { walkingResultSchema, WalkingResultState } from '@/types/routeResult.ts'
+import { walkingResultSchema, type WalkingResultState } from '@/types/routeResult.ts'
 
 export default function WalkingEndModalComponent(props: {
   totalDistance: number

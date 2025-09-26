@@ -35,9 +35,9 @@ export default function WalkingTimerBar(props: {
     props.setIsActive(false)
   }
 
-  const onHandleEndWalking = (() => {
+  const onHandleEndWalking = () => {
     props.handleTriggerEnd()
-  })
+  }
 
   return (
     <div className="w-full">

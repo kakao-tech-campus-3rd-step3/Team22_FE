@@ -38,25 +38,23 @@ export default function RouteDrawPage() {
     }
   }, [currentLocation.latitude, currentLocation.longitude, status, isActive])
 
-  if (!loaded) return <div>지도 불러오는 중...</div>
+  if (!loaded) {
+    return <div>지도 불러오는 중...</div>
+  }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-neutral-800 font-sans">
-      <div className="w-[390px] h-[844px] bg-[#121212] text-white shadow-2xl rounded-3xl overflow-y-auto p-6 space-y-6">
-        <div className="relative w-full h-full">
-          <MapSetting mapRef={mapContainerRef} />
-          <div className="absolute bottom-0 left-0 w-full z-10 ">
-            <WalkingTimerBar
-              totalDistance={totalDistance}
-              setTotalDistance={setTotalDistance}
-              isActive={isActive}
-              setIsActive={setIsActive}
-              route={route}
-              setRoute={setRoute}
-              startDistance={startDistance}
-            />
-          </div>
-        </div>
+    <div className="relative w-full h-full">
+      <MapSetting mapRef={mapContainerRef} />
+      <div className="absolute bottom-0 left-0 w-full z-10 ">
+        <WalkingTimerBar
+          totalDistance={totalDistance}
+          setTotalDistance={setTotalDistance}
+          isActive={isActive}
+          setIsActive={setIsActive}
+          route={route}
+          setRoute={setRoute}
+          startDistance={startDistance}
+        />
       </div>
     </div>
   )

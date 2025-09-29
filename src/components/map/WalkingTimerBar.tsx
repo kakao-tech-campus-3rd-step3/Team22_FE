@@ -13,6 +13,9 @@ export default function WalkingTimerBar(props: {
   route: { lat: number; lng: number }[]
   setRoute: (value: { lat: number; lng: number }[]) => void
   startDistance: number
+  handleTriggerEnd: () => void
+  elapsedTime: number
+  setElapsedTime: (value: number) => void
 }) {
   const { totalDistance, setTotalDistance, isActive, setIsActive, route, setRoute, startDistance } =
     props
@@ -28,11 +31,15 @@ export default function WalkingTimerBar(props: {
     setIsActive(true)
   }
 
-  const onHandleEndWalking = () => {
+  const onHandleStopWalking = () => {
     setStop(true)
     setTotalDistance(0)
     setRoute([])
     setIsActive(false)
+  }
+
+  const onHandleEndWalking = () => {
+    props.handleTriggerEnd()
   }
 
   return (
@@ -48,10 +55,10 @@ export default function WalkingTimerBar(props: {
             <span>거리(km)</span>
           </div>
           <div className="h-10 w-px bg-zinc-700" />
-          <UpTimer isActive={isActive} stop={stop} />
+          <UpTimer isActive={props.isActive} stop={stop} elapsedTime={props.elapsedTime} setElapsedTime={props.setElapsedTime} />
         </div>
-        <div className="flex flex-row justify-around items-center text-center py-8">
-          {isActive ? (
+        <div className="flex flex-row justify-around items-center text-center py-4">
+          {props.isActive ? (
             <button
               className="bg-neutral-800 rounded-full border border-indigo-600 p-4 cursor-pointer"
               onClick={() => setIsActive(false)}
@@ -68,11 +75,19 @@ export default function WalkingTimerBar(props: {
           )}
           <button
             className="bg-neutral-800 rounded-full border border-indigo-600 p-4 cursor-pointer"
-            onClick={onHandleEndWalking}
+            onClick={onHandleStopWalking}
           >
-            <GrStopFill className="w-8 h-8" />
+            <GrStopFill
+              className="w-8 h-8"
+            />
           </button>
         </div>
+        <button
+          onClick={onHandleEndWalking}
+          className="bg-red-500 rounded-xl py-2 cursor-pointer"
+        >
+          종료하기
+        </button>
       </div>
     </div>
   )

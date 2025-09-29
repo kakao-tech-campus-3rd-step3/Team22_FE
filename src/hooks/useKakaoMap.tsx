@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { createRoot, type Root } from 'react-dom/client'
-import { LocationDotIcon } from '@/assets/icons/LocationDotIcon.tsx'
+import currentDotIcon from '@/assets/icons/CurrentDotIcon.svg'
 
 interface CenterLocationState {
   latitude: number
@@ -13,8 +12,7 @@ export default function useKakaoMap(props: {
   loaded: boolean
 }) {
   const mapInstanceRef = useRef<KakaoMap | null>(null)
-  const overlayRef = useRef<KakaoCustomOverlay | null>(null)
-  const overlayRootRef = useRef<Root | null>(null)
+  const currentLocationMarkerRef = useRef<KakaoMarker | null>(null)
   const [address, setAddress] = useState<string>('위치를 찾는 중...')
   const [place, setPlace] = useState<string>('장소를 찾는 중...')
   const [centerLocation, setCenterLocation] = useState<CenterLocationState>({
@@ -37,18 +35,25 @@ export default function useKakaoMap(props: {
     }
 
     mapInstanceRef.current = new window.kakao.maps.Map(mapRef.current, mapOptions)
+    if (!currentLocationMarkerRef.current) {
+      const imageSize = new window.kakao.maps.Size(48, 48); 
+      const imageOption = { offset: new window.kakao.maps.Point(24, 24) }; 
 
-    const customOverlayContent = document.createElement('div')
-    overlayRef.current = new window.kakao.maps.CustomOverlay({
-      position: currentPosition,
-      content: customOverlayContent,
-      xAnchor: 0.5,
-      yAnchor: 0.5,
-    })
-    overlayRef.current?.setMap(mapInstanceRef.current)
-    overlayRootRef.current = createRoot(customOverlayContent)
-    overlayRootRef.current?.render(<LocationDotIcon />)
-  }, [mapRef, location, loaded])
+      const markerImage = new window.kakao.maps.MarkerImage(
+        currentDotIcon,
+        imageSize,
+        imageOption
+      );
+
+      currentLocationMarkerRef.current = new window.kakao.maps.Marker({
+        position: currentPosition,
+        image: markerImage,
+        map: mapInstanceRef.current,
+      });
+    } else {
+      currentLocationMarkerRef?.current?.setPosition(currentPosition);
+    }
+  }, [props.mapRef, props.location, props.loaded])
 
   useEffect(() => {
     const map = mapInstanceRef.current

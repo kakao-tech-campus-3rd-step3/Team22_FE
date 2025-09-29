@@ -1,8 +1,17 @@
 // 성별 옵션
 export const GENDER = {
-  MALE: 'male',
-  FEMALE: 'female',
+  MALE: 'MALE',
+  FEMALE: 'FEMALE',
 } as const
+
+//성별 선택타입
+export type GenderType = (typeof GENDER)[keyof typeof GENDER]
+
+// 성별 값
+export const GENDER_VALUES = ['MALE', 'FEMALE'] as const
+
+//성격
+export const PERSONALITY_VALUES = ['extroverted', 'introverted'] as const
 
 // 예/아니오 옵션
 export const BOOLEAN_CHOICE = {
@@ -34,22 +43,18 @@ export const DISEASE_OPTIONS_DATA = [
 ] as const
 
 // 낮 날씨
-export const DAY_WEATHER = {
+export const WEATHER = {
   SUN: 'sun',
   CLOUDY: 'cloudy',
   RAIN: 'rain',
   SNOW: 'snow',
   WIND: 'wind',
-} as const
-
-// 밤 날씨
-export const NIGHT_WEATHER = {
   MOON: 'moon',
-  CLOUDY_NIGHT: 'cloudy-night',
-  RAINY_NIGHT: 'rainy-night',
-  SNOWY_NIGHT: 'snowy-night',
-  WINDY_NIGHT: 'windy-night',
-} as const
+  CLOUDY_NIGHT: 'cloudy_night',
+  RAINY_NIGHT: 'rainy_night',
+  SNOWY_NIGHT: 'snowy_night',
+  WINDY_NIGHT: 'windy_night',
+}
 
 // 산책로 옵션
 export const PREFERRED_PATHS = {
@@ -67,8 +72,7 @@ export const UI_TEXT = {
   DISEASE_MODAL_TITLE: '지병선택',
   SAVE_BUTTON: '저장하기',
   DETAIL_SECTION_TITLE: '상세설정',
-  DAY_LABEL: '햇님',
-  NIGHT_LABEL: '달님',
+  WEATHER_LABEL: '선호날씨',
   DISEASE_LABEL: '지병',
   PATH_LABEL: '선호산책로',
   WEIGHT_LABEL: '몸무게',

@@ -1,17 +1,15 @@
 import IconButton from '@/components/common/IconButton'
 import InfoRow from '@/components/common/InfoRow'
 import {
-  DAY_WEATHER,
-  NIGHT_WEATHER,
   PERSONALITY,
   PREFERRED_PATHS,
   UI_TEXT,
   UNIT_OF_MEASURE,
+  WEATHER,
 } from '@/constants/constants'
 
-import { FaRegSun, FaRegMoon } from 'react-icons/fa'
+import { FaRegSun } from 'react-icons/fa'
 import { FaCloudSun } from 'react-icons/fa6'
-import { CiCloudMoon } from 'react-icons/ci'
 import { IoRainyOutline } from 'react-icons/io5'
 import { RiSnowyLine } from 'react-icons/ri'
 import { TiWeatherWindy } from 'react-icons/ti'
@@ -31,13 +29,10 @@ const toggleInArray = (
 }
 
 function DetailCharacterSection(props: {
-  dayWeather: string[]
-  setDayWeather: (value: string[]) => void
+  preferredWeather: string[]
+  setPreferredWeather: (value: string[]) => void
 
-  nightWeather: string[]
-  setNightWeather: (value: string[]) => void
-
-  selectedDiseases: string[]
+  chronicDisease: string[]
   setIsDiseaseModalOpen: (isOpen: boolean) => void
 
   preferredPaths: string[]
@@ -50,11 +45,9 @@ function DetailCharacterSection(props: {
   setWeight: (value: string) => void
 }) {
   const {
-    dayWeather,
-    setDayWeather,
-    nightWeather,
-    setNightWeather,
-    selectedDiseases,
+    preferredWeather,
+    setPreferredWeather,
+    chronicDisease,
     setIsDiseaseModalOpen,
     preferredPaths,
     setPreferredPaths,
@@ -75,62 +68,38 @@ function DetailCharacterSection(props: {
     <div className="bg-neutral-900 p-4 rounded-lg space-y-4">
       <h2 className="text-lg font-bold text-left mb-4">{UI_TEXT.DETAIL_SECTION_TITLE}</h2>
 
-      <InfoRow label={UI_TEXT.DAY_LABEL}>
-        <div className="flex w-full gap-1">
+      <InfoRow label={UI_TEXT.WEATHER_LABEL}>
+        <div className="w-full grid grid-cols-5 gap-1 ">
           <IconButton
             icon={<FaRegSun size={20} />}
-            isSelected={dayWeather.includes(DAY_WEATHER.SUN)}
-            onClick={() => toggleInArray(dayWeather, setDayWeather, DAY_WEATHER.SUN)}
+            isSelected={preferredWeather.includes(WEATHER.SUN)}
+            onClick={() => toggleInArray(preferredWeather, setPreferredWeather, WEATHER.SUN)}
           />
           <IconButton
             icon={<FaCloudSun size={20} />}
-            isSelected={dayWeather.includes(DAY_WEATHER.CLOUDY)}
-            onClick={() => toggleInArray(dayWeather, setDayWeather, DAY_WEATHER.CLOUDY)}
+            isSelected={preferredWeather.includes(WEATHER.CLOUDY)}
+            onClick={() => toggleInArray(preferredWeather, setPreferredWeather, WEATHER.CLOUDY)}
           />
           <IconButton
             icon={<IoRainyOutline size={20} />}
-            isSelected={dayWeather.includes(DAY_WEATHER.RAIN)}
-            onClick={() => toggleInArray(dayWeather, setDayWeather, DAY_WEATHER.RAIN)}
+            isSelected={preferredWeather.includes(WEATHER.RAINY_NIGHT)}
+            onClick={() =>
+              toggleInArray(preferredWeather, setPreferredWeather, WEATHER.RAINY_NIGHT)
+            }
           />
           <IconButton
             icon={<RiSnowyLine size={20} />}
-            isSelected={dayWeather.includes(DAY_WEATHER.SNOW)}
-            onClick={() => toggleInArray(dayWeather, setDayWeather, DAY_WEATHER.SNOW)}
+            isSelected={preferredWeather.includes(WEATHER.SNOWY_NIGHT)}
+            onClick={() =>
+              toggleInArray(preferredWeather, setPreferredWeather, WEATHER.SNOWY_NIGHT)
+            }
           />
           <IconButton
             icon={<TiWeatherWindy size={20} />}
-            isSelected={dayWeather.includes(DAY_WEATHER.WIND)}
-            onClick={() => toggleInArray(dayWeather, setDayWeather, DAY_WEATHER.WIND)}
-          />
-        </div>
-      </InfoRow>
-
-      <InfoRow label={UI_TEXT.NIGHT_LABEL}>
-        <div className="flex w-full gap-1">
-          <IconButton
-            icon={<FaRegMoon size={20} />}
-            isSelected={nightWeather.includes(NIGHT_WEATHER.MOON)}
-            onClick={() => toggleInArray(nightWeather, setNightWeather, NIGHT_WEATHER.MOON)}
-          />
-          <IconButton
-            icon={<CiCloudMoon size={20} />}
-            isSelected={nightWeather.includes(NIGHT_WEATHER.CLOUDY_NIGHT)}
-            onClick={() => toggleInArray(nightWeather, setNightWeather, NIGHT_WEATHER.CLOUDY_NIGHT)}
-          />
-          <IconButton
-            icon={<IoRainyOutline size={20} />}
-            isSelected={nightWeather.includes(NIGHT_WEATHER.RAINY_NIGHT)}
-            onClick={() => toggleInArray(nightWeather, setNightWeather, NIGHT_WEATHER.RAINY_NIGHT)}
-          />
-          <IconButton
-            icon={<RiSnowyLine size={20} />}
-            isSelected={nightWeather.includes(NIGHT_WEATHER.SNOWY_NIGHT)}
-            onClick={() => toggleInArray(nightWeather, setNightWeather, NIGHT_WEATHER.SNOWY_NIGHT)}
-          />
-          <IconButton
-            icon={<TiWeatherWindy size={20} />}
-            isSelected={nightWeather.includes(NIGHT_WEATHER.WINDY_NIGHT)}
-            onClick={() => toggleInArray(nightWeather, setNightWeather, NIGHT_WEATHER.WINDY_NIGHT)}
+            isSelected={preferredWeather.includes(WEATHER.WINDY_NIGHT)}
+            onClick={() =>
+              toggleInArray(preferredWeather, setPreferredWeather, WEATHER.WINDY_NIGHT)
+            }
           />
         </div>
       </InfoRow>
@@ -140,8 +109,8 @@ function DetailCharacterSection(props: {
           onClick={() => setIsDiseaseModalOpen(true)}
           className="w-full text-left bg-neutral-700 p-2 rounded-md text-sm text-neutral-300 truncate"
         >
-          {selectedDiseases.length > 0
-            ? selectedDiseases.join(', ')
+          {chronicDisease.length > 0
+            ? chronicDisease.join(', ')
             : UI_TEXT.SELECT_DISEASE_PLACEHOLDER}
         </button>
       </InfoRow>

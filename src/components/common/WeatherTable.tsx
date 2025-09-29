@@ -12,8 +12,13 @@ export default function WeatherTable() {
     return <div className="text-center text-red-500 font-bold p-4">위치 권한을 허용해주세요.</div>
   }
 
-  if (error) return <div>{error}</div>
-  if (loading) return <LoadingBox hsize="12" />
+  if (error)
+    return (
+      <div className="w-full max-w-lg h-72 overflow-auto rounded-lg no-scrollbar bg-zinc-800">
+        {error}
+      </div>
+    )
+  if (loading) return <LoadingBox hsize="72" />
   if (!weather || !weather.list) return <LoadingBox hsize="72" />
 
   return (

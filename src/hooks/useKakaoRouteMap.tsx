@@ -1,14 +1,19 @@
 import { useEffect, useRef } from 'react'
 import startMarker from '@/assets/icons/StartMarker.png'
 import currentDotIcon from '@/assets/icons/CurrentDotIcon.svg'
-import { MARKER_IMAGE_HEIGHT, MARKER_IMAGE_WIDTH, MARKER_IMAGE_X, MARKER_IMAGE_Y } from '@/constants/marker.ts'
+import {
+  MARKER_IMAGE_HEIGHT,
+  MARKER_IMAGE_WIDTH,
+  MARKER_IMAGE_X,
+  MARKER_IMAGE_Y,
+} from '@/constants/marker.ts'
 
 export default function useKakaoRouteMap(props: {
   latitude: number | null
   longitude: number | null
   loaded: boolean
-  currentLocation: { latitude: number, longitude: number }
-  route: { lat: number | null, lng: number | null }[]
+  currentLocation: { latitude: number; longitude: number }
+  route: { lat: number | null; lng: number | null }[]
 }) {
   const mapContainerRef = useRef<HTMLDivElement | null>(null)
   const mapInstanceRef = useRef<KakaoMap | null>(null)
@@ -17,7 +22,13 @@ export default function useKakaoRouteMap(props: {
   const currentLocationMarkerRef = useRef<KakaoMarker | null>(null)
 
   useEffect(() => {
-    if (!props.loaded || props.latitude == null || props.longitude == null || !mapContainerRef.current) return
+    if (
+      !props.loaded ||
+      props.latitude == null ||
+      props.longitude == null ||
+      !mapContainerRef.current
+    )
+      return
     if (mapInstanceRef.current) return
 
     const startPosition = new window.kakao.maps.LatLng(props.latitude, props.longitude)
@@ -31,9 +42,9 @@ export default function useKakaoRouteMap(props: {
     mapInstanceRef.current = map
 
     const imageSrc = startMarker
-    const imageSize = new window.kakao.maps.Size(MARKER_IMAGE_WIDTH, MARKER_IMAGE_HEIGHT);
-    const imageOption = { offset: new window.kakao.maps.Point(MARKER_IMAGE_X, MARKER_IMAGE_Y) };
-    const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+    const imageSize = new window.kakao.maps.Size(MARKER_IMAGE_WIDTH, MARKER_IMAGE_HEIGHT)
+    const imageOption = { offset: new window.kakao.maps.Point(MARKER_IMAGE_X, MARKER_IMAGE_Y) }
+    const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
 
     markerInstanceRef.current = new window.kakao.maps.Marker({
       position: startPosition,
@@ -43,7 +54,13 @@ export default function useKakaoRouteMap(props: {
   }, [props.loaded, props.latitude, props.longitude])
 
   useEffect(() => {
-    if (!mapInstanceRef.current || !markerInstanceRef.current || props.latitude == null || props.longitude == null) return
+    if (
+      !mapInstanceRef.current ||
+      !markerInstanceRef.current ||
+      props.latitude == null ||
+      props.longitude == null
+    )
+      return
 
     const newPosition = new window.kakao.maps.LatLng(props.latitude, props.longitude)
 
@@ -62,17 +79,21 @@ export default function useKakaoRouteMap(props: {
         strokeWeight: 5,
         strokeColor: '#FFAE00',
         strokeOpacity: 0.7,
-        strokeStyle: 'solid'
+        strokeStyle: 'solid',
       })
-      polylineRef.current?.setMap(mapInstanceRef.current);
+      polylineRef.current?.setMap(mapInstanceRef.current)
     } else {
-      polylineRef.current?.setPath(linePath);
+      polylineRef.current?.setPath(linePath)
     }
   }, [props.route])
 
-
   useEffect(() => {
-    if (!mapInstanceRef.current || !props.currentLocation.latitude || !props.currentLocation.longitude) return
+    if (
+      !mapInstanceRef.current ||
+      !props.currentLocation.latitude ||
+      !props.currentLocation.longitude
+    )
+      return
 
     const currentPosition = new window.kakao.maps.LatLng(
       props.currentLocation.latitude,
@@ -80,26 +101,20 @@ export default function useKakaoRouteMap(props: {
     )
 
     if (!currentLocationMarkerRef.current) {
-      const imageSize = new window.kakao.maps.Size(48, 48); // 예: 너비 48, 높이 48
-      const imageOption = { offset: new window.kakao.maps.Point(24, 24) }; // 이미지의 중심을 마커 좌표에 맞춤
+      const imageSize = new window.kakao.maps.Size(48, 48) // 예: 너비 48, 높이 48
+      const imageOption = { offset: new window.kakao.maps.Point(24, 24) } // 이미지의 중심을 마커 좌표에 맞춤
 
-      const markerImage = new window.kakao.maps.MarkerImage(
-        currentDotIcon,
-        imageSize,
-        imageOption
-      );
+      const markerImage = new window.kakao.maps.MarkerImage(currentDotIcon, imageSize, imageOption)
 
       currentLocationMarkerRef.current = new window.kakao.maps.Marker({
         position: currentPosition,
         image: markerImage,
         map: mapInstanceRef.current,
-      });
+      })
     } else {
-      currentLocationMarkerRef?.current?.setPosition(currentPosition);
+      currentLocationMarkerRef?.current?.setPosition(currentPosition)
     }
-
   }, [props.currentLocation])
-
 
   return { mapContainerRef }
 }

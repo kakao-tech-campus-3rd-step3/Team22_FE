@@ -19,28 +19,25 @@ export default function useKakaoMap(props: {
     latitude: 0,
     longitude: 0,
   })
+  const { mapRef, location, loaded } = props
 
   useEffect(() => {
-    if (!props.loaded || !props.location || !props.mapRef.current) {
+    if (!loaded || !location || !mapRef.current) {
       return
     }
     if (mapInstanceRef.current) return
 
-    const currentPosition = new window.kakao.maps.LatLng(
-      props.location.latitude,
-      props.location.longitude,
-    )
+    const currentPosition = new window.kakao.maps.LatLng(location.latitude, location.longitude)
 
     const mapOptions = {
       center: currentPosition,
       level: 1,
     }
 
-    mapInstanceRef.current = new window.kakao.maps.Map(props.mapRef.current, mapOptions)
-
+    mapInstanceRef.current = new window.kakao.maps.Map(mapRef.current, mapOptions)
     if (!currentLocationMarkerRef.current) {
-      const imageSize = new window.kakao.maps.Size(48, 48); // 예: 너비 48, 높이 48
-      const imageOption = { offset: new window.kakao.maps.Point(24, 24) }; // 이미지의 중심을 마커 좌표에 맞춤
+      const imageSize = new window.kakao.maps.Size(48, 48); 
+      const imageOption = { offset: new window.kakao.maps.Point(24, 24) }; 
 
       const markerImage = new window.kakao.maps.MarkerImage(
         currentDotIcon,
@@ -101,7 +98,7 @@ export default function useKakaoMap(props: {
     return () => {
       window.kakao.maps.event.removeListener(map, 'idle', fetchLocationInfo)
     }
-  }, [props.loaded, props.location])
+  }, [loaded, location])
 
   return { address, place, centerLocation }
 }

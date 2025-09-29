@@ -5,11 +5,9 @@ import useAuthStore from '@/stores/authStore'
 import { FaDog } from 'react-icons/fa'
 import { useUIStore } from '@/stores/uiStore'
 
-interface LoginProps {
-  redirectTo?: string
-}
+function LoginPage() {
+  const redirectTo = '/'
 
-function Login({ redirectTo = '/' }: LoginProps) {
   const [username, setUsernameLocal] = useState('')
   const [password, setPassword] = useState('')
 
@@ -85,4 +83,4 @@ function Login({ redirectTo = '/' }: LoginProps) {
   )
 }
 
-export default Login
+export default LoginPage

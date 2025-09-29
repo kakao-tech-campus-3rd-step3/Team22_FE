@@ -52,7 +52,12 @@ export default function WalkingTimerBar(props: {
             <span>거리(km)</span>
           </div>
           <div className="h-10 w-px bg-zinc-700" />
-          <UpTimer isActive={props.isActive} stop={stop} elapsedTime={props.elapsedTime} setElapsedTime={props.setElapsedTime} />
+          <UpTimer
+            isActive={props.isActive}
+            stop={stop}
+            elapsedTime={props.elapsedTime}
+            setElapsedTime={props.setElapsedTime}
+          />
         </div>
         <div className="flex flex-row justify-around items-center text-center py-4">
           {props.isActive ? (
@@ -74,15 +79,10 @@ export default function WalkingTimerBar(props: {
             className="bg-neutral-800 rounded-full border border-indigo-600 p-4 cursor-pointer"
             onClick={onHandleStopWalking}
           >
-            <GrStopFill
-              className="w-8 h-8"
-            />
+            <GrStopFill className="w-8 h-8" />
           </button>
         </div>
-        <button
-          onClick={onHandleEndWalking}
-          className="bg-red-500 rounded-xl py-2 cursor-pointer"
-        >
+        <button onClick={onHandleEndWalking} className="bg-red-500 rounded-xl py-2 cursor-pointer">
           종료하기
         </button>
       </div>

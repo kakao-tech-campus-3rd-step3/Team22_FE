@@ -1,0 +1,19 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { createPath } from '@/api/api.ts'
+
+export default function useCreatePath() {
+  const queryClient = useQueryClient()
+
+  const createPathMutation = useMutation({
+    mutationFn: createPath,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["path"] })
+      console.log("성공")
+    },
+    onError: (error) => {
+      console.error("에러", error)
+    }
+  })
+
+  return createPathMutation
+}

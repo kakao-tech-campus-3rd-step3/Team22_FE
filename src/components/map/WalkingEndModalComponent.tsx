@@ -1,6 +1,7 @@
 import { formatTime, getTotalSeconds } from '@/utils/timeCalculation.ts'
 import { useNavigate } from '@tanstack/react-router'
 import { walkingResultSchema, type WalkingResultState } from '@/types/routeResult.ts'
+import useCreatePath from '@/hooks/useCreatePath.ts'
 
 export default function WalkingEndModalComponent(props: {
   totalDistance: number
@@ -11,6 +12,7 @@ export default function WalkingEndModalComponent(props: {
 }) {
   const { totalDistance, elapsedTime, route, setEndModal, handleEndWalking } = props;
   const navigate = useNavigate();
+  const createPathMutation = useCreatePath()
 
   const handleSubmitResult = () => {
     const rawResult = {
@@ -27,6 +29,8 @@ export default function WalkingEndModalComponent(props: {
     }
 
     const result: WalkingResultState = parsed.data
+
+    createPathMutation.mutate(result)
 
     alert(JSON.stringify(result, null, 2))
     handleEndWalking()

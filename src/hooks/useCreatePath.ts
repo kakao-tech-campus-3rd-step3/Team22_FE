@@ -8,7 +8,6 @@ export default function useCreatePath() {
     mutationFn: createPath,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["path"] })
-      console.log("성공")
     },
     onError: (error) => {
       console.error("에러", error)

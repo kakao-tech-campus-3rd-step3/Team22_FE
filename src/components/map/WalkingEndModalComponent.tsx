@@ -32,7 +32,6 @@ export default function WalkingEndModalComponent(props: {
 
     createPathMutation.mutate(result)
 
-    alert(JSON.stringify(result, null, 2))
     handleEndWalking()
     navigate({ to: "/" })
   }

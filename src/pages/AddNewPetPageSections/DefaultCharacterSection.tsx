@@ -56,9 +56,7 @@ function DefaultCharacterSection(props: {
 
   const [year, month, day] = birthdate ? birthdate.split('-') : ['', '', '']
 
-  // 2. 날짜 일부(년/월/일)를 업데이트하는 핸들러 함수
   const handleDateChange = (part: 'year' | 'month' | 'day', value: string) => {
-    // 현재 birthdate 값을 기준으로 새로운 날짜 조합
     let newYear = year
     let newMonth = month
     let newDay = day
@@ -67,7 +65,6 @@ function DefaultCharacterSection(props: {
     if (part === 'month') newMonth = value
     if (part === 'day') newDay = value
 
-    // YYYY-MM-DD 형식의 부분적인 문자열이라도 부모 상태로 바로 업데이트
     setBirthdate(`${newYear}-${newMonth}-${newDay}`)
   }
 
@@ -76,24 +73,24 @@ function DefaultCharacterSection(props: {
       key: 'year',
       placeholder: '년도 (4자리)',
       maxLength: 4,
-      value: year, // 파생된 값 사용
-      setter: (val: string) => handleDateChange('year', val), // 핸들러 호출
+      value: year,
+      setter: (val: string) => handleDateChange('year', val),
       pattern: /^\d{0,4}$/,
     },
     {
       key: 'month',
       placeholder: '월',
       maxLength: 2,
-      value: month, // 파생된 값 사용
-      setter: (val: string) => handleDateChange('month', val), // 핸들러 호출
+      value: month,
+      setter: (val: string) => handleDateChange('month', val),
       pattern: /^\d{0,2}$/,
     },
     {
       key: 'day',
       placeholder: '일',
       maxLength: 2,
-      value: day, // 파생된 값 사용
-      setter: (val: string) => handleDateChange('day', val), // 핸들러 호출
+      value: day,
+      setter: (val: string) => handleDateChange('day', val),
       pattern: /^\d{0,2}$/,
     },
   ]

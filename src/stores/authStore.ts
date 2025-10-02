@@ -4,7 +4,8 @@ import { persist } from 'zustand/middleware'
 interface AuthStore {
   accessToken: string | null
   username: string | null
-  login: (token: string, username: string) => void
+  email: string | null
+  login: (token: string, username: string, email: string) => void
   logout: () => void
 }
 
@@ -13,8 +14,10 @@ const useAuthStore = create<AuthStore>()(
     (set) => ({
       accessToken: null,
       username: null,
-      login: (token: string, username: string) => set({ accessToken: token, username }),
-      logout: () => set({ accessToken: null, username: null }),
+      email: null,
+      login: (token: string, username: string, email: string) =>
+        set({ accessToken: token, username, email }),
+      logout: () => set({ accessToken: null, username: null, email: null }),
     }),
     {
       name: 'auth-storage',

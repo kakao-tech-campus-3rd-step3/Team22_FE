@@ -53,7 +53,7 @@ export default function useKakaoMap(props: {
     } else {
       currentLocationMarkerRef?.current?.setPosition(currentPosition);
     }
-  }, [props.mapRef, props.location, props.loaded])
+  }, [loaded, location, mapRef])
 
   useEffect(() => {
     const map = mapInstanceRef.current

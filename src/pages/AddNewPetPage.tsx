@@ -25,6 +25,7 @@ function AddNewPetPage() {
     const newDiseases = currentDiseases.includes(disease)
       ? currentDiseases.filter((d) => d !== disease)
       : [...currentDiseases, disease]
+
     updatePetProfile('chronicDisease', newDiseases)
   }
 
@@ -54,6 +55,7 @@ function AddNewPetPage() {
 
     const result = petProfileSchema.safeParse(currentData)
     setIsFormValid(result.success)
+    console.log('petProfile state:', petProfile)
   }, [petProfile])
 
   return (
@@ -80,7 +82,10 @@ function AddNewPetPage() {
         selectedValue={petProfile.chronicDisease}
       />
 
-      <ProfileSection />
+      <ProfileSection
+        name={petProfile.name}
+        setName={(value: string) => updatePetProfile('name', value)}
+      />
 
       <DefaultProfileSection
         birthdate={petProfile.birthdate}

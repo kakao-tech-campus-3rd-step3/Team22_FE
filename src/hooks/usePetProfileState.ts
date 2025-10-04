@@ -6,6 +6,7 @@ import { persist } from 'zustand/middleware'
 export type Breed = 'Maltese' | 'Golden Retriever' | 'Poodle'
 
 export interface PetProfileFormState {
+  name: string
   selectedBreed: Breed
   gender: GenderType
   neutralize: true | false

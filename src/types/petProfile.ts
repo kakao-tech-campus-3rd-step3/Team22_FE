@@ -5,7 +5,7 @@ export const petProfileSchema = z.object({
   name: z.string().nonempty(),
   selectedBreed: z.enum(BREED_VALUES, { message: '견종을 선택해주세요.' }),
   gender: z.enum(GENDER_VALUES),
-  neutered: z.boolean(),
+  neutralize: z.boolean(),
   vaccinated: z.boolean(),
   birthdate: z
     .string()

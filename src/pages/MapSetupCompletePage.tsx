@@ -7,7 +7,7 @@ import useKakaoMapLoader from '@/hooks/useKakaoMapLoader.ts'
 export default function MapSetupCompletePage() {
   const loaded = useKakaoMapLoader()
   const { walkTimes, address, place, latitude, longitude } = useMapSetupStore()
-  const navigate = useNavigate({ from: '/map-setup' })
+  const navigate = useNavigate()
   const { mapContainerRef } = useKakaoStaticMap({ latitude, longitude, loaded })
 
   const handleComplete = () => {

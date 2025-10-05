@@ -6,7 +6,7 @@ import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
 import { useUIStore } from '@/stores/uiStore'
 
 export default function WalkingTimeSettingPage() {
-  const navigate = useNavigate({ from: '/walk-time-setting' })
+  const navigate = useNavigate()
   const { walkTimes } = useMapSetupStore()
   const setShowNavbar = useUIStore((state) => state.setShowNavbar)
   setShowNavbar(false)

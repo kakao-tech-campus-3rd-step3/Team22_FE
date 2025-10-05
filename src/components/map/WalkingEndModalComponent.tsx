@@ -10,8 +10,8 @@ export default function WalkingEndModalComponent(props: {
   setEndModal: (value: boolean) => void
   handleEndWalking: () => void
 }) {
-  const { totalDistance, elapsedTime, route, setEndModal, handleEndWalking } = props;
-  const navigate = useNavigate();
+  const { totalDistance, elapsedTime, route, setEndModal, handleEndWalking } = props
+  const navigate = useNavigate()
   const createPathMutation = useCreatePath()
 
   const handleSubmitResult = () => {

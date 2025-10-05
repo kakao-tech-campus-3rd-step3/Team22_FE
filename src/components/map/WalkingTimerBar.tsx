@@ -44,7 +44,7 @@ export default function WalkingTimerBar(props: {
       <div
         className="
           absolute bottom-0 left-0 w-full
-          flex flex-col px-4 py-4 bg-zinc-900 font-bold"
+          flex flex-col px-4 pt-4 pb-8 bg-zinc-900 font-bold"
       >
         <div className="flex justify-around items-center text-center">
           <div className="flex flex-col items-center">
@@ -59,7 +59,7 @@ export default function WalkingTimerBar(props: {
             setElapsedTime={props.setElapsedTime}
           />
         </div>
-        <div className="flex flex-row justify-around items-center text-center py-4">
+        <div className="flex flex-row justify-around items-center text-center py-4 gap-8">
           {props.isActive ? (
             <button
               className="bg-neutral-800 rounded-full border border-indigo-600 p-4 cursor-pointer"
@@ -82,7 +82,7 @@ export default function WalkingTimerBar(props: {
             <GrStopFill className="w-8 h-8" />
           </button>
         </div>
-        <button onClick={onHandleEndWalking} className="bg-red-500 rounded-xl py-2 cursor-pointer">
+        <button onClick={onHandleEndWalking} className="bg-red-500 rounded-xl text-xl py-4 cursor-pointer">
           종료하기
         </button>
       </div>

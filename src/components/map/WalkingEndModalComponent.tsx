@@ -38,14 +38,14 @@ export default function WalkingEndModalComponent(props: {
 
   return (
     <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center z-20">
-      <div className="bg-zinc-800 p-6 rounded-lg shadow-xl text-center">
+      <div className="bg-zinc-800 p-8 rounded-lg shadow-xl text-center">
         <h2 className="text-xl font-bold mb-4">산책을 종료하시겠습니까?</h2>
         <p className="mb-2 font-bold">산책 거리: {(totalDistance / 1000).toFixed(2)} km</p>
         <p className="mb-6 font-bold">산책 시간: {formatTime(elapsedTime)}</p>
         <div className="flex justify-center gap-4">
           <button
             onClick={handleSubmitResult}
-            className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded cursor-pointer"
+            className="bg-red-500 hover:bg-red-600 px-4 rounded cursor-pointer"
           >
             종료하기
           </button>

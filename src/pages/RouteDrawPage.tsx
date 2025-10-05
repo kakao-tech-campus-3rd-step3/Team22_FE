@@ -57,9 +57,9 @@ export default function RouteDrawPage() {
   if (!loaded) return <div>지도 불러오는 중...</div>
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-neutral-800 font-sans">
+    <div className="flex w-full h-full justify-center items-center font-sans">
       <div
-        className="relative w-[390px] h-[844px] bg-[#121212] text-white shadow-2xl rounded-3xl overflow-y-auto p-6 space-y-6">
+        className="relative w-full h-[844px] text-white rounded-3xl overflow-y-auto py-2">
         <div className="w-full h-full">
           <MapSetting mapRef={mapContainerRef} />
           {endModal ? (
@@ -71,7 +71,7 @@ export default function RouteDrawPage() {
               handleEndWalking={handleEndWalking}
             />
           ) : (
-            <div className="absolute bottom-0 left-0 w-full z-10 ">
+            <div className="absolute bottom-2 left-0 w-full z-10 ">
               <WalkingTimerBar
                 totalDistance={totalDistance}
                 setTotalDistance={setTotalDistance}

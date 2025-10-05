@@ -20,6 +20,9 @@ function LoginPage() {
     const username = email.split('@')[0]
     if (isRegister) {
       registerMutation.mutate({ email, username, password })
+      setEmail('')
+      setPassword('')
+      setIsRegister(false)
     } else {
       loginMutation.mutate({ email, password })
     }

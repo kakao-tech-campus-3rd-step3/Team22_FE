@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { createPath } from '@/api/api.ts'
+import { createPath } from '@/api/walks.ts'
 
 export default function useCreatePath() {
   const queryClient = useQueryClient()

@@ -3,13 +3,12 @@ import WeatherTable from '@/components/common/WeatherTable.tsx'
 import WalkTimeScheduler from '@/components/common/WalkTimeScheduler.tsx'
 import { useNavigate } from '@tanstack/react-router'
 import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
-import { useUIStore } from '@/stores/uiStore'
+import { useCloseBar } from '@/hooks/useShowBar.ts'
 
 export default function WalkingTimeSettingPage() {
   const navigate = useNavigate()
   const { walkTimes } = useMapSetupStore()
-  const setShowNavbar = useUIStore((state) => state.setShowNavbar)
-  setShowNavbar(false)
+  useCloseBar()
 
   const isWalkTimesEmpty = walkTimes.length === 0
 

@@ -6,12 +6,14 @@ import { useNavigate } from '@tanstack/react-router'
 import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
 import { useState } from 'react'
 import ConfirmModal from '@/components/common/ConfirmModal'
+import { useShowBar } from '@/hooks/useShowBar.ts'
 
 export default function MainPage() {
   const username = useAuthStore((state) => state.username)
   const navigate = useNavigate()
   const isMapSetup = useMapSetupStore((state) => !!state.place)
   const [isMapSetopen, setisMapSetopen] = useState(false)
+  useShowBar()
 
   const handleCardClick = () => {
     if (isMapSetup) {

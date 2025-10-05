@@ -33,3 +33,27 @@ export class Server500Error extends Error {
     Object.setPrototypeOf(this, Server500Error.prototype)
   }
 }
+
+// 401 Unauthorized (인증 에러)
+export class Auth401Error extends Error {
+  status = 401
+  code: string
+
+  constructor(code: string, message: string) {
+    super(message)
+    this.code = code
+    Object.setPrototypeOf(this, Auth401Error.prototype)
+  }
+}
+
+// 400 Bad Request (잘못된 요청 데이터 에러)
+export class Walks400Error extends Error {
+  status = 400
+  code: string
+
+  constructor(code: string, message: string) {
+    super(message)
+    this.code = code
+    Object.setPrototypeOf(this, Walks400Error.prototype)
+  }
+}

@@ -4,12 +4,13 @@ import WalkTimeScheduler from '@/components/common/WalkTimeScheduler.tsx'
 import { useNavigate } from '@tanstack/react-router'
 import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
 import { useUIStore } from '@/stores/uiStore'
+import { useEffect } from 'react'
 
 export default function WalkingTimeSettingPage() {
   const navigate = useNavigate({ from: '/walk-time-setting' })
   const { walkTimes } = useMapSetupStore()
   const setShowNavbar = useUIStore((state) => state.setShowNavbar)
-  setShowNavbar(false)
+  useEffect(() => setShowNavbar(false))
 
   const isWalkTimesEmpty = walkTimes.length === 0
 

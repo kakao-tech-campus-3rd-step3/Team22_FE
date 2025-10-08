@@ -52,42 +52,37 @@ export default function RouteDrawPage() {
     setRoute([])
     setIsActive(false)
     setEndModal(false)
-  }, [setTotalDistance, setElapsedTime, setRoute, setIsActive, setEndModal])
+  }, [setTotalDistance])
 
   if (!loaded) return <div>지도 불러오는 중...</div>
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-neutral-800 font-sans">
-      <div
-        className="relative w-[390px] h-[844px] bg-[#121212] text-white shadow-2xl rounded-3xl overflow-y-auto p-6 space-y-6">
-        <div className="w-full h-full">
-          <MapSetting mapRef={mapContainerRef} />
-          {endModal ? (
-            <WalkingEndModalComponent
-              totalDistance={totalDistance}
-              elapsedTime={elapsedTime}
-              route={route}
-              setEndModal={setEndModal}
-              handleEndWalking={handleEndWalking}
-            />
-          ) : (
-            <div className="absolute bottom-0 left-0 w-full z-10 ">
-              <WalkingTimerBar
-                totalDistance={totalDistance}
-                setTotalDistance={setTotalDistance}
-                isActive={isActive}
-                setIsActive={setIsActive}
-                route={route}
-                setRoute={setRoute}
-                startDistance={startDistance}
-                handleTriggerEnd={handleTriggerEnd}
-                elapsedTime={elapsedTime}
-                setElapsedTime={setElapsedTime}
-              />
-            </div>
-          )}
+    <div className="relative w-full h-full">
+      <MapSetting mapRef={mapContainerRef} />
+      {endModal ? (
+        <WalkingEndModalComponent
+          totalDistance={totalDistance}
+          elapsedTime={elapsedTime}
+          route={route}
+          setEndModal={setEndModal}
+          handleEndWalking={handleEndWalking}
+        />
+      ) : (
+        <div className="absolute bottom-0 left-0 w-full z-10">
+          <WalkingTimerBar
+            totalDistance={totalDistance}
+            setTotalDistance={setTotalDistance}
+            isActive={isActive}
+            setIsActive={setIsActive}
+            route={route}
+            setRoute={setRoute}
+            startDistance={startDistance}
+            handleTriggerEnd={handleTriggerEnd}
+            elapsedTime={elapsedTime}
+            setElapsedTime={setElapsedTime}
+          />
         </div>
-      </div>
+      )}
     </div>
   )
 }

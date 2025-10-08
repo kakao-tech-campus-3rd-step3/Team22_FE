@@ -52,7 +52,7 @@ export default function RouteDrawPage() {
     setRoute([])
     setIsActive(false)
     setEndModal(false)
-  }, [setTotalDistance])
+  }, [setTotalDistance, setElapsedTime, setRoute, setIsActive, setEndModal])
 
   if (!loaded) return <div>지도 불러오는 중...</div>
 

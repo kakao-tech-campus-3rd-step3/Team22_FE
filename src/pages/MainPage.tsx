@@ -15,13 +15,15 @@ export default function MainPage() {
   const username = useAuthStore((state) => state.username)
   const navigate = useNavigate()
   const [isMapSetopen, setisMapSetopen] = useState(false)
-  const isAllDone = useSetupStore((g) => g.isAllDone())
+  const isAllDone = useSetupStore(
+    (s) => s.isPetSettingDone && s.isLocationSettingDone && s.isRouteDrawDone,
+  )
 
   useEffect(() => {
     if (isAllDone === false) {
       navigate({ to: '/intro' })
     }
-  })
+  }, [isAllDone, navigate])
 
   const handleCardClick = () => {
     setisMapSetopen(true)
@@ -49,7 +51,6 @@ export default function MainPage() {
         onClose={handleClose}
         onConfirm={handleConfirm}
         title="이용 순서 안내"
-        isButtonVisible={false}
       >
         <IntroPage />
       </ConfirmModal>

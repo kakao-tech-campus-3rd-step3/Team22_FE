@@ -17,7 +17,9 @@ function AddNewPetPage() {
   const [isBreedModalOpen, setIsBreedModalOpen] = useState(false)
   const [isDiseaseModalOpen, setIsDiseaseModalOpen] = useState(false)
   const setPetSettingDone = useSetupStore((s) => s.setPetSettingDone)
-  const isAllDone = useSetupStore((g) => g.isAllDone())
+  const isAllDone = useSetupStore(
+    (s) => s.isPetSettingDone && s.isLocationSettingDone && s.isRouteDrawDone,
+  )
   const navigate = useNavigate()
 
   const isExistingProfile =

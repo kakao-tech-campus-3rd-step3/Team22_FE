@@ -10,7 +10,7 @@ export default function WalkingTimeSettingPage() {
   const navigate = useNavigate({ from: '/walk-time-setting' })
   const { walkTimes } = useMapSetupStore()
   const setShowNavbar = useUIStore((state) => state.setShowNavbar)
-  useEffect(() => setShowNavbar(false))
+  useEffect(() => setShowNavbar(false), [setShowNavbar])
 
   const isWalkTimesEmpty = walkTimes.length === 0
 

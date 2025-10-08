@@ -23,7 +23,7 @@ export default function WalkingEndModalComponent(props: {
       walkingTime_sec: getTotalSeconds(elapsedTime),
       path: route,
     }
-    console.log('rawResult', rawResult)
+    console.log('rawResult', rawResult) // TODO: Remove mock data once the user route API is implemented
     const mockRoute = walkingPath
 
     const parsed = walkingResultSchema.safeParse(mockRoute)

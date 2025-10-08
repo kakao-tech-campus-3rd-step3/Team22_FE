@@ -8,10 +8,9 @@ type SetupState = {
   setLocationSettingDone: (value: boolean) => void
   setRouteDrawDone: (value: boolean) => void
   resetAll: () => void
-  isAllDone: () => boolean
 }
 
-export const useSetupStore = create<SetupState>((set, get) => ({
+export const useSetupStore = create<SetupState>((set) => ({
   isPetSettingDone: false,
   isLocationSettingDone: false,
   isRouteDrawDone: false,
@@ -24,5 +23,4 @@ export const useSetupStore = create<SetupState>((set, get) => ({
       isLocationSettingDone: false,
       isRouteDrawDone: false,
     }),
-  isAllDone: () => get().isPetSettingDone && get().isLocationSettingDone && get().isRouteDrawDone,
 }))

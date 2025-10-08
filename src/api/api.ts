@@ -13,7 +13,8 @@ export const api = axios.create({
 })
 
 api.interceptors.request.use((config) => {
-  const stored = localStorage.getItem('auth-storage')
+  if (typeof window === 'undefined') return config
+  const stored = window.localStorage.getItem('auth-storage')
   if (stored) {
     try {
       const parsed = JSON.parse(stored)
@@ -42,6 +43,7 @@ api.interceptors.response.use(
 
     if (status === 404) {
       if (code === 'NOT_FOUND') throw new MainRouteNotFound404Error(code, message)
+      throw error
     }
 
     if (status === 409) throw new Register409Error(code, '이미 가입되었습니다.')

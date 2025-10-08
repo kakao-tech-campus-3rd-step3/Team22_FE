@@ -4,7 +4,6 @@ export default function ConfirmModal(props: {
   onConfirm: () => void
   title: string
   children: React.ReactNode
-  isButtonVisible?: boolean
 }) {
   const { isOpen, onClose, onConfirm, title, children } = props
   if (!isOpen) return null

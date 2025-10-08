@@ -5,7 +5,11 @@ export async function loginApi(data: { email: string; password: string }): Promi
   return response.data
 }
 
-export async function registerApi(data: { email: string; username: string; password: string }) {
+export async function registerApi(data: {
+  email: string
+  username: string
+  password: string
+}): Promise<void> {
   const response = await api.post('/register', data)
   return response.data
 }

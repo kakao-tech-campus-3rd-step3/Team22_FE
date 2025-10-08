@@ -10,7 +10,7 @@ const cards = [
 const swipeConfidenceThreshold = 10000
 const swipePower = (offset: number, velocity: number) => Math.abs(offset) * velocity
 
-export default function IntroPage() {
+export default function IntroSection() {
   const [[page, direction], setPage] = useState([0, 0])
 
   const paginate = (newDirection: number) => {
@@ -46,7 +46,7 @@ export default function IntroPage() {
             <img
               src={cards[cardIndex].image}
               alt={cards[cardIndex].title}
-              className="w-full h-full object-fit rounded-lg"
+              className="w-full h-full object-cover rounded-lg"
             />
           </motion.div>
         </AnimatePresence>

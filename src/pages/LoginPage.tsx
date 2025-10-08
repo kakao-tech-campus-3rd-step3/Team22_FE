@@ -8,6 +8,7 @@ import { useLogin, useRegister } from '@/hooks/useLogin'
 function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('')
   const [isRegister, setIsRegister] = useState(false)
 
   const setShowNavbar = useUIStore((state) => state.setShowNavbar)
@@ -17,7 +18,6 @@ function LoginPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const username = email.split('@')[0]
     if (isRegister) {
       registerMutation.mutate({ email, username, password })
     } else {
@@ -39,12 +39,13 @@ function LoginPage() {
       <Toaster position="top-center" />
       <form onSubmit={handleSubmit} className="p-6 rounded shadow-md w-full max-w-sm">
         <div className="flex flex-col items-center mb-6">
-          <h2 className="text-2xl font-bold text-center">{isRegister ? 'Register' : 'Login'}</h2>
+          <h2 className="text-2xl font-bold text-center">{isRegister ? '회원가입' : '로그인'}</h2>
           <FaDog size={50} className="mt-2" />
         </div>
+
         <div className="mb-4">
           <label htmlFor="email" className="block text-gray-700 text-sm font-semibold mb-2">
-            Email
+            이메일
           </label>
           <div className="flex items-center border border-gray-300 rounded">
             <FiUser className="text-gray-400 m-2" />
@@ -54,15 +55,37 @@ function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full py-2 px-2 outline-none rounded"
-              placeholder="Enter your e-mail"
+              placeholder="이메일을 입력하세요"
               required
               disabled={isLoading}
             />
           </div>
         </div>
+
+        {isRegister && (
+          <div className="mb-4">
+            <label htmlFor="username" className="block text-gray-700 text-sm font-semibold mb-2">
+              사용자 이름
+            </label>
+            <div className="flex items-center border border-gray-300 rounded">
+              <FiUser className="text-gray-400 m-2" />
+              <input
+                id="username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="w-full py-2 px-2 outline-none rounded"
+                placeholder="사용자 이름을 입력하세요"
+                required
+                disabled={isLoading}
+              />
+            </div>
+          </div>
+        )}
+
         <div className="mb-6">
           <label htmlFor="password" className="block text-gray-700 text-sm font-semibold mb-2">
-            Password
+            비밀번호
           </label>
           <div className="flex items-center border border-gray-300 rounded">
             <FiLock className="text-gray-400 m-2" />
@@ -72,12 +95,13 @@ function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full py-2 px-2 outline-none rounded"
-              placeholder="Enter your password"
+              placeholder="비밀번호를 입력하세요"
               required
               disabled={isLoading}
             />
           </div>
         </div>
+
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors"
@@ -85,21 +109,21 @@ function LoginPage() {
         >
           {isLoading
             ? isRegister
-              ? 'Registering...'
-              : 'Logging in...'
+              ? '회원가입 중...'
+              : '로그인 중...'
             : isRegister
-              ? 'Register'
-              : 'Log In'}
+              ? '회원가입'
+              : '로그인'}
         </button>
         {isError && <p className="text-red-500 mt-2">{(error as Error).message}</p>}
         <p className="mt-4 text-center text-sm text-gray-600">
-          {isRegister ? 'Already have an account?' : "Don't have an account?"}{' '}
+          {isRegister ? '계정이 이미 있으신가요?' : '계정이 없으신가요?'}{' '}
           <button
             type="button"
             onClick={() => setIsRegister(!isRegister)}
             className="text-blue-600 hover:underline"
           >
-            {isRegister ? 'Login' : 'Register'}
+            {isRegister ? '로그인' : '회원가입'}
           </button>
         </p>
       </form>

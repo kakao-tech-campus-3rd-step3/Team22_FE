@@ -22,6 +22,29 @@ export class Register409Error extends Error {
   }
 }
 
+// 세션만료 (토큰 만료)
+export class SessionExpired403Error extends Error {
+  status = 403
+  code: string
+
+  constructor(code: string, message: string) {
+    super(message)
+    this.code = code
+    Object.setPrototypeOf(this, SessionExpired403Error.prototype)
+  }
+}
+
+export class MainRouteNotFound404Error extends Error {
+  status = 404
+  code: string
+
+  constructor(code: string, message: string) {
+    super(message)
+    this.code = code
+    Object.setPrototypeOf(this, MainRouteNotFound404Error.prototype)
+  }
+}
+
 // server 내부 에러
 export class Server500Error extends Error {
   status = 500

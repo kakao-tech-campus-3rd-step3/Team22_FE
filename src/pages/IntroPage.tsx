@@ -13,15 +13,11 @@ export default function IntroPage() {
   const { isPetSettingDone, isLocationSettingDone, isRouteDrawDone } = useSetupStore()
 
   const isAllDone = isPetSettingDone && isLocationSettingDone && isRouteDrawDone
-  console.log('isAllDone:', isAllDone)
-  console.log('isPetSettingDone:', isPetSettingDone)
-  console.log('isLocationSettingDone:', isLocationSettingDone)
-  console.log('isRouteDrawDone:', isRouteDrawDone)
 
   const setShowNavbar = useUIStore((state) => state.setShowNavbar)
   useEffect(() => {
     setShowNavbar(false)
-  })
+  }, [setShowNavbar])
   const navigate = useNavigate()
 
   const handleAddNewPet = () => {

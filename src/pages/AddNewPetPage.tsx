@@ -6,7 +6,9 @@ import SelectionModal from '@/components/common/SelectionModal'
 import { petProfileSchema } from '@/types/petProfile'
 import { UI_TEXT, BREED_OPTIONS_DATA, DISEASE_OPTIONS_DATA } from '@/constants/constants.ts'
 import { usePetProfileState, type Breed } from '@/hooks/usePetProfileState'
+import { useSetupStore } from '@/stores/setupStore'
 import { type GenderType } from '@/constants/constants'
+import { useNavigate } from '@tanstack/react-router'
 
 function AddNewPetPage() {
   const [isFormValid, setIsFormValid] = useState(false)
@@ -14,6 +16,9 @@ function AddNewPetPage() {
 
   const [isBreedModalOpen, setIsBreedModalOpen] = useState(false)
   const [isDiseaseModalOpen, setIsDiseaseModalOpen] = useState(false)
+  const setPetSettingDone = useSetupStore((s) => s.setPetSettingDone)
+  const isAllDone = useSetupStore((g) => g.isAllDone())
+  const navigate = useNavigate()
 
   const isExistingProfile =
     petProfile.birthdate.trim() !== '' ||
@@ -39,9 +44,16 @@ function AddNewPetPage() {
 
     const validationResult = petProfileSchema.safeParse(petProfileData)
     if (validationResult.success) {
+      setPetSettingDone(true)
       alert('유효성 검사 성공!\n' + JSON.stringify(validationResult.data, null, 2))
+      if (isAllDone) {
+        navigate({ to: '/' })
+      } else {
+        navigate({ to: '/intro' })
+      }
     } else {
       alert('입력값에 오류가 있습니다. 다시 확인해주세요.')
+      setPetSettingDone(false)
     }
   }
 

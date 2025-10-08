@@ -1,6 +1,7 @@
 import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
 import ButtonBar from '@/components/common/ButtonBar.tsx'
 import { useNavigate } from '@tanstack/react-router'
+import { useSetupStore } from '@/stores/setupStore'
 import useKakaoStaticMap from '@/hooks/useKakaoStaticMap.ts'
 import useKakaoMapLoader from '@/hooks/useKakaoMapLoader.ts'
 
@@ -10,7 +11,15 @@ export default function MapSetupCompletePage() {
   const navigate = useNavigate({ from: '/map-setup' })
   const { mapContainerRef } = useKakaoStaticMap({ latitude, longitude, loaded })
 
+  const lsLocationSettingDone = useSetupStore((state) => state.isLocationSettingDone)
+  const setLocationSettingDone = useSetupStore((state) => state.setLocationSettingDone)
+
   const handleComplete = () => {
+    if (lsLocationSettingDone === false) {
+      setLocationSettingDone(true)
+      navigate({ to: '/intro' })
+      return
+    }
     navigate({ to: '/route-draw' })
   }
 

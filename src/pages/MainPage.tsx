@@ -3,22 +3,28 @@ import InfoRow from '@/components/common/InfoRow'
 import WeatherTable from '@/components/common/WeatherTable'
 import useAuthStore from '@/stores/authStore'
 import { useNavigate } from '@tanstack/react-router'
-import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ConfirmModal from '@/components/common/ConfirmModal'
+import { getPaths } from '@/api/walks'
+import { useSetupStore } from '@/stores/setupStore'
+import IntroPage from './IntroPage'
 
 export default function MainPage() {
+  const getMainRoute = getPaths()
+  console.log(getMainRoute + '<--getMainRoute') // 확인용입니다.
   const username = useAuthStore((state) => state.username)
   const navigate = useNavigate()
-  const isMapSetup = useMapSetupStore((state) => !!state.place)
   const [isMapSetopen, setisMapSetopen] = useState(false)
+  const isAllDone = useSetupStore((g) => g.isAllDone())
+
+  useEffect(() => {
+    if (isAllDone === false) {
+      navigate({ to: '/intro' })
+    }
+  })
 
   const handleCardClick = () => {
-    if (isMapSetup) {
-      navigate({ to: `/map-setup` })
-    } else {
-      setisMapSetopen(true)
-    }
+    setisMapSetopen(true)
   }
   const handleConfirm = () => {
     setisMapSetopen(false)
@@ -42,11 +48,10 @@ export default function MainPage() {
         isOpen={isMapSetopen}
         onClose={handleClose}
         onConfirm={handleConfirm}
-        title="경로 설정"
+        title="이용 순서 안내"
+        isButtonVisible={false}
       >
-        앗! 현재 설정된 주 경로가 없어요.
-        <br />
-        지금 설정하러 가볼까요?
+        <IntroPage />
       </ConfirmModal>
     </div>
   )

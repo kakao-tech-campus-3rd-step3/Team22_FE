@@ -8,7 +8,8 @@ import WalkingTimerBar from '@/components/map/WalkingTimerBar.tsx'
 import useDistance from '@/hooks/useDistance.ts'
 import WalkingEndModalComponent from '@/components/map/WalkingEndModalComponent.tsx'
 
-export default function RouteDrawPage() {
+export default function RouteDrawPage(props: { onDone?: () => void; disableRouting?: boolean }) {
+  const { onDone } = props
   const loaded = useKakaoMapLoader()
   const [isActive, setIsActive] = useState(false)
   const [endModal, setEndModal] = useState(false)
@@ -66,6 +67,7 @@ export default function RouteDrawPage() {
           route={route}
           setEndModal={setEndModal}
           handleEndWalking={handleEndWalking}
+          onDone={onDone}
         />
       ) : (
         <div className="absolute bottom-0 left-0 w-full z-10">

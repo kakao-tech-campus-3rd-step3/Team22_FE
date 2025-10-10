@@ -10,16 +10,13 @@ import { useSetupStore } from '@/stores/setupStore'
 import { type GenderType } from '@/constants/constants'
 import { useNavigate } from '@tanstack/react-router'
 
-function AddNewPetPage() {
+function AddNewPetPage(props: { onDone?: () => void; disableRouting?: boolean }) {
   const [isFormValid, setIsFormValid] = useState(false)
   const { petProfile, updatePetProfile } = usePetProfileState()
-
+  const { onDone, disableRouting } = props
   const [isBreedModalOpen, setIsBreedModalOpen] = useState(false)
   const [isDiseaseModalOpen, setIsDiseaseModalOpen] = useState(false)
   const setPetSettingDone = useSetupStore((s) => s.setPetSettingDone)
-  const isAllDone = useSetupStore(
-    (s) => s.isPetSettingDone && s.isLocationSettingDone && s.isRouteDrawDone,
-  )
   const navigate = useNavigate()
 
   const isExistingProfile =
@@ -47,11 +44,10 @@ function AddNewPetPage() {
     const validationResult = petProfileSchema.safeParse(petProfileData)
     if (validationResult.success) {
       setPetSettingDone(true)
-      alert('유효성 검사 성공!\n' + JSON.stringify(validationResult.data, null, 2))
-      if (isAllDone) {
-        navigate({ to: '/' })
+      if (disableRouting && onDone) {
+        onDone()
       } else {
-        navigate({ to: '/intro' })
+        navigate({ to: '/location-setting' }) // 예시는 다음 페이지 이동
       }
     } else {
       alert('입력값에 오류가 있습니다. 다시 확인해주세요.')
@@ -60,6 +56,7 @@ function AddNewPetPage() {
   }
 
   useEffect(() => {
+    document.body.style.overflow = 'hidden'
     const birthdate = petProfile.birthdate
 
     const currentData = {
@@ -69,11 +66,10 @@ function AddNewPetPage() {
 
     const result = petProfileSchema.safeParse(currentData)
     setIsFormValid(result.success)
-    console.log('petProfile state:', petProfile)
   }, [petProfile])
 
   return (
-    <div className="flex flex-col gap-2  ">
+    <div className="flex flex-col gap-2  no-scrollbar">
       <h1 className="text-xl font-bold text-center">
         {isExistingProfile ? '반려동물 정보 수정' : UI_TEXT.PAGE_TITLE}
       </h1>

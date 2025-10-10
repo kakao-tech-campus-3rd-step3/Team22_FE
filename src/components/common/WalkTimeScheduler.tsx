@@ -22,7 +22,7 @@ export default function WalkTimeScheduler() {
   }
 
   return (
-    <div className="w-full h-1/2 max-w-lg mx-auto bg-zinc-800 rounded-lg p-4 text-white shadow-lg max-h-full overflow-auto no-scrollbar">
+    <div className="w-full h-3/4 max-w-lg mx-auto bg-zinc-800 rounded-lg p-4 text-white shadow-lg max-h-full overflow-auto no-scrollbar">
       <p className="mb-3 text-lg font-bold text-center">주로 산책하는 시간 고르기</p>
       {duplicateMessage && (
         <p className="text-red-500 text-center mb-2 font-bold">{duplicateMessage}</p>
@@ -52,7 +52,7 @@ export default function WalkTimeScheduler() {
         산책 시간 추가하기
       </button>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 overflow-y-auto">
         {walkTimes.map((time) => (
           <div
             key={time.id}

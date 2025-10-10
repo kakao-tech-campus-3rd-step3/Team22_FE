@@ -13,7 +13,7 @@ export function useLogin() {
     mutationFn: loginApi,
     onSuccess: (token: string, variables) => {
       login(token, username ?? variables.email.split('@')[0], variables.email)
-      navigate({ to: '/' })
+      navigate({ to: '/intro' })
     },
     onError: (error: Error) => {
       toast.error(error.message)

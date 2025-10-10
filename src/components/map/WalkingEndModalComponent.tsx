@@ -11,8 +11,9 @@ export default function WalkingEndModalComponent(props: {
   route: { lat: number; lng: number }[]
   setEndModal: (value: boolean) => void
   handleEndWalking: () => void
+  onDone?: () => void
 }) {
-  const { totalDistance, elapsedTime, route, setEndModal, handleEndWalking } = props
+  const { totalDistance, elapsedTime, route, setEndModal, handleEndWalking, onDone } = props
   const navigate = useNavigate()
   const createPathMutation = useCreatePath()
   const setRouteDrawDone = useSetupStore((state) => state.setRouteDrawDone)
@@ -23,7 +24,7 @@ export default function WalkingEndModalComponent(props: {
       walkingTime_sec: getTotalSeconds(elapsedTime),
       path: route,
     }
-    console.log('rawResult', rawResult) // TODO: Remove mock data once the user route API is implemented
+    console.log('rawResult', rawResult) // TODO: Remove mock data API 추가필요. walks
     const mockRoute = walkingPath
 
     const parsed = walkingResultSchema.safeParse(mockRoute)
@@ -36,10 +37,15 @@ export default function WalkingEndModalComponent(props: {
     const result: WalkingResultState = parsed.data
 
     createPathMutation.mutate(result)
-    setRouteDrawDone(true)
 
     handleEndWalking()
-    navigate({ to: '/' })
+
+    if (onDone) {
+      setRouteDrawDone(true)
+      onDone()
+    } else {
+      navigate({ to: '/' })
+    }
   }
 
   return (

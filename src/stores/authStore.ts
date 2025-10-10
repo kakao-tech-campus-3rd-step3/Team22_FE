@@ -18,7 +18,9 @@ const useAuthStore = create<AuthStore>()(
       email: null,
       login: (token: string, username: string, email: string) =>
         set({ accessToken: token, username, email }),
-      logout: () => set({ accessToken: null, username: null, email: null }),
+      logout: () => {
+        localStorage.clear()
+      },
       setUsername: (username: string) => set({ username }),
     }),
     {

@@ -6,14 +6,18 @@ import SelectionModal from '@/components/common/SelectionModal'
 import { petProfileSchema } from '@/types/petProfile'
 import { UI_TEXT, BREED_OPTIONS_DATA, DISEASE_OPTIONS_DATA } from '@/constants/constants.ts'
 import { usePetProfileState, type Breed } from '@/hooks/usePetProfileState'
+import { useSetupStore } from '@/stores/setupStore'
 import { type GenderType } from '@/constants/constants'
+import { useNavigate } from '@tanstack/react-router'
 
-function AddNewPetPage() {
+function AddNewPetPage(props: { onDone?: () => void; disableRouting?: boolean }) {
   const [isFormValid, setIsFormValid] = useState(false)
   const { petProfile, updatePetProfile } = usePetProfileState()
-
+  const { onDone, disableRouting } = props
   const [isBreedModalOpen, setIsBreedModalOpen] = useState(false)
   const [isDiseaseModalOpen, setIsDiseaseModalOpen] = useState(false)
+  const setPetSettingDone = useSetupStore((s) => s.setPetSettingDone)
+  const navigate = useNavigate()
 
   const isExistingProfile =
     petProfile.birthdate.trim() !== '' ||
@@ -39,13 +43,20 @@ function AddNewPetPage() {
 
     const validationResult = petProfileSchema.safeParse(petProfileData)
     if (validationResult.success) {
-      alert('유효성 검사 성공!\n' + JSON.stringify(validationResult.data, null, 2))
+      setPetSettingDone(true)
+      if (disableRouting && onDone) {
+        onDone()
+      } else {
+        navigate({ to: '/location-setting' }) // 예시는 다음 페이지 이동
+      }
     } else {
       alert('입력값에 오류가 있습니다. 다시 확인해주세요.')
+      setPetSettingDone(false)
     }
   }
 
   useEffect(() => {
+    document.body.style.overflow = 'hidden'
     const birthdate = petProfile.birthdate
 
     const currentData = {
@@ -55,11 +66,10 @@ function AddNewPetPage() {
 
     const result = petProfileSchema.safeParse(currentData)
     setIsFormValid(result.success)
-    console.log('petProfile state:', petProfile)
   }, [petProfile])
 
   return (
-    <div className="flex flex-col gap-2  ">
+    <div className="flex flex-col gap-2  no-scrollbar">
       <h1 className="text-xl font-bold text-center">
         {isExistingProfile ? '반려동물 정보 수정' : UI_TEXT.PAGE_TITLE}
       </h1>

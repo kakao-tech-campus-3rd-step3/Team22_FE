@@ -2,6 +2,8 @@ import { formatTime, getTotalSeconds } from '@/utils/timeCalculation.ts'
 import { useNavigate } from '@tanstack/react-router'
 import { walkingResultSchema, type WalkingResultState } from '@/types/routeResult.ts'
 import useCreatePath from '@/hooks/useCreatePath.ts'
+import { walkingPath } from '@/mocks/testdata.ts'
+import { useSetupStore } from '@/stores/setupStore'
 
 export default function WalkingEndModalComponent(props: {
   totalDistance: number
@@ -9,10 +11,12 @@ export default function WalkingEndModalComponent(props: {
   route: { lat: number; lng: number }[]
   setEndModal: (value: boolean) => void
   handleEndWalking: () => void
+  onDone?: () => void
 }) {
-  const { totalDistance, elapsedTime, route, setEndModal, handleEndWalking } = props;
-  const navigate = useNavigate();
+  const { totalDistance, elapsedTime, route, setEndModal, handleEndWalking, onDone } = props
+  const navigate = useNavigate()
   const createPathMutation = useCreatePath()
+  const setRouteDrawDone = useSetupStore((state) => state.setRouteDrawDone)
 
   const handleSubmitResult = () => {
     const rawResult = {
@@ -20,11 +24,13 @@ export default function WalkingEndModalComponent(props: {
       walkingTime_sec: getTotalSeconds(elapsedTime),
       path: route,
     }
+    console.log('rawResult', rawResult) // TODO: Remove mock data API 추가필요. walks
+    const mockRoute = walkingPath
 
-    const parsed = walkingResultSchema.safeParse(rawResult)
+    const parsed = walkingResultSchema.safeParse(mockRoute)
 
     if (!parsed.success) {
-      alert("산책 기록 데이터가 유효하지 않습니다.")
+      alert('산책 기록 데이터가 유효하지 않습니다.')
       return
     }
 
@@ -33,7 +39,13 @@ export default function WalkingEndModalComponent(props: {
     createPathMutation.mutate(result)
 
     handleEndWalking()
-    navigate({ to: "/" })
+
+    if (onDone) {
+      setRouteDrawDone(true)
+      onDone()
+    } else {
+      navigate({ to: '/' })
+    }
   }
 
   return (

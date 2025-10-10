@@ -26,16 +26,10 @@ export default function ConfirmModal(props: {
 
         <div className="flex justify-end gap-3">
           <button
-            onClick={onClose}
-            className="rounded-md bg-neutral-600 px-4 py-2 text-white hover:bg-neutral-500"
-          >
-            취소
-          </button>
-          <button
             onClick={onConfirm}
-            className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-500"
+            className={`rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-500`}
           >
-            설정하기
+            반려견 정보 입력하러 가기!
           </button>
         </div>
       </div>

@@ -1,41 +1,45 @@
-import MapSetting from '@/components/map/MapSetting.tsx'
-import startMarker from '@/assets/icons/StartMarker.png'
-import ButtonBar from '@/components/common/ButtonBar.tsx'
+import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
+import { useNavigate } from '@tanstack/react-router'
+import { useRef } from 'react'
 import useKakaoMapLoader from '@/hooks/useKakaoMapLoader.ts'
 import useLocation from '@/hooks/useLocation.ts'
-import { useRef } from 'react'
 import useKakaoMap from '@/hooks/useKakaoMap.tsx'
-import { useNavigate } from '@tanstack/react-router'
-import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
+import ButtonBar from '@/components/common/ButtonBar.tsx'
 import LoadingBox from '@/components/common/LoadingBox'
+import startMarker from '@/assets/icons/StartMarker.png'
+import MapSetting from '@/components/map/MapSetting'
+import { useSetupStore } from '@/stores/setupStore'
 
-export default function LocationSettingPage() {
+export default function LocationSettingPage(props: {
+  onDone?: () => void
+  disableRouting?: boolean
+}) {
+  const { onDone, disableRouting } = props
   const loaded = useKakaoMapLoader()
   const { location, status } = useLocation()
   const mapRef = useRef<HTMLDivElement>(null!)
   const { address, place, centerLocation } = useKakaoMap({ mapRef, location, loaded })
   const setLocation = useMapSetupStore((state) => state.setLocation)
+  const setLocationSettingDone = useSetupStore((state) => state.setLocationSettingDone)
   const navigate = useNavigate({ from: '/location-setting' })
 
   const handleSetLocation = () => {
     setLocation(address, place, centerLocation.latitude, centerLocation.longitude)
-    navigate({
-      to: '/walk-time-setting',
-    })
+    setLocationSettingDone(true)
+
+    if (disableRouting && onDone) {
+      onDone()
+    } else {
+      navigate({
+        to: '/walk-time-setting',
+      })
+    }
   }
 
-  if (!loaded) {
+  if (!loaded || status === 'loading') {
     return (
       <div className="w-full h-full">
-        <LoadingBox hsize="full"></LoadingBox>
-      </div>
-    )
-  }
-
-  if (status === 'loading') {
-    return (
-      <div className="w-full h-full">
-        <LoadingBox hsize="full"></LoadingBox>
+        <LoadingBox hsize="full" />
       </div>
     )
   }
@@ -44,7 +48,7 @@ export default function LocationSettingPage() {
     return (
       <>
         <div>위치 권한을 허용해주세요.</div>
-        <div id="map" className="w-full h-full" />;
+        <div id="map" className="w-full h-full" />
       </>
     )
   }

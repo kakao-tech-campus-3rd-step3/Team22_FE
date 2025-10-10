@@ -7,6 +7,7 @@ interface AuthStore {
   email: string | null
   login: (token: string, username: string, email: string) => void
   logout: () => void
+  setUsername: (username: string) => void
 }
 
 const useAuthStore = create<AuthStore>()(
@@ -17,7 +18,10 @@ const useAuthStore = create<AuthStore>()(
       email: null,
       login: (token: string, username: string, email: string) =>
         set({ accessToken: token, username, email }),
-      logout: () => set({ accessToken: null, username: null, email: null }),
+      logout: () => {
+        localStorage.clear()
+      },
+      setUsername: (username: string) => set({ username }),
     }),
     {
       name: 'auth-storage',

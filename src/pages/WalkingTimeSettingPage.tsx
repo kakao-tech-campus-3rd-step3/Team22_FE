@@ -29,7 +29,6 @@ export default function WalkingTimeSettingPage(props: {
   //TODO : 여기부분에서 weatherTable이 필요할까??
   return (
     <div className="flex flex-col gap-3 relative w-full h-full">
-      {/* <WeatherTable /> */}
       <WalkTimeScheduler />
       <div className="flex justify-center"></div>
       <ButtonBar
@@ -37,7 +36,7 @@ export default function WalkingTimeSettingPage(props: {
         onButtonClick={handleSetTime}
         isButtonDisable={isWalkTimesEmpty}
         children={null}
-      ></ButtonBar>
+      />
     </div>
   )
 }

@@ -8,7 +8,7 @@ import { useLocation } from '@tanstack/react-router'
 const NAV_ITEMS = [
   { to: '/', label: '홈', Icon: FaHome },
   { to: '/add-new-pet', label: '반려견 정보', Icon: PiDog },
-  { to: '/location-setting', label: '산책시작', Icon: IoMdWalk },
+  { to: '/route-draw', label: '산책시작', Icon: IoMdWalk },
   { to: '/mypage', label: '설정', Icon: FaCog },
 ]
 

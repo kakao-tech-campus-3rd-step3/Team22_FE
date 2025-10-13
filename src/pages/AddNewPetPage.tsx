@@ -1,52 +1,40 @@
 import { useState, useEffect } from 'react'
 import ProfileSection from './AddNewPetPageSections/ProfileSection'
 import DefaultProfileSection from './AddNewPetPageSections/DefaultCharacterSection'
-import DetailSetSection from './AddNewPetPageSections/DetailCharacterSection'
+import DetailCharacterSection from './AddNewPetPageSections/DetailCharacterSection'
 import SelectionModal from '@/components/common/SelectionModal'
 import { petProfileSchema } from '@/types/petProfile'
 import { UI_TEXT, BREED_OPTIONS_DATA, DISEASE_OPTIONS_DATA } from '@/constants/constants.ts'
 import { usePetProfileState, type Breed } from '@/hooks/usePetProfileState'
+import { useSetupStore } from '@/stores/setupStore'
+import { type GenderType } from '@/constants/constants'
+import { useNavigate } from '@tanstack/react-router'
 
-function AddNewPetPage() {
+function AddNewPetPage(props: { onDone?: () => void; disableRouting?: boolean }) {
   const [isFormValid, setIsFormValid] = useState(false)
   const { petProfile, updatePetProfile } = usePetProfileState()
-
+  const { onDone, disableRouting } = props
   const [isBreedModalOpen, setIsBreedModalOpen] = useState(false)
   const [isDiseaseModalOpen, setIsDiseaseModalOpen] = useState(false)
+  const setPetSettingDone = useSetupStore((s) => s.setPetSettingDone)
+  const navigate = useNavigate()
 
   const isExistingProfile =
-    petProfile.birthYear.trim() !== '' ||
-    petProfile.birthMonth.trim() !== '' ||
-    petProfile.birthDay.trim() !== '' ||
-    petProfile.selectedDiseases.length > 0 ||
+    petProfile.birthdate.trim() !== '' ||
+    petProfile.chronicDisease.length > 0 ||
     petProfile.weight.trim() !== ''
 
-  const getFormattedBirthdate = (year: string, month: string, day: string): string => {
-    const y = year.trim()
-    const m = month.trim()
-    const d = day.trim()
-    if (y && m && d) {
-      const formattedMonth = m.padStart(2, '0')
-      const formattedDay = d.padStart(2, '0')
-      return `${y}-${formattedMonth}-${formattedDay}`
-    }
-    return ''
-  }
-
   const handleDiseaseToggle = (disease: string) => {
-    const currentDiseases = petProfile.selectedDiseases
+    const currentDiseases = petProfile.chronicDisease
     const newDiseases = currentDiseases.includes(disease)
       ? currentDiseases.filter((d) => d !== disease)
       : [...currentDiseases, disease]
-    updatePetProfile('selectedDiseases', newDiseases)
+
+    updatePetProfile('chronicDisease', newDiseases)
   }
 
   const handleSave = () => {
-    const birthdate = getFormattedBirthdate(
-      petProfile.birthYear,
-      petProfile.birthMonth,
-      petProfile.birthDay,
-    )
+    const birthdate = petProfile.birthdate
 
     const petProfileData = {
       ...petProfile,
@@ -55,18 +43,21 @@ function AddNewPetPage() {
 
     const validationResult = petProfileSchema.safeParse(petProfileData)
     if (validationResult.success) {
-      alert('유효성 검사 성공!\n' + JSON.stringify(validationResult.data, null, 2))
+      setPetSettingDone(true)
+      if (disableRouting && onDone) {
+        onDone()
+      } else {
+        navigate({ to: '/location-setting' }) // 예시는 다음 페이지 이동
+      }
     } else {
       alert('입력값에 오류가 있습니다. 다시 확인해주세요.')
+      setPetSettingDone(false)
     }
   }
 
   useEffect(() => {
-    const birthdate = getFormattedBirthdate(
-      petProfile.birthYear,
-      petProfile.birthMonth,
-      petProfile.birthDay,
-    )
+    document.body.style.overflow = 'hidden'
+    const birthdate = petProfile.birthdate
 
     const currentData = {
       ...petProfile,
@@ -78,7 +69,7 @@ function AddNewPetPage() {
   }, [petProfile])
 
   return (
-    <>
+    <div className="flex flex-col gap-2  no-scrollbar">
       <h1 className="text-xl font-bold text-center">
         {isExistingProfile ? '반려동물 정보 수정' : UI_TEXT.PAGE_TITLE}
       </h1>
@@ -98,34 +89,31 @@ function AddNewPetPage() {
         title={UI_TEXT.DISEASE_MODAL_TITLE}
         options={DISEASE_OPTIONS_DATA}
         onSelect={handleDiseaseToggle}
-        selectedValue={petProfile.selectedDiseases}
+        selectedValue={petProfile.chronicDisease}
       />
 
-      <ProfileSection />
+      <ProfileSection
+        name={petProfile.name}
+        setName={(value: string) => updatePetProfile('name', value)}
+      />
 
       <DefaultProfileSection
+        birthdate={petProfile.birthdate}
+        setBirthdate={(value: string) => updatePetProfile('birthdate', value)}
         gender={petProfile.gender}
-        setGender={(value: 'male' | 'female') => updatePetProfile('gender', value)}
+        setGender={(value: GenderType) => updatePetProfile('gender', value)}
         neutralize={petProfile.neutralize}
-        setNeutralize={(value: true | false) => updatePetProfile('neutralize', value)}
+        setNeutralize={(value: boolean) => updatePetProfile('neutralize', value)}
         vaccinated={petProfile.vaccinated}
-        setVaccinated={(value: true | false) => updatePetProfile('vaccinated', value)}
-        birthYear={petProfile.birthYear}
-        setBirthYear={(value: string) => updatePetProfile('birthYear', value)}
-        birthMonth={petProfile.birthMonth}
-        setBirthMonth={(value: string) => updatePetProfile('birthMonth', value)}
-        birthDay={petProfile.birthDay}
-        setBirthDay={(value: string) => updatePetProfile('birthDay', value)}
+        setVaccinated={(value: boolean) => updatePetProfile('vaccinated', value)}
         selectedBreed={petProfile.selectedBreed}
         setIsBreedModalOpen={setIsBreedModalOpen}
       />
 
-      <DetailSetSection
-        dayWeather={petProfile.dayWeather}
-        setDayWeather={(value: string[]) => updatePetProfile('dayWeather', value)}
-        nightWeather={petProfile.nightWeather}
-        setNightWeather={(value: string[]) => updatePetProfile('nightWeather', value)}
-        selectedDiseases={petProfile.selectedDiseases}
+      <DetailCharacterSection
+        preferredWeather={petProfile.preferredWeather}
+        setPreferredWeather={(value: string[]) => updatePetProfile('preferredWeather', value)}
+        chronicDisease={petProfile.chronicDisease}
         setIsDiseaseModalOpen={setIsDiseaseModalOpen}
         preferredPaths={petProfile.preferredPaths}
         setPreferredPaths={(value: string[]) => updatePetProfile('preferredPaths', value)}
@@ -137,7 +125,7 @@ function AddNewPetPage() {
         setWeight={(value: string) => updatePetProfile('weight', value)}
       />
       <button
-        className={`w-full p-4 rounded-lg font-bold mt-4 transition-colors ${
+        className={`w-full p-4 rounded-lg font-bold transition-colors ${
           isFormValid ? 'bg-blue-600 hover:bg-blue-700' : 'bg-neutral-500 cursor-not-allowed'
         }`}
         onClick={handleSave}
@@ -145,7 +133,7 @@ function AddNewPetPage() {
       >
         {UI_TEXT.SAVE_BUTTON}
       </button>
-    </>
+    </div>
   )
 }
 

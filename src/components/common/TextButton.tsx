@@ -3,14 +3,15 @@ function TextButton(props: {
   isSelected: boolean
   children: React.ReactNode
 }) {
+  const { onClick, isSelected, children } = props
   return (
     <button
-      onClick={props.onClick}
+      onClick={onClick}
       className={`w-full p-2 rounded-md text-sm transition-colors ${
-        props.isSelected ? 'bg-blue-600 text-white' : 'bg-neutral-700 text-neutral-300'
+        isSelected ? 'bg-blue-600 text-white' : 'bg-neutral-700 text-neutral-300'
       }`}
     >
-      {props.children}
+      {children}
     </button>
   )
 }

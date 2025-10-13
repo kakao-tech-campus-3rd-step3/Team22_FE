@@ -1,4 +1,4 @@
-import { GENDER, BOOLEAN_CHOICE, UI_TEXT } from '@/constants/constants'
+import { GENDER, BOOLEAN_CHOICE, UI_TEXT, type GenderType } from '@/constants/constants'
 import InfoRow from '@/components/common/InfoRow'
 import TextButton from '@/components/common/TextButton'
 import TextModalButton from '@/components/common/TextModalButton'
@@ -9,13 +9,14 @@ function OptionButtonGroup<T extends string | boolean>(props: {
   onSelect: (value: T) => void
   className?: string
 }) {
+  const { options, selectedValue, onSelect } = props
   return (
     <>
-      {props.options.map(({ value, label }) => (
+      {options.map(({ value, label }) => (
         <TextButton
           key={String(value)}
-          onClick={() => props.onSelect(value)}
-          isSelected={props.selectedValue === value}
+          onClick={() => onSelect(value)}
+          isSelected={selectedValue === value}
         >
           {label}
         </TextButton>
@@ -28,8 +29,8 @@ function DefaultCharacterSection(props: {
   selectedBreed: string
   setIsBreedModalOpen: (isOpen: boolean) => void
 
-  gender: 'male' | 'female'
-  setGender: (value: 'male' | 'female') => void
+  gender: GenderType
+  setGender: (value: GenderType) => void
 
   neutralize: boolean
   setNeutralize: (value: true | false) => void
@@ -37,38 +38,59 @@ function DefaultCharacterSection(props: {
   vaccinated: boolean
   setVaccinated: (value: true | false) => void
 
-  birthYear: string
-  setBirthYear: (value: string) => void
-
-  birthMonth: string
-  setBirthMonth: (value: string) => void
-
-  birthDay: string
-  setBirthDay: (value: string) => void
+  birthdate: string
+  setBirthdate: (value: string) => void
 }) {
+  const {
+    selectedBreed,
+    setIsBreedModalOpen,
+    gender,
+    setGender,
+    neutralize,
+    setNeutralize,
+    vaccinated,
+    setVaccinated,
+    birthdate,
+    setBirthdate,
+  } = props
+
+  const [year, month, day] = birthdate ? birthdate.split('-') : ['', '', '']
+
+  const handleDateChange = (part: 'year' | 'month' | 'day', value: string) => {
+    let newYear = year
+    let newMonth = month
+    let newDay = day
+
+    if (part === 'year') newYear = value
+    if (part === 'month') newMonth = value
+    if (part === 'day') newDay = value
+
+    setBirthdate(`${newYear}-${newMonth}-${newDay}`)
+  }
+
   const dateFields = [
     {
-      key: 'birthYear',
+      key: 'year',
       placeholder: '년도 (4자리)',
       maxLength: 4,
-      value: props.birthYear,
-      setter: props.setBirthYear,
+      value: year,
+      setter: (val: string) => handleDateChange('year', val),
       pattern: /^\d{0,4}$/,
     },
     {
-      key: 'birthMonth',
+      key: 'month',
       placeholder: '월',
       maxLength: 2,
-      value: props.birthMonth,
-      setter: props.setBirthMonth,
+      value: month,
+      setter: (val: string) => handleDateChange('month', val),
       pattern: /^\d{0,2}$/,
     },
     {
-      key: 'birthDay',
+      key: 'day',
       placeholder: '일',
       maxLength: 2,
-      value: props.birthDay,
-      setter: props.setBirthDay,
+      value: day,
+      setter: (val: string) => handleDateChange('day', val),
       pattern: /^\d{0,2}$/,
     },
   ]
@@ -77,9 +99,9 @@ function DefaultCharacterSection(props: {
     <div className="bg-neutral-900 p-4 rounded-lg flex flex-col gap-4">
       <InfoRow label={UI_TEXT.BREED_TYPE}>
         <TextModalButton
-          selectedStatus={props.selectedBreed}
+          selectedStatus={selectedBreed}
           buttonTypeText={UI_TEXT.BREED_MODAL_TITLE}
-          setIsBreedModalOpen={props.setIsBreedModalOpen}
+          setIsBreedModalOpen={setIsBreedModalOpen}
         />
       </InfoRow>
 
@@ -89,8 +111,8 @@ function DefaultCharacterSection(props: {
             { value: GENDER.MALE, label: UI_TEXT.BOY },
             { value: GENDER.FEMALE, label: UI_TEXT.GIRL },
           ]}
-          selectedValue={props.gender}
-          onSelect={props.setGender}
+          selectedValue={gender}
+          onSelect={setGender}
         />
       </InfoRow>
 
@@ -122,8 +144,8 @@ function DefaultCharacterSection(props: {
             { value: BOOLEAN_CHOICE.YES, label: UI_TEXT.YES },
             { value: BOOLEAN_CHOICE.NO, label: UI_TEXT.NO },
           ]}
-          selectedValue={props.neutralize}
-          onSelect={props.setNeutralize}
+          selectedValue={neutralize}
+          onSelect={setNeutralize}
         />
       </InfoRow>
 
@@ -133,8 +155,8 @@ function DefaultCharacterSection(props: {
             { value: BOOLEAN_CHOICE.YES, label: UI_TEXT.YES },
             { value: BOOLEAN_CHOICE.NO, label: UI_TEXT.NO },
           ]}
-          selectedValue={props.vaccinated}
-          onSelect={props.setVaccinated}
+          selectedValue={vaccinated}
+          onSelect={setVaccinated}
         />
       </InfoRow>
     </div>

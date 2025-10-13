@@ -1,21 +1,28 @@
 import { useEffect, useRef } from 'react'
 import startMarker from '@/assets/icons/StartMarker.png'
-import { MARKER_IMAGE_HEIGHT, MARKER_IMAGE_WIDTH, MARKER_IMAGE_X, MARKER_IMAGE_Y } from '@/constants/marker.ts'
+import {
+  MARKER_IMAGE_HEIGHT,
+  MARKER_IMAGE_WIDTH,
+  MARKER_IMAGE_X,
+  MARKER_IMAGE_Y,
+} from '@/constants/marker.ts'
 
 export default function useKakaoStaticMap(props: {
   latitude: number | null
   longitude: number | null
   loaded: boolean
 }) {
-  const mapContainerRef  = useRef<HTMLDivElement | null>(null)
+  const { latitude, longitude, loaded } = props
+
+  const mapContainerRef = useRef<HTMLDivElement | null>(null)
   const mapInstanceRef = useRef<KakaoMap | null>(null)
   const markerInstanceRef = useRef<KakaoMarker | null>(null)
 
   useEffect(() => {
-    if (!props.loaded || props.latitude == null || props.longitude == null || !mapContainerRef.current) return
+    if (!loaded || latitude == null || longitude == null || !mapContainerRef.current) return
     if (mapInstanceRef.current) return
 
-    const startPosition = new window.kakao.maps.LatLng(props.latitude, props.longitude)
+    const startPosition = new window.kakao.maps.LatLng(latitude, longitude)
 
     const mapOption = {
       center: startPosition,
@@ -35,16 +42,22 @@ export default function useKakaoStaticMap(props: {
       image: markerImage,
       map: map,
     })
-  }, [props.loaded, props.latitude, props.longitude])
+  }, [loaded, latitude, longitude])
 
   useEffect(() => {
-    if (!mapInstanceRef.current || !markerInstanceRef.current || props.latitude == null || props.longitude == null) return
+    if (
+      !mapInstanceRef.current ||
+      !markerInstanceRef.current ||
+      latitude == null ||
+      longitude == null
+    )
+      return
 
-    const newPosition = new window.kakao.maps.LatLng(props.latitude, props.longitude)
+    const newPosition = new window.kakao.maps.LatLng(latitude, longitude)
 
     mapInstanceRef.current?.panTo(newPosition)
     markerInstanceRef.current?.setPosition(newPosition)
-  }, [props.latitude, props.longitude])
+  }, [latitude, longitude])
 
   return { mapContainerRef }
 }

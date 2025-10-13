@@ -1,16 +1,33 @@
 import { useMapSetupStore } from '@/hooks/useMapSetupStore.ts'
 import ButtonBar from '@/components/common/ButtonBar.tsx'
 import { useNavigate } from '@tanstack/react-router'
+import { useSetupStore } from '@/stores/setupStore'
 import useKakaoStaticMap from '@/hooks/useKakaoStaticMap.ts'
 import useKakaoMapLoader from '@/hooks/useKakaoMapLoader.ts'
 
-export default function MapSetupComplete() {
+export default function MapSetupCompletePage(props: {
+  onDone?: () => void
+  disableRouting?: boolean
+}) {
+  const { onDone, disableRouting } = props
   const loaded = useKakaoMapLoader()
   const { walkTimes, address, place, latitude, longitude } = useMapSetupStore()
   const navigate = useNavigate({ from: '/map-setup' })
   const { mapContainerRef } = useKakaoStaticMap({ latitude, longitude, loaded })
 
+  const lsLocationSettingDone = useSetupStore((state) => state.isLocationSettingDone)
+  const setLocationSettingDone = useSetupStore((state) => state.setLocationSettingDone)
+
   const handleComplete = () => {
+    if (disableRouting && onDone) {
+      onDone()
+      return
+    }
+    if (lsLocationSettingDone === false) {
+      setLocationSettingDone(true)
+      navigate({ to: '/intro' })
+      return
+    }
     navigate({ to: '/route-draw' })
   }
 
@@ -38,8 +55,12 @@ export default function MapSetupComplete() {
         </div>
       </div>
       <div className="absolute bottom-0 left-0 w-full z-10 ">
-        <ButtonBar buttonText="주 산책 시간 설정하기" onButtonClick={handleComplete}>
-          <div className="text-white my-1.5">해당 시간에 알림 경로 추천 알림 받기</div>
+        <ButtonBar
+          buttonText="주 산책 시간 설정하기"
+          onButtonClick={handleComplete}
+          isButtonDisable={false}
+        >
+          <p className="text-white my-1.5">설정한 위치와 시간으로 산책 경로 추천받기</p>
         </ButtonBar>
       </div>
     </div>

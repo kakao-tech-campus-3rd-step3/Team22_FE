@@ -13,7 +13,7 @@ export default function UpTimer(props: {
 
   useEffect(() => {
     if (isActive) {
-      startTimeRef.current = Date.now() - elapsedTime;
+      startTimeRef.current = Date.now() - elapsedTime
       intervalRef.current = window.setInterval(() => {
         setElapsedTime(Date.now() - (startTimeRef.current ?? 0))
       }, 1000)
@@ -28,7 +28,7 @@ export default function UpTimer(props: {
       if (intervalRef.current !== null) {
         clearInterval(intervalRef.current)
       }
-    };
+    }
   }, [elapsedTime, isActive, setElapsedTime])
 
   useEffect(() => {
@@ -42,5 +42,5 @@ export default function UpTimer(props: {
       <span>{formatTime(elapsedTime)}</span>
       <span>시간</span>
     </div>
-  );
+  )
 }

@@ -1,18 +1,22 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { type PetProfile, defaultPetProfile } from '@/types/petProfile'
+import { type PetProfileFormState } from '@/hooks/usePetProfileState'
+import { petProfileDefaultsForForm } from '@/constants/petProfileDefault'
 
 interface PetProfileStore {
-  petProfile: PetProfile
-  updatePetProfile: <K extends keyof PetProfile>(key: K, value: PetProfile[K]) => void
-  setPetProfile: (data: Partial<PetProfile>) => void
+  petProfile: PetProfileFormState
+  updatePetProfile: <K extends keyof PetProfileFormState>(
+    key: K,
+    value: PetProfileFormState[K],
+  ) => void
+  setPetProfile: (data: Partial<PetProfileFormState>) => void
   resetPetProfile: () => void
 }
 
 export const usePetProfileStore = create<PetProfileStore>()(
   persist(
     (set) => ({
-      petProfile: defaultPetProfile,
+      petProfile: petProfileDefaultsForForm,
       updatePetProfile: (key, value) =>
         set((state) => ({
           petProfile: {
@@ -27,7 +31,7 @@ export const usePetProfileStore = create<PetProfileStore>()(
             ...data,
           },
         })),
-      resetPetProfile: () => set({ petProfile: defaultPetProfile }),
+      resetPetProfile: () => set({ petProfile: petProfileDefaultsForForm }),
     }),
     {
       name: 'pet-profile-storage',

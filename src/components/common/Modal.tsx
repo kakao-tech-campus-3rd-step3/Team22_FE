@@ -1,29 +1,41 @@
-function Modal(props: {
-  isOpen: boolean
-  onClose: () => void
-  title: string
-  children: React.ReactNode
-}) {
-  if (!props.isOpen) return null
+import { motion, AnimatePresence } from 'framer-motion'
+import React from 'react'
 
+interface ModalProps {
+  children: React.ReactNode
+  onClick: () => void
+  isOpen: boolean
+}
+
+export function Modal({ children, onClick, isOpen }: ModalProps) {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
-      <div className="bg-neutral-800 rounded-lg shadow-xl w-4/5 max-w-sm p-6">
-        <div className="flex justify-between items-center border-b border-neutral-700 pb-3 mb-4">
-          <h2 className="text-lg font-bold">{props.title}</h2>
-          <button onClick={props.onClose} className="text-2xl text-neutral-400 hover:text-white">
-            &times;
-          </button>
-        </div>
-        <div className="space-y-3">{props.children}</div>
-        <button
-          onClick={props.onClose}
-          className="w-full bg-blue-600 p-3 rounded-lg font-bold mt-6"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClick}
         >
-          확인
-        </button>
-      </div>
-    </div>
+          <motion.div
+            className="w-[390px] h-[844px] rounded-lg shadow-lg max-w-lg max-h-[90vh] overflow-auto p-4 relative bg-zinc-800"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            onClick={(e) => e.stopPropagation()} // 모달 내용 클릭 시 닫힘 방지
+          >
+            <button
+              onClick={onClick}
+              className="absolute top-0 right-0 text-gray-500 hover:text-gray-700"
+              aria-label="Close modal"
+            >
+              ✕
+            </button>
+            {children}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }
-export default Modal

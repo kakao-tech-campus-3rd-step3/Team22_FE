@@ -10,6 +10,8 @@ export default function WeatherTable() {
     isError: walkScoresError
   } = useWeatherScore({ initialLocation })
 
+  console.log(walkScores)
+
   if (walkScoresLoading || status === 'loading') return <LoadingBox hsize="72" />
 
   if (status === 'denied') {
@@ -36,7 +38,7 @@ export default function WeatherTable() {
 
           <tbody>
           {walkScores.map((item) => {
-            const dateInKST = new Date(item.weatherDetail.time + 'Z');
+            const dateInKST = new Date(item.weatherDetail.time);
             const day = dateInKST.getDate();
             const hour = dateInKST.getHours();
 

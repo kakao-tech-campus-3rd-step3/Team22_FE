@@ -1,6 +1,12 @@
 import useLocation from '@/hooks/useLocation.ts'
 import LoadingBox from './LoadingBox'
 import useWeatherScore from '@/hooks/useWeatherScore.ts'
+import veryGood from '@/assets/walkingIcons/very_good_line.svg'
+import good from '@/assets/walkingIcons/good_line.svg'
+import neutral from '@/assets/walkingIcons/neutral_line.svg'
+import bad from '@/assets/walkingIcons/bad_line.svg'
+import veryBad from '@/assets/walkingIcons/very_bad_line.svg'
+
 
 export default function WeatherTable() {
   const { initialLocation, status } = useLocation()
@@ -20,6 +26,20 @@ export default function WeatherTable() {
 
   if (walkScoresError || !walkScores) {
     return <div>날씨 정보를 불러올 수 없습니다.</div>
+  }
+
+  const handleWalkingIcons = (scores : number) => {
+    if (scores > 100) {
+      return <img src={veryGood} alt="very Good Walking" className="mx-auto" />
+    } else if (scores >= 90) {
+      return <img src={good} alt="very Good Walking" className="mx-auto" />
+    } else if (scores >= 50) {
+      return <img src={neutral} alt="very Good Walking" className="mx-auto" />
+    } else if (scores >= 20) {
+      return <img src={bad} alt="very Good Walking" className="mx-auto" />
+    } else {
+      return <img src={veryBad} alt="very Good Walking" className="mx-auto" />
+    }
   }
 
   return (
@@ -48,7 +68,7 @@ export default function WeatherTable() {
                 <td className="py-2">{item.weatherDetail.condition}</td>
                 <td className="py-2">{item.weatherDetail.temperature.toFixed(1)}</td>
                 <td className="py-2">{(item.weatherDetail.precipitationProbability * 100).toFixed(0)}</td>
-                <td className="py-2">{item.walkScore}</td>
+                <td className="py-2">{handleWalkingIcons(item.walkScore)}</td>
               </tr>
             );
           })}

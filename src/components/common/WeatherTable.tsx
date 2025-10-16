@@ -6,6 +6,7 @@ import good from '@/assets/walkingIcons/good_line.svg'
 import neutral from '@/assets/walkingIcons/neutral_line.svg'
 import bad from '@/assets/walkingIcons/bad_line.svg'
 import veryBad from '@/assets/walkingIcons/very_bad_line.svg'
+import { BAD, GOOD, NEUTRAL, VERY_GOOD } from '@/constants/walkingScore.ts'
 
 
 export default function WeatherTable() {
@@ -29,13 +30,13 @@ export default function WeatherTable() {
   }
 
   const handleWalkingIcons = (scores : number) => {
-    if (scores > 100) {
+    if (scores > VERY_GOOD) {
       return <img src={veryGood} alt="very Good Walking" className="mx-auto" />
-    } else if (scores >= 90) {
+    } else if (scores >= GOOD) {
       return <img src={good} alt="very Good Walking" className="mx-auto" />
-    } else if (scores >= 50) {
+    } else if (scores >= NEUTRAL) {
       return <img src={neutral} alt="very Good Walking" className="mx-auto" />
-    } else if (scores >= 20) {
+    } else if (scores >= BAD) {
       return <img src={bad} alt="very Good Walking" className="mx-auto" />
     } else {
       return <img src={veryBad} alt="very Good Walking" className="mx-auto" />

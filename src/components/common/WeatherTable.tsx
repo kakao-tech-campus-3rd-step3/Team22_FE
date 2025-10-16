@@ -3,12 +3,12 @@ import LoadingBox from './LoadingBox'
 import useWeatherScore from '@/hooks/useWeatherScore.ts'
 
 export default function WeatherTable() {
-  const { location, status } = useLocation()
+  const { initialLocation, status } = useLocation()
   const {
     data: walkScores,
     isLoading: walkScoresLoading,
     isError: walkScoresError
-  } = useWeatherScore({ location })
+  } = useWeatherScore({ initialLocation })
 
   if (walkScoresLoading || status === 'loading') return <LoadingBox hsize="72" />
 

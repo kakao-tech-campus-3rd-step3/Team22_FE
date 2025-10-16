@@ -14,16 +14,11 @@ type HourlyForecast = {
   walkScore: number;
 };
 
-export default function useWeatherScore(props: {
-  location?: {
-    latitude: number
-    longitude: number
-  }
-}) {
-  const { latitude, longitude } = props.location ?? {};
+export default function useWeatherScore(props: { initialLocation: { latitude: number; longitude: number } | null }) {
+  const { latitude, longitude } = props.initialLocation ?? {};
 
   return useQuery<HourlyForecast[]> ({
-    queryKey: ['weatherScore', latitude, longitude],
+    queryKey: ['weatherScore', latitude, longitude, status],
     queryFn: async () => {
       const response = await getWeather(latitude!, longitude!)
       return response.data.hourlyForecasts

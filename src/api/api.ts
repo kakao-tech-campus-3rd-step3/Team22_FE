@@ -19,7 +19,7 @@ api.interceptors.request.use((config) => {
   if (stored) {
     try {
       const parsed = JSON.parse(stored)
-      const token = parsed.state?.accessToken || ''
+      const token = parsed.state?.accessToken?.accessToken || ''
       if (token) config.headers.Authorization = `Bearer ${token}`
     } catch (e) {
       console.error('auth-storgae 파싱 에러: ', e)

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <title>RAINY - DAY</title>
+  <g>
+    <path d="M9 14h14a4 4 0 0 0-1-7.9 6 6 0 0 0-11 3A4 4 0 0 0 9 14z" fill="#EEEEEE" stroke="#90A4AE" stroke-width="1.2"/>
+    <path d="M12.5 19.5v3" stroke="#29B6F6" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M16 19.5v3" stroke="#29B6F6" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M19.5 19.5v3" stroke="#29B6F6" stroke-width="1.6" stroke-linecap="round"/>
+  </g>
+</svg>

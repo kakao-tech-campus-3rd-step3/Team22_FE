@@ -83,7 +83,7 @@ export default function useKakaoMap(props: {
                 setPlace(addressParts[addressParts.length - 1])
               }
             },
-            { updatedLocation: center, radius: 50 },
+            { location: center, radius: 50 },
           )
         } else {
           setAddress('주소를 찾을 수 없습니다.')

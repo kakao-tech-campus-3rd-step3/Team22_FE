@@ -42,13 +42,13 @@ export default function WeatherTable() {
     if (scores > VERY_GOOD) {
       return <img src={veryGood} alt="very Good Walking" className="mx-auto" />
     } else if (scores >= GOOD) {
-      return <img src={good} alt="very Good Walking" className="mx-auto" />
+      return <img src={good} alt="Good Walking" className="mx-auto" />
     } else if (scores >= NEUTRAL) {
-      return <img src={neutral} alt="very Good Walking" className="mx-auto" />
+      return <img src={neutral} alt="Neutral Walking" className="mx-auto" />
     } else if (scores >= BAD) {
-      return <img src={bad} alt="very Good Walking" className="mx-auto" />
+      return <img src={bad} alt="Bad Walking" className="mx-auto" />
     } else {
-      return <img src={veryBad} alt="very Good Walking" className="mx-auto" />
+      return <img src={veryBad} alt="very Bad Walking" className="mx-auto" />
     }
   }
 

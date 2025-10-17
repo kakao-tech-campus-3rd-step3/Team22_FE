@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <title>WIND - DAY</title>
+  <g stroke="#4DB6AC" stroke-width="1.6" fill="none">
+    <path d="M6 14h10a3 3 0 0 1 0 6H8" stroke-linecap="round"/>
+    <path d="M4 10h6" stroke-opacity="0.9"/>
+    <path d="M18 6h8" stroke-opacity="0.6"/>
+  </g>
+</svg>

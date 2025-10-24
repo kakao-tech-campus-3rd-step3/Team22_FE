@@ -14,7 +14,19 @@ declare module '@tanstack/react-router' {
   }
 }
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      networkMode: 'always',
+      staleTime: 5 * 60 * 1000,
+      refetchOnWindowFocus: true,
+      retry: 1,
+    },
+    mutations: {
+      networkMode: 'always',
+    }
+  }
+})
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

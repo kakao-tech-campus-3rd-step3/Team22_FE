@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react'
 type ValidRoutePoint = { lat: number; lng: number }
 
 export default function useDistance(props: {
-  currentLocation?: { latitude: number; longitude: number }
-  latitude?: number | null
-  longitude?: number | null
-  route?: { lat: number | null; lng: number | null }[]
+  route: { lat: number; lng: number }[];
+  latitude: number;
+  currentLocation: { latitude: number; longitude: number } | null;
+  longitude: number
 }) {
   const { currentLocation, latitude, longitude, route } = props
 

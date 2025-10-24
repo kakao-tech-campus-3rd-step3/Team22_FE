@@ -8,7 +8,7 @@ interface CenterLocationState {
 
 export default function useKakaoMap(props: {
   mapRef: React.RefObject<HTMLDivElement>
-  location: { latitude: number; longitude: number }
+  updatedLocation: { latitude: number; longitude: number } | null
   loaded: boolean
 }) {
   const mapInstanceRef = useRef<KakaoMap | null>(null)
@@ -19,15 +19,15 @@ export default function useKakaoMap(props: {
     latitude: 0,
     longitude: 0,
   })
-  const { mapRef, location, loaded } = props
+  const { mapRef, updatedLocation, loaded } = props
 
   useEffect(() => {
-    if (!loaded || !location || !mapRef.current) {
+    if (!loaded || !updatedLocation || !mapRef.current) {
       return
     }
     if (mapInstanceRef.current) return
 
-    const currentPosition = new window.kakao.maps.LatLng(location.latitude, location.longitude)
+    const currentPosition = new window.kakao.maps.LatLng(updatedLocation.latitude, updatedLocation.longitude)
 
     const mapOptions = {
       center: currentPosition,
@@ -53,7 +53,7 @@ export default function useKakaoMap(props: {
     } else {
       currentLocationMarkerRef?.current?.setPosition(currentPosition);
     }
-  }, [loaded, location, mapRef])
+  }, [loaded, updatedLocation, mapRef])
 
   useEffect(() => {
     const map = mapInstanceRef.current
@@ -83,7 +83,7 @@ export default function useKakaoMap(props: {
                 setPlace(addressParts[addressParts.length - 1])
               }
             },
-            { location: center, radius: 50 },
+            { updatedLocation: center, radius: 50 },
           )
         } else {
           setAddress('주소를 찾을 수 없습니다.')
@@ -98,7 +98,7 @@ export default function useKakaoMap(props: {
     return () => {
       window.kakao.maps.event.removeListener(map, 'idle', fetchLocationInfo)
     }
-  }, [loaded, location])
+  }, [loaded, updatedLocation])
 
   return { address, place, centerLocation }
 }

@@ -1,5 +1,11 @@
 import { motion } from 'framer-motion'
 
+const fadeInUpAnimation = {
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.7 },
+}
+
 export default function GuideStepCard(props: {
   title: string
   subtitle: string
@@ -12,9 +18,7 @@ export default function GuideStepCard(props: {
   return (
     <div className="flex flex-col w-full h-full">
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
+        {...fadeInUpAnimation}
         className="rounded-2xl shadow-lg w-full max-w-md flex flex-col items-center p-8 text-white h-full"
       >
         <h1 className="text-3xl font-bold  text-center mb-2">{title}</h1>

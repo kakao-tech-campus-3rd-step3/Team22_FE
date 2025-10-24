@@ -105,7 +105,7 @@ declare global {
         pagination: KakaoPagination,
       ) => void,
       options?: {
-        location?: KakaoLatLng
+        updatedLocation?: KakaoLatLng
         radius?: number
       },
     ): void

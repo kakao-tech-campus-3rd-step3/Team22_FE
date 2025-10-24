@@ -1,67 +1,75 @@
 import { useEffect, useState } from 'react'
 import { MAXIMUM_AGE, TIME_OUT } from '@/constants/location.ts'
 
-type LocationStatus = 'loading' | 'success' | 'denied' | 'error'
+export type LocationStatus = 'loading' | 'success' | 'denied' | 'error'
 
-interface LocationTypes {
-  location: {
-    latitude: number
-    longitude: number
-  }
-  status: LocationStatus
+interface UseLocationState {
+  initialLocation: { latitude: number; longitude: number } | null;
+  updatedLocation: { latitude: number; longitude: number } | null;
+  status: LocationStatus;
 }
 
+const DEFAULT_LOCATION = { latitude: 37.5665, longitude: 126.9780 };
+
 export default function useLocation() {
-  const [location, setLocation] = useState<LocationTypes>({
-    location: { latitude: 37.483034, longitude: 126.902435 },
+  const [state, setState] = useState<UseLocationState>({
+    initialLocation: null,
+    updatedLocation: null,
     status: 'loading',
   })
 
   useEffect(() => {
     if (!navigator.geolocation) {
-      setLocation({
-        location: { latitude: 37.483034, longitude: 126.902435 },
+      setState({
+        initialLocation: DEFAULT_LOCATION,
+        updatedLocation: DEFAULT_LOCATION,
         status: 'error',
       })
       return
     }
 
-    const success = (position: GeolocationPosition) => {
-      setLocation({
-        location: {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        },
+    const handleInitialSuccess = (position: GeolocationPosition) => {
+      const { latitude, longitude } = position.coords;
+      setState({
+        initialLocation: { latitude, longitude },
+        updatedLocation: { latitude, longitude },
         status: 'success',
-      })
-    }
+      });
+    };
 
-    const error = (err: GeolocationPositionError) => {
-      console.warn('현재 위치 찾기 실패', err)
+    const handleError = (err: GeolocationPositionError) => {
+      console.warn('위치 가져오기 실패', err);
+      setState({
+        initialLocation: DEFAULT_LOCATION,
+        updatedLocation: DEFAULT_LOCATION,
+        status: err.code === 1 ? 'denied' : 'error',
+      });
+    };
 
-      if (err.code === 1) {
-        setLocation({
-          location: { latitude: 37.483034, longitude: 126.902435 },
-          status: 'denied',
-        })
-      } else {
-        setLocation({
-          location: { latitude: 37.483034, longitude: 126.902435 },
-          status: 'error',
-        })
-      }
-    }
-
-    const watcherId = navigator.geolocation.watchPosition(success, error, {
+    navigator.geolocation.getCurrentPosition(handleInitialSuccess, handleError, {
       enableHighAccuracy: true,
       timeout: TIME_OUT,
       maximumAge: MAXIMUM_AGE,
-    })
+    });
+
+    const handleWatchSuccess = (position: GeolocationPosition) => {
+      const { latitude, longitude } = position.coords;
+      setState(prevState => ({
+        ...prevState,
+        updatedLocation: { latitude, longitude },
+      }));
+    };
+
+    const watcherId = navigator.geolocation.watchPosition(handleWatchSuccess, (err) => {
+      console.warn('실시간 위치 감시 에러', err);
+    }, {
+      enableHighAccuracy: true,
+    });
 
     return () => {
       navigator.geolocation.clearWatch(watcherId)
     }
   }, [])
 
-  return location
+  return state
 }

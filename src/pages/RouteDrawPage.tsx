@@ -14,7 +14,7 @@ export default function RouteDrawPage(props: { onDone?: () => void; disableRouti
   const [isActive, setIsActive] = useState(false)
   const [endModal, setEndModal] = useState(false)
   const [elapsedTime, setElapsedTime] = useState(0)
-  const { location: currentLocation, status } = useLocation()
+  const { updatedLocation: currentLocation, status } = useLocation()
   const { latitude, longitude } = useMapSetupStore()
   const [route, setRoute] = useState<{ lat: number; lng: number }[]>([])
   const { mapContainerRef } = useKakaoRouteMap({
@@ -32,7 +32,7 @@ export default function RouteDrawPage(props: { onDone?: () => void; disableRouti
   })
 
   useEffect(() => {
-    if (!isActive) return
+    if (!isActive || status !== 'success' || !currentLocation) return
 
     if (status === 'success') {
       setRoute((prev) => [
@@ -40,7 +40,7 @@ export default function RouteDrawPage(props: { onDone?: () => void; disableRouti
         { lat: currentLocation.latitude, lng: currentLocation.longitude },
       ])
     }
-  }, [currentLocation.latitude, currentLocation.longitude, status, isActive])
+  }, [currentLocation, status, isActive])
 
   const handleTriggerEnd = () => {
     setIsActive(false)

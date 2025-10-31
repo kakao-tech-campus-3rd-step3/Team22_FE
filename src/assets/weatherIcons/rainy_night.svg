@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <title>RAINY - NIGHT</title>
+  <g>
+    <path d="M19 9c-1.8 0-3.3 1-4.1 2.5 3.1.2 5.8 2 6.6 4.5H21a4 4 0 0 0-2-7z" fill="#90CAF9" opacity="0.12"/>
+    <path d="M9 14h14a4 4 0 0 0-1-7.9 6 6 0 0 0-11 3A4 4 0 0 0 9 14z" fill="#CFD8DC" stroke="#78909C" stroke-width="1.2"/>
+    <path d="M12.5 19.5v3" stroke="#4FC3F7" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M16 19.5v3" stroke="#4FC3F7" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M19.5 19.5v3" stroke="#4FC3F7" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M23 8.5c0 .5-.4.9-.9.9s-.9-.4-.9-.9.4-.9.9-.9.9.4.9.9z" fill="#FFF59D"/>
+  </g>
+</svg>

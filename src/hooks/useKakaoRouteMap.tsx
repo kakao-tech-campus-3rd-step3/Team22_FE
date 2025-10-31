@@ -9,11 +9,11 @@ import {
 } from '@/constants/marker.ts'
 
 export default function useKakaoRouteMap(props: {
-  latitude: number | null
-  longitude: number | null
-  loaded: boolean
-  currentLocation: { latitude: number; longitude: number }
-  route: { lat: number | null; lng: number | null }[]
+  loaded: boolean;
+  route: { lat: number; lng: number }[];
+  latitude: number;
+  longitude: number;
+  currentLocation: { latitude: number; longitude: number } | null
 }) {
   const mapContainerRef = useRef<HTMLDivElement | null>(null)
   const mapInstanceRef = useRef<KakaoMap | null>(null)
@@ -90,14 +90,14 @@ export default function useKakaoRouteMap(props: {
   useEffect(() => {
     if (
       !mapInstanceRef.current ||
-      !props.currentLocation.latitude ||
-      !props.currentLocation.longitude
+      !props.currentLocation?.latitude ||
+      !props.currentLocation?.longitude
     )
       return
 
     const currentPosition = new window.kakao.maps.LatLng(
-      props.currentLocation.latitude,
-      props.currentLocation.longitude,
+      props.currentLocation?.latitude,
+      props.currentLocation?.longitude,
     )
 
     if (!currentLocationMarkerRef.current) {

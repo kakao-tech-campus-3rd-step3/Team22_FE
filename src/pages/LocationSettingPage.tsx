@@ -16,9 +16,9 @@ export default function LocationSettingPage(props: {
 }) {
   const { onDone, disableRouting } = props
   const loaded = useKakaoMapLoader()
-  const { location, status } = useLocation()
+  const { updatedLocation, status } = useLocation()
   const mapRef = useRef<HTMLDivElement>(null!)
-  const { address, place, centerLocation } = useKakaoMap({ mapRef, location, loaded })
+  const { address, place, centerLocation } = useKakaoMap({ mapRef, updatedLocation, loaded })
   const setLocation = useMapSetupStore((state) => state.setLocation)
   const setLocationSettingDone = useSetupStore((state) => state.setLocationSettingDone)
   const navigate = useNavigate({ from: '/location-setting' })

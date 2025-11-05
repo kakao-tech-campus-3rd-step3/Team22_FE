@@ -7,12 +7,12 @@ const fadeInUpAnimation = {
 }
 
 export default function GuideStepCard(props: {
-  title: string
-  subtitle: string
-  imageSrc: string
-  buttonText: string
-  onButtonClick: () => void
-  children?: React.ReactNode
+  readonly title: string
+  readonly subtitle: string
+  readonly imageSrc: string
+  readonly buttonText: string
+  readonly onButtonClick: () => void
+  readonly children?: React.ReactNode
 }) {
   const { title, subtitle, imageSrc, buttonText, onButtonClick, children } = props
   return (
@@ -23,9 +23,7 @@ export default function GuideStepCard(props: {
       >
         <h1 className="text-3xl font-bold  text-center mb-2">{title}</h1>
         {subtitle && <p className="text-2xl mb-6 text-center whitespace-pre-line">{subtitle}</p>}
-        {children ? (
-          children
-        ) : (
+        {children || (
           <img src={imageSrc} alt="설명 이미지" className="w-full h-auto object-contain mb-8" />
         )}
         <button

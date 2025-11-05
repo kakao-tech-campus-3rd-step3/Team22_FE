@@ -61,7 +61,7 @@ export default function LocationSettingPage(props: {
         src={startMarker}
         alt="시작 마커"
       />
-      <div className="absolute bottom-0 left-0 w-full z-10 ">
+      <div className="absolute bottom-0 left-0 w-full h-auto z-10 bg-zinc-900">
         <ButtonBar
           buttonText="주 산책 시작 위치설정하기"
           onButtonClick={handleSetLocation}
@@ -69,6 +69,7 @@ export default function LocationSettingPage(props: {
         >
           <div className="text-white my-1.5">장소: {place}</div>
           <div className="text-white my-1.5">위치: {address}</div>
+          <div></div>
         </ButtonBar>
       </div>
     </div>

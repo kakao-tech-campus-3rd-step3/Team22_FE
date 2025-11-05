@@ -1,16 +1,16 @@
 export default function ButtonBar(props: {
-  children: React.ReactNode
-  buttonText: string
-  onButtonClick: () => void
-  isButtonDisable: boolean
+  readonly children?: React.ReactNode
+  readonly buttonText: string
+  readonly onButtonClick: () => void
+  readonly isButtonDisable: boolean
 }) {
   const { children, buttonText, onButtonClick, isButtonDisable } = props
   return (
     <div className="w-full">
       <div
         className="
-          absolute bottom-0 left-0 w-full
-          flex flex-col px-4 py-4 bg-zinc-900 font-bold"
+          relative bottom-0 left-0 w-full
+          flex flex-col px-4 py-4  font-bold"
       >
         <div className="h-full overflow-y-auto pb-4">{children}</div>
         <button

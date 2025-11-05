@@ -12,7 +12,7 @@ export const petProfileSchema = z.object({
     .regex(/^\d{4}-\d{2}-\d{2}$/, '날짜 형식이 YYYY-MM-DD가 아닙니다.')
     .refine((date) => {
       const time = new Date(date).getTime()
-      return !isNaN(time)
+      return time
     }, '유효하지 않은 날짜입니다.')
     .refine((date) => new Date(date) <= new Date(), '생년월일이 현재보다 미래일 수 없습니다.'),
   personality: z.enum(PERSONALITY_VALUES),
@@ -23,7 +23,7 @@ export const petProfileSchema = z.object({
     (val) => {
       if (typeof val === 'string') {
         const parsed = Number(val)
-        return isNaN(parsed) ? val : parsed
+        return Number.isNaN(parsed) ? val : parsed
       }
       return val
     },

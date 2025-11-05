@@ -1,4 +1,4 @@
-export default function CardBox(props: { onClick: () => void }) {
+export default function CardBox(props: { readonly onClick: () => void }) {
   const { onClick } = props
   return (
     <button className="bg-white rounded-lg space-y-4" onClick={onClick}>

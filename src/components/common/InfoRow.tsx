@@ -1,10 +1,14 @@
 import React from 'react'
 
-function InfoRow(props: { label: string; children: React.ReactNode; className?: string }) {
+function InfoRow(props: {
+  readonly label: string
+  readonly children: React.ReactNode
+  readonly className?: string
+}) {
   return (
-    <div className={`flex items-center gap-3 ${props.className}`}>
+    <div className={`flex items-center gap-1 ${props.className}`}>
       {props.label && <span className="w-10 text-sm text-neutral-400">{props.label}</span>}
-      <div className="flex-1 flex items-center gap-3">{props.children}</div>
+      <div className="flex-1 flex items-center gap-2">{props.children}</div>
     </div>
   )
 }

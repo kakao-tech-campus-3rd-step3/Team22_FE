@@ -27,7 +27,10 @@ export default function useKakaoMap(props: {
     }
     if (mapInstanceRef.current) return
 
-    const currentPosition = new window.kakao.maps.LatLng(updatedLocation.latitude, updatedLocation.longitude)
+    const currentPosition = new window.kakao.maps.LatLng(
+      updatedLocation.latitude,
+      updatedLocation.longitude,
+    )
 
     const mapOptions = {
       center: currentPosition,
@@ -36,22 +39,18 @@ export default function useKakaoMap(props: {
 
     mapInstanceRef.current = new window.kakao.maps.Map(mapRef.current, mapOptions)
     if (!currentLocationMarkerRef.current) {
-      const imageSize = new window.kakao.maps.Size(48, 48); 
-      const imageOption = { offset: new window.kakao.maps.Point(24, 24) }; 
+      const imageSize = new window.kakao.maps.Size(48, 48)
+      const imageOption = { offset: new window.kakao.maps.Point(24, 24) }
 
-      const markerImage = new window.kakao.maps.MarkerImage(
-        currentDotIcon,
-        imageSize,
-        imageOption
-      );
+      const markerImage = new window.kakao.maps.MarkerImage(currentDotIcon, imageSize, imageOption)
 
       currentLocationMarkerRef.current = new window.kakao.maps.Marker({
         position: currentPosition,
         image: markerImage,
         map: mapInstanceRef.current,
-      });
+      })
     } else {
-      currentLocationMarkerRef?.current?.setPosition(currentPosition);
+      currentLocationMarkerRef?.current?.setPosition(currentPosition)
     }
   }, [loaded, updatedLocation, mapRef])
 

@@ -1,0 +1,6 @@
+projectKey=petwewalk
+serverUrl=http://localhost:9000
+serverVersion=25.10.0.114319
+dashboardUrl=http://localhost:9000/dashboard?id=petwewalk
+ceTaskId=ada2cb7a-7e78-4e67-bcb6-a3db7d78221b
+ceTaskUrl=http://localhost:9000/api/ce/task?id=ada2cb7a-7e78-4e67-bcb6-a3db7d78221b

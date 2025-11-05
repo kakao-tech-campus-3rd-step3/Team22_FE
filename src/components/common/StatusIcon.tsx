@@ -2,8 +2,8 @@ export default function StatusIcon({
   status,
   icon,
 }: {
-  status: 'success' | 'warning' | 'error'
-  icon: React.ReactNode
+  readonly status: 'success' | 'warning' | 'error'
+  readonly icon: React.ReactNode
 }) {
   const colorMap: Record<typeof status, string> = {
     success: 'text-green-500',

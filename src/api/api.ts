@@ -14,7 +14,7 @@ export const api = axios.create({
 })
 
 api.interceptors.request.use((config) => {
-  if (typeof window === 'undefined') return config
+  if (window === undefined) return config
   const stored = window.localStorage.getItem('auth-storage')
   if (stored) {
     try {

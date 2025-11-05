@@ -1,13 +1,13 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import React from 'react'
 
-interface ModalProps {
-  children: React.ReactNode
-  onClick: () => void
-  isOpen: boolean
-}
+export function Modal(props: {
+  readonly children: React.ReactNode
+  readonly onClick: () => void
+  readonly isOpen: boolean
+}) {
+  const { children, onClick, isOpen } = props
 
-export function Modal({ children, onClick, isOpen }: ModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -19,15 +19,15 @@ export function Modal({ children, onClick, isOpen }: ModalProps) {
           onClick={onClick}
         >
           <motion.div
-            className="w-[390px] h-[844px] rounded-lg shadow-lg max-w-lg max-h-[90vh] overflow-auto p-4 relative bg-zinc-800"
+            className="w-[390px] h-[844px] rounded-lg shadow-lg max-w-lg max-h-[90vh] overflow-auto p-6 relative bg-zinc-800 "
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            onClick={(e) => e.stopPropagation()} // 모달 내용 클릭 시 닫힘 방지
+            onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={onClick}
-              className="absolute top-0 right-0 text-gray-500 hover:text-gray-700"
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
               aria-label="Close modal"
             >
               ✕

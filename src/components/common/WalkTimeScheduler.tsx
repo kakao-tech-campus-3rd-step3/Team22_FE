@@ -10,11 +10,7 @@ export default function WalkTimeScheduler() {
 
   const handleAddTime = () => {
     const wasAdded = addWalkTime(currentTime)
-    if (!wasAdded) {
-      setDuplicateMessage('이미 추가된 시간입니다.')
-    } else {
-      setDuplicateMessage('')
-    }
+    setDuplicateMessage(wasAdded ? '' : '이미 추가된 시간입니다.')
   }
 
   const handleRemoveTime = (idToRemove: number) => {
@@ -27,7 +23,7 @@ export default function WalkTimeScheduler() {
       {duplicateMessage && (
         <p className="text-red-500 text-center mb-2 font-bold">{duplicateMessage}</p>
       )}
-      <div className="flex justify-center gap-2 mb-3">
+      <div className="flex justify-center gap-5 mb-3">
         <CustomSelect
           value={currentTime.day}
           options={DAY}
@@ -52,7 +48,7 @@ export default function WalkTimeScheduler() {
         산책 시간 추가하기
       </button>
 
-      <div className="flex flex-col gap-2 overflow-y-auto">
+      <div className="flex flex-col gap-2 overflow-y-auto h-full bg-zinc-900">
         {walkTimes.map((time) => (
           <div
             key={time.id}

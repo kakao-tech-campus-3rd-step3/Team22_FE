@@ -112,20 +112,31 @@ declare global {
   }
 
   interface KakaoPolylineOptions {
-    path: KakaoLatLng[];
-    strokeWeight?: number;
-    strokeColor?: string;
-    strokeOpacity?: number;
-    strokeStyle?: 'solid' | 'shortdash' | 'shortdot' | 'shortdashdot' | 'shortdashdotdot' | 'dot' | 'dash' | 'dashdot' | 'longdash' | 'longdashdot' | 'longdashdotdot';
-    zIndex?: number;
+    path: KakaoLatLng[]
+    strokeWeight?: number
+    strokeColor?: string
+    strokeOpacity?: number
+    strokeStyle?:
+      | 'solid'
+      | 'shortdash'
+      | 'shortdot'
+      | 'shortdashdot'
+      | 'shortdashdotdot'
+      | 'dot'
+      | 'dash'
+      | 'dashdot'
+      | 'longdash'
+      | 'longdashdot'
+      | 'longdashdotdot'
+    zIndex?: number
   }
 
   interface KakaoPolyline {
-    setMap(map: KakaoMap | null): void;
-    setPath(path: KakaoLatLng[]): void;
-    getPath(): KakaoLatLng[];
-    getLength(): number;
-    setOptions(options: KakaoPolylineOptions): void;
+    setMap(map: KakaoMap | null): void
+    setPath(path: KakaoLatLng[]): void
+    getPath(): KakaoLatLng[]
+    getLength(): number
+    setOptions(options: KakaoPolylineOptions): void
   }
 
   interface Window {
@@ -134,7 +145,11 @@ declare global {
         load(callback: () => void): void
         LatLng: new (lat: number | null | undefined, lng: number | null | undefined) => KakaoLatLng
         Map: new (container: HTMLElement | null, options: KakaoMapOptions) => KakaoMap
-        Marker: new (options: { image: object; position: KakaoLatLng; map: KakaoMap | null }) => KakaoMarker
+        Marker: new (options: {
+          image: object
+          position: KakaoLatLng
+          map: KakaoMap | null
+        }) => KakaoMarker
         CustomOverlay: new (options: KakaoCustomOverlayOptions) => KakaoCustomOverlay
 
         Size: new (width: number, height: number) => KakaoSize
@@ -146,7 +161,7 @@ declare global {
           options?: KakaoMarkerImageOptions,
         ) => KakaoMarkerImage
 
-        Polyline: new(options: KakaoPolylineOptions) => KakaoPolyline
+        Polyline: new (options: KakaoPolylineOptions) => KakaoPolyline
 
         services: {
           Status: {

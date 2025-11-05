@@ -97,10 +97,9 @@ export default function IntroPage() {
         imageSrc={imageSrc}
         buttonText={buttonText}
         onButtonClick={onButtonClick}
-        children={
-          step === 4 ? <DotLottieReact src="assets/setting-done.lottie" autoplay loop /> : null
-        }
-      />
+      >
+        {step === 4 && <DotLottieReact src="assets/setting-done.lottie" autoplay loop />}
+      </GuideStepPage>
       <Modal isOpen={isPetModalOpen} onClick={() => setIsPetModalOpen(false)}>
         <AddNewPetPage
           disableRouting={true}

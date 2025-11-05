@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
 export default function useKakaoMapLoader() {
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    if (window.kakao && window.kakao.maps) {
+    if (window.kakao?.maps) {
       setLoaded(true)
       return
     }
 
-    const script = document.createElement("script")
+    const script = document.createElement('script')
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${
       import.meta.env.VITE_KAKAO_MAP_JS_KEY
     }&autoload=false&libraries=services`
@@ -23,7 +23,7 @@ export default function useKakaoMapLoader() {
     }
 
     return () => {
-      document.head.removeChild(script)
+      script.remove()
     }
   }, [])
 

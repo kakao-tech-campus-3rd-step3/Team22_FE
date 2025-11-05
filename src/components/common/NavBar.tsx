@@ -1,14 +1,15 @@
 import { FaHome, FaCog } from 'react-icons/fa'
 import { IoMdWalk } from 'react-icons/io'
 import { PiDog } from 'react-icons/pi'
-import { Link } from '@tanstack/react-router'
+import { FaRegMessage } from 'react-icons/fa6'
+import { Link, useLocation } from '@tanstack/react-router'
 import clsx from 'clsx'
-import { useLocation } from '@tanstack/react-router'
 
 const NAV_ITEMS = [
   { to: '/', label: '홈', Icon: FaHome },
   { to: '/add-new-pet', label: '반려견 정보', Icon: PiDog },
-  { to: '/location-setting', label: '산책시작', Icon: IoMdWalk },
+  { to: '/route-draw', label: '산책시작', Icon: IoMdWalk },
+  { to: '/commu', label: '커뮤니티', Icon: FaRegMessage },
   { to: '/mypage', label: '설정', Icon: FaCog },
 ]
 
@@ -17,9 +18,9 @@ function NavItem({
   label,
   Icon,
 }: {
-  to: string
-  label: string
-  Icon: React.ComponentType<{ size?: number }>
+  readonly to: string
+  readonly label: string
+  readonly Icon: React.ComponentType<{ size?: number }>
 }) {
   const location = useLocation()
   const isActive = location.pathname === to

@@ -47,7 +47,6 @@ function AddNewPetPage(props: { onDone?: () => void; disableRouting?: boolean })
     const validationResult = petProfileSchema.safeParse(petProfileData)
 
     if (!validationResult.success) {
-      console.log('유효성 검사 실패:', validationResult.error)
       setPetSettingDone(false)
       return
     }

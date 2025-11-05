@@ -2,9 +2,9 @@ import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headless
 import { FaCheck, FaChevronDown } from 'react-icons/fa'
 
 export default function CustomSelect<T extends string | number>(props: {
-  value: T
-  options: readonly T[]
-  onChange: (value: T) => void
+  readonly value: T
+  readonly options: readonly T[]
+  readonly onChange: (value: T) => void
 }) {
   const { value, options, onChange } = props
   return (

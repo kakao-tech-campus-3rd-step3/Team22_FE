@@ -1,6 +1,6 @@
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 
-export default function LoadingBox(props: { hsize: string }) {
+export default function LoadingBox(props: { readonly hsize: string }) {
   const { hsize } = props
   return (
     <div className={`w-full flex justify-center h-${hsize}`}>

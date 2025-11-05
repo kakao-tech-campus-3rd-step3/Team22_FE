@@ -29,7 +29,16 @@ function LoginFormComponent() {
 
   return (
     <>
-      <Toaster position="top-center" />
+      <Toaster
+        toastOptions={{
+          className: '',
+          style: {
+            border: '1px solid #713200',
+            padding: '20px',
+            color: '#713200',
+          },
+        }}
+      />
       <form
         onSubmit={handleSubmit}
         className="p-6 rounded shadow-md w-full max-w-sm bg-neutral-900 text-white"
@@ -140,7 +149,7 @@ export default function LoginPage() {
   }, [])
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen text-white">
+    <div className="flex flex-col w-full h-full items-center justify-center  text-white mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -162,7 +171,7 @@ export default function LoginPage() {
           transition={{ duration: 1, delay: 0.6 }}
         >
           <span className="text-md">펫위워크</span>
-          <p className="text-sm">반려견을 위한 최적 산책경로 판단서비스</p>
+          <p className="text-sm">반려견을 위한 주 산책경로 상태판단 서비스</p>
         </motion.div>
       </motion.div>
 

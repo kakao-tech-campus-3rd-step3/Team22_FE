@@ -1,6 +1,10 @@
 import type { ReactNode } from 'react'
 
-function IconButton(props: { icon: ReactNode; onClick: () => void; isSelected?: boolean }) {
+function IconButton(props: {
+  readonly icon: ReactNode
+  readonly onClick: () => void
+  readonly isSelected?: boolean
+}) {
   const { icon, onClick, isSelected } = props
   return (
     <button

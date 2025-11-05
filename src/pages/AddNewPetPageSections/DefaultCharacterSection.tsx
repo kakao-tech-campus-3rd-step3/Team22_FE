@@ -1,7 +1,8 @@
 import { GENDER, BOOLEAN_CHOICE, UI_TEXT, type GenderType } from '@/constants/constants'
 import InfoRow from '@/components/common/InfoRow'
-import TextButton from '@/components/common/TextButton'
 import TextModalButton from '@/components/common/TextModalButton'
+import TextButton from '@/components/common/TextButton'
+import REQUIRED_MARK from '@/components/common/RequiredMark'
 
 function OptionButtonGroup<T extends string | boolean>(props: {
   options: { value: T; label: string }[]
@@ -98,6 +99,7 @@ function DefaultCharacterSection(props: {
   return (
     <div className="bg-neutral-900 p-4 rounded-lg flex flex-col gap-4">
       <InfoRow label={UI_TEXT.BREED_TYPE}>
+        <REQUIRED_MARK />
         <TextModalButton
           selectedStatus={selectedBreed}
           buttonTypeText={UI_TEXT.BREED_MODAL_TITLE}
@@ -106,6 +108,7 @@ function DefaultCharacterSection(props: {
       </InfoRow>
 
       <InfoRow label={UI_TEXT.SEX}>
+        <REQUIRED_MARK />
         <OptionButtonGroup
           options={[
             { value: GENDER.MALE, label: UI_TEXT.BOY },
@@ -117,6 +120,7 @@ function DefaultCharacterSection(props: {
       </InfoRow>
 
       <InfoRow label={UI_TEXT.BIRTH_DATE}>
+        <REQUIRED_MARK />
         <div className="grid grid-cols-3 gap-2">
           {dateFields.map(({ key, placeholder, maxLength, value, setter, pattern }) => (
             <input
@@ -139,6 +143,7 @@ function DefaultCharacterSection(props: {
       </InfoRow>
 
       <InfoRow label={UI_TEXT.NETURALIZE}>
+        <REQUIRED_MARK />
         <OptionButtonGroup<boolean>
           options={[
             { value: BOOLEAN_CHOICE.YES, label: UI_TEXT.YES },
@@ -150,6 +155,7 @@ function DefaultCharacterSection(props: {
       </InfoRow>
 
       <InfoRow label={UI_TEXT.VACCINATED}>
+        <REQUIRED_MARK />
         <OptionButtonGroup<boolean>
           options={[
             { value: BOOLEAN_CHOICE.YES, label: UI_TEXT.YES },

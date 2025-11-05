@@ -17,11 +17,10 @@ export default function UpTimer(props: {
       intervalRef.current = window.setInterval(() => {
         setElapsedTime(Date.now() - (startTimeRef.current ?? 0))
       }, 1000)
-    } else {
-      if (intervalRef.current !== null) {
-        clearInterval(intervalRef.current)
-        intervalRef.current = null
-      }
+    }
+    if (!isActive && intervalRef.current !== null) {
+      clearInterval(intervalRef.current)
+      intervalRef.current = null
     }
 
     return () => {

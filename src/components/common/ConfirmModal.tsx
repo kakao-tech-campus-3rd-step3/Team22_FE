@@ -1,9 +1,9 @@
 export default function ConfirmModal(props: {
-  isOpen: boolean
-  onClose: () => void
-  onConfirm: () => void
-  title: string
-  children: React.ReactNode
+  readonly isOpen: boolean
+  readonly onClose: () => void
+  readonly onConfirm: () => void
+  readonly title: string
+  readonly children: React.ReactNode
 }) {
   const { isOpen, onClose, onConfirm, title, children } = props
   if (!isOpen) return null

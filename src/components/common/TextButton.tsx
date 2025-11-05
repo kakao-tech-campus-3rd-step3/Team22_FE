@@ -1,19 +1,14 @@
-function TextButton(props: {
+import { AppButton } from './AppButton'
+
+export default function TextButton(props: {
   onClick: () => void
   isSelected: boolean
-  children: React.ReactNode
+  children?: React.ReactNode
 }) {
   const { onClick, isSelected, children } = props
   return (
-    <button
-      onClick={onClick}
-      className={`w-full p-2 rounded-md text-sm transition-colors ${
-        isSelected ? 'bg-blue-600 text-white' : 'bg-neutral-700 text-neutral-300'
-      }`}
-    >
+    <AppButton onClick={onClick} isSelected={isSelected} variant="normal" align="center">
       {children}
-    </button>
+    </AppButton>
   )
 }
-
-export default TextButton

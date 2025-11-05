@@ -23,10 +23,8 @@ export default function WeatherTable() {
   const {
     data: walkScores,
     isLoading: walkScoresLoading,
-    isError: walkScoresError
+    isError: walkScoresError,
   } = useWeatherScore({ initialLocation })
-
-  console.log(walkScores)
 
   if (walkScoresLoading || status === 'loading') return <LoadingBox hsize="72" />
 
@@ -38,7 +36,7 @@ export default function WeatherTable() {
     return <div>날씨 정보를 불러올 수 없습니다.</div>
   }
 
-  const handleWalkingIcons = (scores : number) => {
+  const handleWalkingIcons = (scores: number) => {
     if (scores > VERY_GOOD) {
       return <img src={veryGood} alt="very Good Walking" className="mx-auto" />
     } else if (scores >= GOOD) {
@@ -52,29 +50,29 @@ export default function WeatherTable() {
     }
   }
 
-  const handleWeatherIcons = (weather : string) => {
-    if (weather.includes("NIGHT")) {
-      if (weather.includes("CLEAR")) {
+  const handleWeatherIcons = (weather: string) => {
+    if (weather.includes('NIGHT')) {
+      if (weather.includes('CLEAR')) {
         return <img src={clearNight} alt="clear Night" className="mx-auto" />
-      } else if (weather.includes("CLOUDY")) {
+      } else if (weather.includes('CLOUDY')) {
         return <img src={cloudyNight} alt="cloudy Night" className="mx-auto" />
-      } else if (weather.includes("RAINY")) {
+      } else if (weather.includes('RAINY')) {
         return <img src={rainyNight} alt="rainy Night" className="mx-auto" />
-      } else if (weather.includes("SNOWY")) {
+      } else if (weather.includes('SNOWY')) {
         return <img src={snowyNight} alt="snowy Night" className="mx-auto" />
-      } else if (weather.includes("WIND")) {
+      } else if (weather.includes('WIND')) {
         return <img src={windNight} alt="wind Night" className="mx-auto" />
       }
     } else {
-      if (weather.includes("CLEAR")) {
+      if (weather.includes('CLEAR')) {
         return <img src={clearDay} alt="clear Day" className="mx-auto" />
-      } else if (weather.includes("CLOUDY")) {
+      } else if (weather.includes('CLOUDY')) {
         return <img src={cloudyDay} alt="cloudy Day" className="mx-auto" />
-      } else if (weather.includes("RAINY")) {
+      } else if (weather.includes('RAINY')) {
         return <img src={rainyDay} alt="rainy Day" className="mx-auto" />
-      } else if (weather.includes("SNOWY")) {
+      } else if (weather.includes('SNOWY')) {
         return <img src={snowyDay} alt="snowy Day" className="mx-auto" />
-      } else if (weather.includes("WIND")) {
+      } else if (weather.includes('WIND')) {
         return <img src={windDay} alt="wind Day" className="mx-auto" />
       }
     }
@@ -85,34 +83,39 @@ export default function WeatherTable() {
       <div className="w-full max-w-lg h-72 overflow-auto rounded-lg no-scrollbar border border-zinc-700">
         <table className="min-w-full text-white bg-zinc-800">
           <thead className="bg-zinc-900 sticky top-0">
-          <tr className="text-center text-sm">
-            <th className="py-3 font-semibold">시간</th>
-            <th className="py-3 font-semibold">날씨</th>
-            <th className="py-3 font-semibold">기온 (°C)</th>
-            <th className="py-3 font-semibold">강수확률 (%)</th>
-            <th className="py-3 font-semibold">산책지수</th>
-          </tr>
+            <tr className="text-center text-sm">
+              <th className="py-3 font-semibold">시간</th>
+              <th className="py-3 font-semibold">날씨</th>
+              <th className="py-3 font-semibold">기온 (°C)</th>
+              <th className="py-3 font-semibold">강수확률 (%)</th>
+              <th className="py-3 font-semibold">산책지수</th>
+            </tr>
           </thead>
 
           <tbody>
-          {walkScores.map((item) => {
-            const dateInKST = new Date(item.weatherDetail.time);
-            const day = dateInKST.getDate();
-            const hour = dateInKST.getHours();
+            {walkScores.map((item) => {
+              const dateInKST = new Date(item.weatherDetail.time)
+              const day = dateInKST.getDate()
+              const hour = dateInKST.getHours()
 
-            return (
-              <tr key={item.weatherDetail.time} className="text-center text-xs font-bold border-t border-zinc-700">
-                <td className="py-2">{`${day}일 ${hour}시`}</td>
-                <td className="py-2">{handleWeatherIcons(item.weatherDetail.condition)}</td>
-                <td className="py-2">{item.weatherDetail.temperature.toFixed(1)}</td>
-                <td className="py-2">{(item.weatherDetail.precipitationProbability * 100).toFixed(0)}</td>
-                <td className="py-2">{handleWalkingIcons(item.walkScore)}</td>
-              </tr>
-            );
-          })}
+              return (
+                <tr
+                  key={item.weatherDetail.time}
+                  className="text-center text-xs font-bold border-t border-zinc-700"
+                >
+                  <td className="py-2">{`${day}일 ${hour}시`}</td>
+                  <td className="py-2">{handleWeatherIcons(item.weatherDetail.condition)}</td>
+                  <td className="py-2">{item.weatherDetail.temperature.toFixed(1)}</td>
+                  <td className="py-2">
+                    {(item.weatherDetail.precipitationProbability * 100).toFixed(0)}
+                  </td>
+                  <td className="py-2">{handleWalkingIcons(item.walkScore)}</td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </div>
     </div>
-  );
+  )
 }

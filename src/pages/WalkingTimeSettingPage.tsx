@@ -26,7 +26,6 @@ export default function WalkingTimeSettingPage(props: {
       navigate({ to: '/map-setup' })
     }
   }
-  //TODO : 여기부분에서 weatherTable이 필요할까??
   return (
     <div className="flex flex-col gap-3 relative w-full h-full">
       <WalkTimeScheduler />
@@ -35,7 +34,6 @@ export default function WalkingTimeSettingPage(props: {
         buttonText="주 산책 시간 설정하기"
         onButtonClick={handleSetTime}
         isButtonDisable={isWalkTimesEmpty}
-        children={null}
       />
     </div>
   )

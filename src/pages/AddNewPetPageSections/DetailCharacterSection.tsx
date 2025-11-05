@@ -16,6 +16,7 @@ import { TiWeatherWindy } from 'react-icons/ti'
 import GrassRoad from '@/assets/GrassRoad.png'
 import DirtRoad from '@/assets/DirtRoad.png'
 import Road from '@/assets/Road.svg'
+import REQUIRED_MARK from '@/components/common/RequiredMark'
 
 const toggleInArray = (
   currentArray: string[],
@@ -69,6 +70,7 @@ function DetailCharacterSection(props: {
       <h2 className="text-lg font-bold text-left mb-4">{UI_TEXT.DETAIL_SECTION_TITLE}</h2>
 
       <InfoRow label={UI_TEXT.WEATHER_LABEL}>
+        <REQUIRED_MARK />
         <div className="w-full grid grid-cols-5 gap-1 ">
           <IconButton
             icon={<FaRegSun size={20} />}
@@ -116,6 +118,7 @@ function DetailCharacterSection(props: {
       </InfoRow>
 
       <InfoRow label={UI_TEXT.PATH_LABEL}>
+        <REQUIRED_MARK />
         <div className="flex justify-around w-full">
           <IconButton
             icon={<img src={Road} className="object-cover" alt={PREFERRED_PATHS.ASPHALT} />}
@@ -144,19 +147,21 @@ function DetailCharacterSection(props: {
       </InfoRow>
 
       <InfoRow label={UI_TEXT.WEIGHT_LABEL}>
+        <REQUIRED_MARK />
         <input
           className="w-full bg-neutral-700 p-2 rounded-md text-sm text-center"
           value={weight}
           inputMode="numeric"
           onChange={handleWeightChange}
           onBlur={() => {
-            if (weight === '' || isNaN(Number(weight))) setWeight('20')
+            Number.isNaN(Number(weight))
           }}
         />
         <span>{UNIT_OF_MEASURE.KG}</span>
       </InfoRow>
 
       <InfoRow label={UI_TEXT.PERSONALITY_LABEL} className="border-none">
+        <REQUIRED_MARK />
         <button
           onClick={() => setPersonality(PERSONALITY.EXTROVERTED)}
           className={`w-full p-3 rounded-md text-sm font-semibold ${

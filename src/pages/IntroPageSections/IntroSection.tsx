@@ -55,7 +55,7 @@ export default function IntroSection() {
       <div className="flex justify-center mt-4 space-x-3">
         {cards.map((_, i) => (
           <button
-            key={i}
+            key={'introcard' + i}
             onClick={() => setPage([i, i > page ? 1 : -1])}
             className={`w-3 h-3 rounded-full ${i === cardIndex ? 'bg-blue-600' : 'bg-gray-300'}`}
             aria-label={`Go to slide ${i + 1}`}

@@ -16,6 +16,7 @@ import { Route as MapSetupRouteImport } from './routes/map-setup'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LocationSettingRouteImport } from './routes/location-setting'
 import { Route as IntroRouteImport } from './routes/intro'
+import { Route as CommuRouteImport } from './routes/commu'
 import { Route as AddNewPetRouteImport } from './routes/add-new-pet'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -54,6 +55,11 @@ const IntroRoute = IntroRouteImport.update({
   path: '/intro',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CommuRoute = CommuRouteImport.update({
+  id: '/commu',
+  path: '/commu',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AddNewPetRoute = AddNewPetRouteImport.update({
   id: '/add-new-pet',
   path: '/add-new-pet',
@@ -68,6 +74,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/add-new-pet': typeof AddNewPetRoute
+  '/commu': typeof CommuRoute
   '/intro': typeof IntroRoute
   '/location-setting': typeof LocationSettingRoute
   '/login': typeof LoginRoute
@@ -79,6 +86,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/add-new-pet': typeof AddNewPetRoute
+  '/commu': typeof CommuRoute
   '/intro': typeof IntroRoute
   '/location-setting': typeof LocationSettingRoute
   '/login': typeof LoginRoute
@@ -91,6 +99,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/add-new-pet': typeof AddNewPetRoute
+  '/commu': typeof CommuRoute
   '/intro': typeof IntroRoute
   '/location-setting': typeof LocationSettingRoute
   '/login': typeof LoginRoute
@@ -104,6 +113,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/add-new-pet'
+    | '/commu'
     | '/intro'
     | '/location-setting'
     | '/login'
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/add-new-pet'
+    | '/commu'
     | '/intro'
     | '/location-setting'
     | '/login'
@@ -126,6 +137,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/add-new-pet'
+    | '/commu'
     | '/intro'
     | '/location-setting'
     | '/login'
@@ -138,6 +150,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AddNewPetRoute: typeof AddNewPetRoute
+  CommuRoute: typeof CommuRoute
   IntroRoute: typeof IntroRoute
   LocationSettingRoute: typeof LocationSettingRoute
   LoginRoute: typeof LoginRoute
@@ -198,6 +211,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IntroRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/commu': {
+      id: '/commu'
+      path: '/commu'
+      fullPath: '/commu'
+      preLoaderRoute: typeof CommuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/add-new-pet': {
       id: '/add-new-pet'
       path: '/add-new-pet'
@@ -218,6 +238,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AddNewPetRoute: AddNewPetRoute,
+  CommuRoute: CommuRoute,
   IntroRoute: IntroRoute,
   LocationSettingRoute: LocationSettingRoute,
   LoginRoute: LoginRoute,

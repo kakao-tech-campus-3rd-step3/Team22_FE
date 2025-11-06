@@ -84,24 +84,27 @@
 <table>
   <thead>
     <tr>
-      <th>Member</th>
-      <th>Role & GitHub</th>
+      <th>멤버</th>
+      <th>이미지</th>
+      <th>역할</th>
+      <th>구현 내용</th>
+      <th>깃허브</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td><b>김진서</b></td>
-      <td>
-        • Leader <br/>
-        • GitHub: <a href="https://github.com/meem3443" target="_blank">meem3443</a>
-      </td>
+      <td><img width="100" alt="image" src="https://github.com/user-attachments/assets/6e4234eb-752c-4454-954f-3778fee15b99" /></td>
+      <td>Leader</td>
+      <td>코드 리팩토링 <br> 로그인 <br> 반려견 설정 <br> 커뮤니티 </td>
+      <td><a href="https://github.com/meem3443" target="_blank">meem3443</a></td>
     </tr>
     <tr>
       <td><b>장주형</b></td>
-      <td>
-        • FE Tech Leader <br/>
-        • GitHub: <a href="https://github.com/JuHyeong424" target="_blank">JuHyeong424</a>
-      </td>
+      <td><img width="100" alt="image" src="https://github.com/user-attachments/assets/1103d7f6-6879-42a3-bf93-906c91180c49" /></td>
+      <td>FE Tech Leader</td>
+      <td>날씨 <br> 산책 설정 <br> 실시간 경로 탐색 </td>
+      <td><a href="https://github.com/JuHyeong424" target="_blank">JuHyeong424</a></td>
     </tr>
   </tbody>
 </table>

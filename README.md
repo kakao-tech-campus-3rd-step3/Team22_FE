@@ -4,7 +4,7 @@
 
 각 반려견의 고유한 특성과 실시간 외부 환경 요소를 정밀하게 분석하여 보호자의 고민을 해결하고 최적의 산책 경로를 추천합니다.
 
-**백엔드**: <a href="https://github.com/kakao-tech-campus-3rd-step3/Team22_BE">
+**백엔드**: <a href="https://github.com/kakao-tech-campus-3rd-step3/Team22_BE" />
 
 # 주요 기능
 ## 1. 반려견 상세 프로필

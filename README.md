@@ -53,7 +53,6 @@
       <img src="https://img.shields.io/badge/Axios-5A29E4?logo=axios&logoColor=white" />
     </td>
     <td>
-      <img src="https://img.shields.io/badge/React%20Router-CA4245?logo=reactrouter&logoColor=white" /><br />
       <img src="https://img.shields.io/badge/TanStack%20Router-FF6B00?logo=typescript&logoColor=white" />
     </td>
     <td>

@@ -10,19 +10,22 @@
 ## 1. 반려견 상세 프로필
 - 견종, 나이, 몸무게, 특정 질병(관절, 호흡기 등) 등 반려견의 중요한 정보를 등록하고 관리합니다.
 - 반려견의 정보에 따라 맞는 산책 정보를 제공합니다.
-<img width="556" height="1149" alt="image" src="https://github.com/user-attachments/assets/21cf33f1-b72d-47df-9ab4-d58a4fc563b1" />
+<img width="350" alt="image" src="https://github.com/user-attachments/assets/21cf33f1-b72d-47df-9ab4-d58a4fc563b1" />
+
 ## 2. 실시간 경로 탐색
 - 저희 서비스의 핵심 기능으로, 개인 맞춤형 경로 점수(PRS)를 계산하여 현재 다니고 있는 산책로가 나의 반려견에게 맞는 산책길인지를 판단해줍니다.
 - **반려견 데이터**: 더위/추위 민감도, 건강 상태, 크기 등을 고려합니다.
 - **환경 데이터**: 현재 기온, 습도, 미세먼지(PM2.5) 농도는 물론, 반려견의 발바닥 보호를 위한 '아스팔트 예측 온도'까지 계산에 포함합니다.
 - **경로 데이터**: 길의 종류(아스팔트, 흙길, 잔디)와 경사도를 분석합니다.
-<img width="567" height="1154" alt="image" src="https://github.com/user-attachments/assets/287eafa3-abd4-4181-9028-f18a9cc1a86e" />
+<img width="350" alt="image" src="https://github.com/user-attachments/assets/287eafa3-abd4-4181-9028-f18a9cc1a86e" />
+
 ## 3. 산책 위험 지수
 - 현재 날씨 상태가 산책에 적합한지 '쾌적', '주의', '위험', '매우 위험' 등급으로 명확하게 알려주어 안전한 산책 결정을 돕습니다.
-<img width="565" height="1158" alt="image" src="https://github.com/user-attachments/assets/e4ae4fc0-3de8-454c-8275-d68b6de3f720" />
+<img width="350" alt="image" src="https://github.com/user-attachments/assets/e4ae4fc0-3de8-454c-8275-d68b6de3f720" />
+
 ## 4. 산책 커뮤니티
 - 반려견을 키우는 사람들이 서로의 일상을 공유하면서 산책 이야기를 공유할 수 있도록 해줍니다.
-<img width="568" height="1159" alt="image" src="https://github.com/user-attachments/assets/2d18f083-7628-4327-a031-23b0ce4a9b0d" />
+<img width="350" alt="image" src="https://github.com/user-attachments/assets/2d18f083-7628-4327-a031-23b0ce4a9b0d" />
 
 # 기술 스택
 <table>

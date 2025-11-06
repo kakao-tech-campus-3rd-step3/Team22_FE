@@ -80,6 +80,9 @@
 # 시스템 구조
 <img width="914" height="610" alt="image" src="https://github.com/user-attachments/assets/09fb5721-b072-49d8-ab2c-afdab3f747e6" />
 
+# 실행
+`npm install` 후, `npm run dev`로 실행하면 됩니다.
+
 # 멤버
 <table>
   <thead>
